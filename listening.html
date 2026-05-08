@@ -481,6 +481,10 @@
       <span class="play-hint" id="playHint">문장을 들어보세요</span>
     </div>
 
+    <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
+      <button class="btn-nav" onclick="prevSentence()" id="prevBtnTop">← 이전</button>
+      <button class="btn-nav" onclick="nextSentence()" style="margin-left:8px">다음 →</button>
+    </div>
     <div class="record-area">
       <div class="record-label">한국어로 번역 녹음</div>
       <button class="btn-record-main" id="recBtn" onclick="toggleRecord()">⏺ 녹음 시작</button>
@@ -499,6 +503,7 @@
       </div>
       <div class="nav-row">
         <button class="btn-nav" onclick="toggleAnswer()">모범 번역 보기</button>
+        <button class="btn-nav" onclick="prevSentence()">← 이전</button>
         <button class="btn-next" id="nextBtn" onclick="nextSentence()">다음 →</button>
       </div>
     </div>
@@ -799,6 +804,13 @@ function toggleAnswer() {
 // =====================
 // Navigation
 // =====================
+function prevSentence() {
+  if (currentIndex > 0) {
+    currentIndex--;
+    showSentence();
+  }
+}
+
 function nextSentence() {
   currentIndex++;
   showSentence();
