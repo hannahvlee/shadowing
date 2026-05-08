@@ -8,568 +8,159 @@
 <script src="tracks.js"></script>
 <style>
   :root {
-    --bg: #0e0e0e;
-    --surface: #1a1a1a;
-    --surface2: #242424;
-    --border: #2e2e2e;
-    --accent: #c8f060;
-    --accent2: #60c8f0;
-    --text: #f0ede8;
-    --text-muted: #6e6e6e;
-    --text-dim: #3e3e3e;
-    --danger: #f06060;
-    --success: #60f0a0;
-    --warn: #f0c060;
+    --bg: #0e0e0e; --surface: #1a1a1a; --surface2: #242424; --border: #2e2e2e;
+    --accent: #c8f060; --accent2: #60c8f0; --text: #f0ede8; --text-muted: #6e6e6e;
+    --text-dim: #3e3e3e; --danger: #f06060; --success: #60f0a0; --warn: #f0c060;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    min-height: 100vh;
-  }
-
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background: radial-gradient(ellipse 80% 50% at 20% 20%, rgba(200,240,96,0.04) 0%, transparent 60%),
-                radial-gradient(ellipse 60% 40% at 80% 80%, rgba(96,200,240,0.04) 0%, transparent 60%);
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .container {
-    max-width: 820px;
-    margin: 0 auto;
-    padding: 48px 24px 80px;
-    position: relative;
-    z-index: 1;
-  }
-
-  .label {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.15em;
-    color: var(--accent);
-    text-transform: uppercase;
-    margin-bottom: 10px;
-  }
-
-  h1 {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(28px, 5vw, 42px);
-    line-height: 1.1;
-    margin-bottom: 8px;
-  }
-
+  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; }
+  body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(ellipse 80% 50% at 20% 20%, rgba(200,240,96,0.04) 0%, transparent 60%), radial-gradient(ellipse 60% 40% at 80% 80%, rgba(96,200,240,0.04) 0%, transparent 60%); pointer-events: none; z-index: 0; }
+  .container { max-width: 820px; margin: 0 auto; padding: 48px 24px 80px; position: relative; z-index: 1; }
+  .label { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 10px; }
+  h1 { font-family: 'DM Serif Display', serif; font-size: clamp(28px, 5vw, 42px); line-height: 1.1; margin-bottom: 8px; }
   h1 em { font-style: italic; color: var(--accent); }
-
-  .subtitle {
-    font-size: 14px;
-    color: var(--text-muted);
-    font-weight: 300;
-    margin-bottom: 32px;
-  }
-
-  /* Track selector */
-  .track-selector {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 32px;
-    flex-wrap: wrap;
-  }
-
-  .track-btn {
-    padding: 8px 16px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    color: var(--text-muted);
-    font-size: 13px;
-    cursor: pointer;
-    transition: all 0.15s;
-    font-family: 'DM Sans', sans-serif;
-  }
-
+  .subtitle { font-size: 14px; color: var(--text-muted); font-weight: 300; margin-bottom: 32px; }
+  .track-selector { display: flex; gap: 8px; margin-bottom: 32px; flex-wrap: wrap; }
+  .track-btn { padding: 8px 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; color: var(--text-muted); font-size: 13px; cursor: pointer; transition: all 0.15s; font-family: 'DM Sans', sans-serif; }
   .track-btn:hover { border-color: var(--accent2); color: var(--accent2); }
   .track-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(200,240,96,0.06); }
-
-  /* Main card */
-  .test-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 32px;
-    margin-bottom: 16px;
-  }
-
-  /* Audio player */
-  .player-section {
-    margin-bottom: 28px;
-  }
-
-  .player-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    color: var(--text-muted);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 12px;
-  }
-
-  .player-controls {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-
-  .btn-play-main {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 24px;
-    background: transparent;
-    border: 1.5px solid var(--accent2);
-    border-radius: 10px;
-    color: var(--accent2);
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
-    transition: all 0.15s;
-  }
-
-  .btn-play-main:hover { background: rgba(96,200,240,0.08); }
-  .btn-play-main.playing { background: rgba(96,200,240,0.08); }
-
-  .speed-control {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .speed-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    color: var(--text-muted);
-    white-space: nowrap;
-  }
-
-  .speed-value {
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    color: var(--accent);
-    min-width: 32px;
-  }
-
-  input[type="range"] {
-    -webkit-appearance: none;
-    width: 80px;
-    height: 3px;
-    background: var(--border);
-    border-radius: 2px;
-    outline: none;
-  }
-
-  input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 14px;
-    height: 14px;
-    background: var(--accent);
-    border-radius: 50%;
-    cursor: pointer;
-  }
-
-  /* Progress */
-  .progress-wrap {
-    margin-top: 12px;
-    height: 3px;
-    background: var(--border);
-    border-radius: 2px;
-    cursor: pointer;
-  }
-
-  .progress-fill {
-    height: 100%;
-    background: var(--accent2);
-    border-radius: 2px;
-    width: 0%;
-    transition: width 0.1s linear;
-    pointer-events: none;
-  }
-
-  .time-display {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    color: var(--text-muted);
-    margin-top: 6px;
-    text-align: right;
-  }
-
-  /* Input section */
-  .input-section {
-    margin-bottom: 24px;
-  }
-
-  .input-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    color: var(--text-muted);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-  }
-
-  .dictation-input {
-    width: 100%;
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 16px;
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    line-height: 1.6;
-    resize: vertical;
-    min-height: 120px;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-
+  .progress-bar { height: 3px; background: var(--border); border-radius: 2px; margin-bottom: 32px; }
+  .progress-fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width 0.4s ease; width: 0%; }
+  .test-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 32px; margin-bottom: 16px; }
+  .sentence-counter { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); margin-bottom: 20px; letter-spacing: 0.1em; }
+  .repeat-section { margin-bottom: 20px; }
+  .repeat-dots { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .repeat-label { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; margin-right: 4px; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--border); transition: background 0.3s; }
+  .dot.done { background: var(--accent2); }
+  .dot.playing { background: var(--accent); animation: pulse 0.8s infinite; }
+  @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.4); } }
+  .repeat-status { font-size: 13px; color: var(--text-muted); }
+  .repeat-status strong { color: var(--accent2); }
+  .controls-row { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+  .btn-listen { display: inline-flex; align-items: center; gap: 6px; padding: 9px 18px; border-radius: 8px; border: 1px solid var(--accent2); background: transparent; color: var(--accent2); font-size: 13px; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.15s; }
+  .btn-listen:hover { background: rgba(96,200,240,0.08); }
+  .speed-control { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+  .speed-label { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); }
+  .speed-value { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--accent); min-width: 32px; }
+  input[type="range"] { -webkit-appearance: none; width: 80px; height: 3px; background: var(--border); border-radius: 2px; outline: none; }
+  input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; background: var(--accent); border-radius: 50%; cursor: pointer; }
+  .input-section { margin-bottom: 20px; }
+  .input-label { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; }
+  .dictation-input { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 15px; line-height: 1.6; resize: none; height: 80px; outline: none; transition: border-color 0.2s; }
   .dictation-input:focus { border-color: var(--accent); }
   .dictation-input::placeholder { color: var(--text-dim); }
-
-  .input-actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 10px;
-  }
-
-  .word-count {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    color: var(--text-muted);
-  }
-
-  .btn-submit {
-    padding: 10px 24px;
-    background: var(--accent);
-    color: #0e0e0e;
-    border: none;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
-    transition: opacity 0.15s;
-  }
-
+  .input-row { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; }
+  .btn-submit { padding: 10px 24px; background: var(--accent); color: #0e0e0e; border: none; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: opacity 0.15s; }
   .btn-submit:hover { opacity: 0.85; }
-
-  /* Result */
-  .result-section {
-    display: none;
-    border-top: 1px solid var(--border);
-    padding-top: 24px;
-    margin-top: 8px;
-  }
-
-  .result-section.show { display: block; }
-
-  .score-row {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 20px;
-  }
-
-  .score-big {
-    font-family: 'DM Serif Display', serif;
-    font-size: 48px;
-    line-height: 1;
-  }
-
-  .score-big.great { color: var(--success); }
-  .score-big.ok { color: var(--warn); }
-  .score-big.poor { color: var(--danger); }
-
-  .score-info {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .score-badge {
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    padding: 4px 12px;
-    border-radius: 20px;
-    display: inline-block;
-  }
-
-  .score-badge.pass {
-    background: rgba(96,240,160,0.12);
-    color: var(--success);
-    border: 1px solid rgba(96,240,160,0.3);
-  }
-
-  .score-badge.fail {
-    background: rgba(240,96,96,0.12);
-    color: var(--danger);
-    border: 1px solid rgba(240,96,96,0.3);
-  }
-
-  .score-detail {
-    font-size: 12px;
-    color: var(--text-muted);
-    font-family: 'DM Mono', monospace;
-  }
-
-  /* Word diff */
-  .diff-section {
-    margin-bottom: 20px;
-  }
-
-  .diff-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    color: var(--text-muted);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-
-  .diff-text {
-    font-size: 15px;
-    line-height: 1.8;
-    background: var(--surface2);
-    border-radius: 8px;
-    padding: 14px 16px;
-  }
-
-  .word-correct { color: var(--success); }
-  .word-wrong { color: var(--danger); text-decoration: line-through; }
-  .word-missing {
-    color: var(--warn);
-    background: rgba(240,192,96,0.1);
-    border-radius: 3px;
-    padding: 0 3px;
-  }
-
-  .answer-box {
-    background: rgba(200,240,96,0.04);
-    border: 1px solid rgba(200,240,96,0.15);
-    border-radius: 8px;
-    padding: 14px 16px;
-    margin-bottom: 16px;
-  }
-
-  .answer-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    color: var(--accent);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 6px;
-  }
-
-  .answer-text {
-    font-size: 14px;
-    color: var(--text);
-    line-height: 1.6;
-  }
-
-  .nav-row {
-    display: flex;
-    gap: 8px;
-    justify-content: flex-end;
-  }
-
-  .btn-nav {
-    padding: 10px 20px;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    background: transparent;
-    color: var(--text-muted);
-    font-size: 13px;
-    cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
-    transition: all 0.15s;
-  }
-
+  .btn-skip { background: transparent; border: 1px solid var(--border); color: var(--text-muted); padding: 9px 16px; border-radius: 8px; font-size: 13px; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.15s; }
+  .btn-skip:hover { border-color: var(--accent2); color: var(--accent2); }
+  .result-area { display: none; border-top: 1px solid var(--border); padding-top: 20px; margin-top: 8px; }
+  .result-area.show { display: block; }
+  .score-row { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+  .score-big { font-family: 'DM Serif Display', serif; font-size: 42px; line-height: 1; }
+  .score-big.great { color: var(--success); } .score-big.ok { color: var(--warn); } .score-big.poor { color: var(--danger); }
+  .score-badge { font-family: 'DM Mono', monospace; font-size: 12px; padding: 4px 12px; border-radius: 20px; }
+  .score-badge.pass { background: rgba(96,240,160,0.12); color: var(--success); border: 1px solid rgba(96,240,160,0.3); }
+  .score-badge.fail { background: rgba(240,96,96,0.12); color: var(--danger); border: 1px solid rgba(240,96,96,0.3); }
+  .diff-box { background: var(--surface2); border-radius: 8px; padding: 14px 16px; font-size: 14px; line-height: 1.8; margin-bottom: 12px; }
+  .word-correct { color: var(--success); } .word-wrong { color: var(--danger); text-decoration: line-through; }
+  .answer-box { background: rgba(200,240,96,0.04); border: 1px solid rgba(200,240,96,0.15); border-radius: 8px; padding: 12px 16px; margin-bottom: 16px; }
+  .answer-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
+  .answer-text { font-size: 14px; line-height: 1.6; }
+  .nav-row { display: flex; gap: 8px; justify-content: flex-end; }
+  .btn-nav { padding: 9px 18px; border-radius: 8px; border: 1px solid var(--border); background: transparent; color: var(--text-muted); font-size: 13px; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.15s; }
   .btn-nav:hover { border-color: var(--accent2); color: var(--accent2); }
-
-  .btn-next {
-    padding: 10px 24px;
-    border-radius: 8px;
-    border: none;
-    background: var(--accent);
-    color: #0e0e0e;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
-    transition: opacity 0.15s;
-  }
-
+  .btn-next { padding: 9px 22px; border-radius: 8px; border: none; background: var(--accent); color: #0e0e0e; font-size: 13px; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: opacity 0.15s; }
   .btn-next:hover { opacity: 0.85; }
-
-  /* Summary */
-  .summary-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 40px 32px;
-    text-align: center;
-    display: none;
-  }
-
+  .summary-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 40px 32px; text-align: center; display: none; }
   .summary-card.show { display: block; }
-
-  .summary-score {
-    font-family: 'DM Serif Display', serif;
-    font-size: 64px;
-    margin-bottom: 8px;
-  }
-
-  .summary-score.great { color: var(--success); }
-  .summary-score.ok { color: var(--warn); }
-  .summary-score.poor { color: var(--danger); }
-
-  .summary-label {
-    font-size: 16px;
-    color: var(--text-muted);
-    margin-bottom: 32px;
-  }
-
-  .btn-restart {
-    padding: 12px 28px;
-    background: var(--accent);
-    color: #0e0e0e;
-    border: none;
-    border-radius: 10px;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
-    margin: 0 6px;
-  }
-
+  .summary-score { font-family: 'DM Serif Display', serif; font-size: 64px; margin-bottom: 8px; }
+  .summary-score.great { color: var(--success); } .summary-score.ok { color: var(--warn); } .summary-score.poor { color: var(--danger); }
+  .summary-label { font-size: 16px; color: var(--text-muted); margin-bottom: 32px; }
+  .btn-restart { padding: 12px 28px; background: var(--accent); color: #0e0e0e; border: none; border-radius: 10px; font-size: 14px; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif; margin: 0 6px; }
   .btn-restart:hover { opacity: 0.85; }
-
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: transparent; } ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 </style>
 </head>
 <body>
 <div class="container">
-
   <header>
-    <div style="margin-bottom:16px">
-      <a href="index.html" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;">← Back</a>
-    </div>
+    <div style="margin-bottom:16px"><a href="index.html" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;">← Back</a></div>
     <div class="label">✏️ Dictation</div>
     <h1>듣고 <em>받아쓰기</em></h1>
-    <p class="subtitle">전체 음원을 듣고 들린 내용을 그대로 영어로 타이핑하세요</p>
+    <p class="subtitle">문장을 5번 듣고 들린 내용을 영어로 받아쓰세요</p>
   </header>
-
-  <!-- Track selector -->
   <div class="track-selector" id="trackSelector"></div>
-
-  <!-- Test card -->
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
   <div class="test-card" id="testCard">
-
-    <!-- Player -->
-    <div class="player-section">
-      <div class="player-label">음원 재생</div>
-      <div class="player-controls">
-        <button class="btn-play-main" id="playBtn" onclick="togglePlay()">▶ 재생</button>
-        <div class="speed-control">
-          <span class="speed-label">속도</span>
-          <input type="range" id="speedSlider" min="0.5" max="1.5" step="0.05" value="1.0">
-          <span class="speed-value" id="speedVal">1.0×</span>
-        </div>
-        <button class="btn-nav" onclick="resetAudio()" style="padding:8px 12px;font-size:12px;">↺ 처음부터</button>
+    <div class="sentence-counter" id="sentenceCounter">문장 1 / 20</div>
+    <div class="repeat-section">
+      <div class="repeat-dots">
+        <span class="repeat-label">반복</span>
+        <div class="dot" id="dot-0"></div>
+        <div class="dot" id="dot-1"></div>
+        <div class="dot" id="dot-2"></div>
+        <div class="dot" id="dot-3"></div>
+        <div class="dot" id="dot-4"></div>
       </div>
-      <div class="progress-wrap" id="progressWrap" onclick="seekAudio(event)">
-        <div class="progress-fill" id="progressFill"></div>
-      </div>
-      <div class="time-display" id="timeDisplay">0:00 / 0:00</div>
+      <div class="repeat-status" id="repeatStatus">재생 준비 중...</div>
     </div>
-
-    <!-- Input -->
+    <div class="controls-row">
+      <button class="btn-listen" onclick="listenAgain()">🔊 다시 듣기</button>
+      <div class="speed-control">
+        <span class="speed-label">속도</span>
+        <input type="range" id="speedSlider" min="0.5" max="1.5" step="0.05" value="1.0">
+        <span class="speed-value" id="speedVal">1.0×</span>
+      </div>
+    </div>
     <div class="input-section">
       <div class="input-label">받아쓰기 입력</div>
-      <textarea
-        class="dictation-input"
-        id="dictationInput"
-        placeholder="들린 내용을 영어로 입력하세요..."
-        oninput="updateWordCount()"
-      ></textarea>
-      <div class="input-actions">
-        <span class="word-count" id="wordCount">0 words</span>
+      <textarea class="dictation-input" id="dictationInput" placeholder="들린 내용을 영어로 입력하세요..."></textarea>
+      <div class="input-row">
+        <button class="btn-skip" onclick="skipSentence()">건너뛰기 →</button>
         <button class="btn-submit" onclick="submitDictation()">채점하기</button>
       </div>
     </div>
-
-    <!-- Result -->
-    <div class="result-section" id="resultSection">
+    <div class="result-area" id="resultArea">
       <div class="score-row">
         <div class="score-big" id="scoreBig"></div>
-        <div class="score-info">
-          <span class="score-badge" id="scoreBadge"></span>
-          <span class="score-detail" id="scoreDetail"></span>
-        </div>
+        <span class="score-badge" id="scoreBadge"></span>
+        <span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted)" id="scoreDetail"></span>
       </div>
-
-      <div class="diff-section">
-        <div class="diff-label">내 답안 비교</div>
-        <div class="diff-text" id="diffText"></div>
-      </div>
-
+      <div class="diff-box" id="diffBox"></div>
       <div class="answer-box">
         <div class="answer-label">정답</div>
         <div class="answer-text" id="answerText"></div>
       </div>
-
       <div class="nav-row">
-        <button class="btn-nav" onclick="retryDictation()">↺ 다시 시도</button>
-        <button class="btn-next" onclick="nextTrack()">다음 음원 →</button>
+        <button class="btn-nav" onclick="retryThis()">↺ 다시 시도</button>
+        <button class="btn-next" onclick="nextSentence()">다음 →</button>
       </div>
     </div>
-
   </div>
-
-  <!-- Summary -->
   <div class="summary-card" id="summaryCard">
     <div class="summary-score" id="summaryScore"></div>
     <div class="summary-label" id="summaryLabel"></div>
     <br>
-    <button class="btn-restart" onclick="restartDictation()">다시 시작</button>
+    <button class="btn-restart" onclick="restart()">다시 시작</button>
     <button class="btn-restart" onclick="location.href='index.html'" style="background:var(--surface);color:var(--text);border:1px solid var(--border)">홈으로</button>
   </div>
-
 </div>
-
 <audio id="mainAudio" style="display:none"></audio>
-
 <script>
-let currentTrackIndex = 0;
+const MAX_REPEATS = 5;
+let currentTrack = null;
+let currentIndex = 0;
+let repeatCount = 0;
 let isPlaying = false;
+let scores = [];
+let autoRepeatTimer = null;
 
 const audio = document.getElementById('mainAudio');
 const speedSlider = document.getElementById('speedSlider');
 const speedVal = document.getElementById('speedVal');
 
-// =====================
-// Track selector
-// =====================
 function renderTrackSelector() {
   const el = document.getElementById('trackSelector');
   TRACKS.forEach((t, i) => {
@@ -585,181 +176,156 @@ function renderTrackSelector() {
 function selectTrack(i, btn) {
   document.querySelectorAll('.track-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  currentTrackIndex = i;
-  audio.src = TRACKS[i].file;
-  audio.load();
-  resetUI();
+  currentTrack = TRACKS[i];
+  audio.src = currentTrack.file;
+  currentIndex = 0;
+  scores = [];
+  showSentence();
 }
-
-function resetUI() {
-  document.getElementById('dictationInput').value = '';
-  document.getElementById('wordCount').textContent = '0 words';
-  document.getElementById('resultSection').classList.remove('show');
-  document.getElementById('progressFill').style.width = '0%';
-  document.getElementById('timeDisplay').textContent = '0:00 / 0:00';
-  document.getElementById('playBtn').textContent = '▶ 재생';
-  document.getElementById('playBtn').classList.remove('playing');
-  isPlaying = false;
-}
-
-// =====================
-// Audio
-// =====================
-function togglePlay() {
-  const btn = document.getElementById('playBtn');
-  if (isPlaying) {
-    audio.pause();
-    btn.textContent = '▶ 재생';
-    btn.classList.remove('playing');
-    isPlaying = false;
-  } else {
-    audio.play();
-    btn.textContent = '⏸ 일시정지';
-    btn.classList.add('playing');
-    isPlaying = true;
-  }
-}
-
-function resetAudio() {
-  audio.currentTime = 0;
-  audio.pause();
-  document.getElementById('playBtn').textContent = '▶ 재생';
-  document.getElementById('playBtn').classList.remove('playing');
-  isPlaying = false;
-}
-
-function seekAudio(e) {
-  const rect = e.currentTarget.getBoundingClientRect();
-  const ratio = (e.clientX - rect.left) / rect.width;
-  audio.currentTime = ratio * audio.duration;
-}
-
-audio.ontimeupdate = () => {
-  if (!audio.duration) return;
-  const ratio = audio.currentTime / audio.duration;
-  document.getElementById('progressFill').style.width = `${ratio * 100}%`;
-  document.getElementById('timeDisplay').textContent =
-    `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
-};
-
-audio.onended = () => {
-  document.getElementById('playBtn').textContent = '▶ 다시 재생';
-  document.getElementById('playBtn').classList.remove('playing');
-  isPlaying = false;
-};
 
 speedSlider.addEventListener('input', () => {
   audio.playbackRate = parseFloat(speedSlider.value);
   speedVal.textContent = parseFloat(speedSlider.value).toFixed(2).replace(/\.?0+$/, '') + '×';
 });
 
-function formatTime(s) {
-  const m = Math.floor(s / 60);
-  const sec = Math.floor(s % 60);
-  return `${m}:${sec.toString().padStart(2, '0')}`;
+function showSentence() {
+  if (currentIndex >= currentTrack.sentences.length) { showSummary(); return; }
+  const s = currentTrack.sentences;
+  document.getElementById('sentenceCounter').textContent = `문장 ${currentIndex + 1} / ${s.length}`;
+  document.getElementById('progressFill').style.width = `${(currentIndex / s.length) * 100}%`;
+  document.getElementById('dictationInput').value = '';
+  document.getElementById('resultArea').classList.remove('show');
+  document.getElementById('testCard').style.display = 'block';
+  document.getElementById('summaryCard').classList.remove('show');
+  repeatCount = 0;
+  updateDots();
+  startAutoRepeat();
 }
 
-// =====================
-// Word count
-// =====================
-function updateWordCount() {
-  const words = document.getElementById('dictationInput').value.trim().split(/\s+/).filter(w => w);
-  document.getElementById('wordCount').textContent = `${words.length} words`;
+function updateDots() {
+  for (let i = 0; i < MAX_REPEATS; i++) {
+    const dot = document.getElementById(`dot-${i}`);
+    dot.className = 'dot';
+    if (i < repeatCount) dot.classList.add('done');
+    else if (i === repeatCount && isPlaying) dot.classList.add('playing');
+  }
 }
 
-// =====================
-// Grading
-// =====================
+function playSegment() {
+  const s = currentTrack.sentences[currentIndex];
+  audio.playbackRate = parseFloat(speedSlider.value);
+  audio.currentTime = s.start;
+  audio.play();
+  isPlaying = true;
+  updateDots();
+  document.getElementById('repeatStatus').innerHTML = `<strong>${repeatCount + 1}번째</strong> 재생 중...`;
+
+  audio.ontimeupdate = () => {
+    if (audio.currentTime >= s.end) {
+      audio.pause();
+      audio.ontimeupdate = null;
+      isPlaying = false;
+      repeatCount++;
+      updateDots();
+      if (repeatCount < MAX_REPEATS) {
+        document.getElementById('repeatStatus').innerHTML = `<strong>${repeatCount}</strong>번 완료 — 잠시 후 다시 재생...`;
+        autoRepeatTimer = setTimeout(playSegment, 1200);
+      } else {
+        document.getElementById('repeatStatus').innerHTML = `5번 완료! 이제 받아쓰기 해보세요 ✏️`;
+      }
+    }
+  };
+}
+
+function startAutoRepeat() {
+  if (autoRepeatTimer) { clearTimeout(autoRepeatTimer); autoRepeatTimer = null; }
+  document.getElementById('repeatStatus').textContent = '재생 준비 중...';
+  autoRepeatTimer = setTimeout(playSegment, 500);
+}
+
+function listenAgain() {
+  if (autoRepeatTimer) { clearTimeout(autoRepeatTimer); autoRepeatTimer = null; }
+  audio.pause();
+  audio.ontimeupdate = null;
+  isPlaying = false;
+  document.getElementById('repeatStatus').innerHTML = '추가 듣기 중...';
+  setTimeout(playSegment, 300);
+}
+
 function normalize(text) {
-  return text.toLowerCase()
-    .replace(/[.,!?;:'"()\-–—]/g, '')
-    .replace(/\s+/g, ' ')
-    .trim();
+  return text.toLowerCase().replace(/[.,!?;:'"()\-\u2013\u2014]/g, '').replace(/\s+/g, ' ').trim();
 }
 
 function submitDictation() {
   const userInput = document.getElementById('dictationInput').value.trim();
   if (!userInput) { alert('먼저 받아쓰기를 입력해주세요!'); return; }
+  if (autoRepeatTimer) { clearTimeout(autoRepeatTimer); autoRepeatTimer = null; }
+  audio.pause();
+  audio.ontimeupdate = null;
 
-  const track = TRACKS[currentTrackIndex];
-  const fullText = track.sentences.map(s => s.text).join(' ');
-
+  const answer = currentTrack.sentences[currentIndex].text;
   const userWords = normalize(userInput).split(' ').filter(w => w);
-  const answerWords = normalize(fullText).split(' ').filter(w => w);
-
-  // Count correct words
-  const answerWordsCopy = [...answerWords];
+  const answerWords = normalize(answer).split(' ').filter(w => w);
+  const answerCopy = [...answerWords];
   let correct = 0;
-  const userWordResults = userWords.map(w => {
-    const idx = answerWordsCopy.indexOf(w);
-    if (idx !== -1) {
-      answerWordsCopy.splice(idx, 1);
-      correct++;
-      return { word: w, status: 'correct' };
-    }
-    return { word: w, status: 'wrong' };
+  const userResults = userWords.map(w => {
+    const idx = answerCopy.indexOf(w);
+    if (idx !== -1) { answerCopy.splice(idx, 1); correct++; return { word: w, ok: true }; }
+    return { word: w, ok: false };
   });
 
   const score = Math.round((correct / answerWords.length) * 100);
   const pass = score >= 80;
+  scores.push(score);
 
-  // Show result
   const scoreBig = document.getElementById('scoreBig');
   scoreBig.textContent = `${score}점`;
   scoreBig.className = `score-big ${score >= 80 ? 'great' : score >= 60 ? 'ok' : 'poor'}`;
-
   const badge = document.getElementById('scoreBadge');
   badge.textContent = pass ? '✓ PASS' : '✗ RETRY';
   badge.className = `score-badge ${pass ? 'pass' : 'fail'}`;
+  document.getElementById('scoreDetail').textContent = `${correct}/${answerWords.length} 단어`;
 
-  document.getElementById('scoreDetail').textContent =
-    `${correct} / ${answerWords.length} 단어 정확`;
-
-  // Word diff
-  const diffHtml = userWordResults.map(r =>
-    r.status === 'correct'
-      ? `<span class="word-correct">${r.word}</span>`
-      : `<span class="word-wrong">${r.word}</span>`
+  const diffHtml = userResults.map(r =>
+    r.ok ? `<span class="word-correct">${r.word}</span>` : `<span class="word-wrong">${r.word}</span>`
   ).join(' ');
-  document.getElementById('diffText').innerHTML = diffHtml || '(입력 없음)';
-
-  // Answer
-  document.getElementById('answerText').textContent = fullText;
-
-  document.getElementById('resultSection').classList.add('show');
-  document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  document.getElementById('diffBox').innerHTML = diffHtml || '(입력 없음)';
+  document.getElementById('answerText').textContent = answer;
+  document.getElementById('resultArea').classList.add('show');
+  document.getElementById('resultArea').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
-function retryDictation() {
+function skipSentence() {
+  if (autoRepeatTimer) { clearTimeout(autoRepeatTimer); autoRepeatTimer = null; }
+  audio.pause(); audio.ontimeupdate = null;
+  currentIndex++;
+  showSentence();
+}
+
+function retryThis() {
   document.getElementById('dictationInput').value = '';
-  document.getElementById('wordCount').textContent = '0 words';
-  document.getElementById('resultSection').classList.remove('show');
-  resetAudio();
+  document.getElementById('resultArea').classList.remove('show');
+  repeatCount = 0;
+  updateDots();
+  startAutoRepeat();
 }
 
-function nextTrack() {
-  if (currentTrackIndex < TRACKS.length - 1) {
-    const nextBtn = document.getElementById('trackSelector').children[currentTrackIndex + 1];
-    selectTrack(currentTrackIndex + 1, nextBtn);
-  } else {
-    document.getElementById('testCard').style.display = 'none';
-    document.getElementById('summaryCard').classList.add('show');
-  }
+function nextSentence() { currentIndex++; showSentence(); }
+
+function showSummary() {
+  const avg = scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : 0;
+  document.getElementById('testCard').style.display = 'none';
+  document.getElementById('summaryCard').classList.add('show');
+  document.getElementById('summaryScore').textContent = `${avg}점`;
+  document.getElementById('summaryScore').className = `summary-score ${avg >= 80 ? 'great' : avg >= 60 ? 'ok' : 'poor'}`;
+  document.getElementById('summaryLabel').textContent =
+    avg >= 80 ? '훌륭해요! 🎉' : avg >= 60 ? '잘 하고 있어요! 💪' : '더 연습이 필요해요. 파이팅! 🔥';
+  document.getElementById('progressFill').style.width = '100%';
 }
 
-function restartDictation() {
-  const firstBtn = document.getElementById('trackSelector').children[0];
-  selectTrack(0, firstBtn);
-  document.getElementById('testCard').style.display = 'block';
-  document.getElementById('summaryCard').classList.remove('show');
-}
+function restart() { currentIndex = 0; scores = []; showSentence(); }
 
-// =====================
-// Init
-// =====================
-window.addEventListener('DOMContentLoaded', () => {
-  renderTrackSelector();
-});
+window.addEventListener('DOMContentLoaded', () => { renderTrackSelector(); });
 </script>
 </body>
 </html>
