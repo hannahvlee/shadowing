@@ -29,11 +29,12 @@ Grading criteria:
 
 PASS if score >= 75.
 
-Respond with ONLY these 4 lines, no extra text:
+Respond with ONLY these 5 lines, no extra text:
 SCORE: [number 0-100]
 PASS: [true or false]
 FEEDBACK: [one sentence in Korean - mention specifically what was missing or wrong, or praise if good]
-MODEL: [example Korean translation]`;
+LITERAL: [Korean translation following English word order exactly, word by word]
+NATURAL: [natural fluent Korean translation]`;
 
   try {
     const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -62,13 +63,15 @@ MODEL: [example Korean translation]`;
     const scoreMatch = text.match(/SCORE:\s*(\d+)/);
     const passMatch = text.match(/PASS:\s*(true|false)/i);
     const feedbackMatch = text.match(/FEEDBACK:\s*(.+)/);
-    const modelMatch = text.match(/MODEL:\s*(.+)/);
+    const literalMatch = text.match(/LITERAL:\s*(.+)/);
+    const naturalMatch = text.match(/NATURAL:\s*(.+)/);
 
     const result = {
       score: scoreMatch ? parseInt(scoreMatch[1]) : 50,
       pass: passMatch ? passMatch[1].toLowerCase() === 'true' : false,
       feedback: feedbackMatch ? feedbackMatch[1].trim() : '채점 완료',
-      model_answer: modelMatch ? modelMatch[1].trim() : ''
+      model_answer: (literalMatch ? '직독직해: ' + literalMatch[1].trim() : '') +
+                    (naturalMatch ? '\n의역: ' + naturalMatch[1].trim() : '')
     };
 
     return res.status(200).json(result);
