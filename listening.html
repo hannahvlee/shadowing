@@ -791,7 +791,7 @@ function showResult(result) {
   document.getElementById('scoreLabel').textContent = pass ? '✓ PASS' : '✗ RETRY';
   document.getElementById('scoreLabel').className = `score-label ${pass ? 'pass' : 'fail'}`;
   document.getElementById('feedbackBox').textContent = result.feedback;
-  document.getElementById('answerText').textContent = result.model_answer;
+  document.getElementById('answerText').innerHTML = result.model_answer.replace(/\n/g, '<br>');
 }
 
 function toggleAnswer() {
