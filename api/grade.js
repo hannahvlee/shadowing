@@ -63,8 +63,12 @@ export default async function handler(req, res) {
     }
 
     const text = data.content[0].text.trim();
-    const clean = text.replace(/```json|```/g, '').trim();
-    const result = JSON.parse(clean);
+    // Extract JSON more robustly
+    const jsonMatch = text.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) {
+      return res.status(500).json({ error: '채점 결과를 파싱할 수 없어요.' });
+    }
+    const result = JSON.parse(jsonMatch[0]);
 
     return res.status(200).json(result);
 
