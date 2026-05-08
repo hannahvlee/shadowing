@@ -493,6 +493,7 @@
 
 
 
+<script>
 const params = new URLSearchParams(window.location.search);
 const trackId = parseInt(params.get('id')) || 1;
 const track = TRACKS.find(t => t.id === trackId) || TRACKS[0];
