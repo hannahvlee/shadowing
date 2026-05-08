@@ -27,7 +27,8 @@ Grading criteria:
 3. Either English word order OR natural Korean order is fully acceptable
 4. Minor grammar issues are OK as long as meaning is clear
 5. Participial phrases like "producing..." can be translated as -면서, -하여, -한, etc. All are correct
-6. Do NOT deduct points for proper nouns (people's names like Daguerre, Ansel Adams) or technical terms (daguerreotype, daguerreotypes) - accept any reasonable phonetic approximation or description
+6. COMPLETELY IGNORE proper nouns and technical terms when grading - these include people's names (Daguerre, Ansel Adams), technical terms (daguerreotype, daguerreotypes), place names, etc. The student can say anything for these (even just "d의" or "그 사람의") and it should NOT affect the score at all. Only grade the non-proper-noun content.
+7. The student's answer was captured by speech-to-text (STT) which often mishears words. If you see nonsensical words or phrases, assume STT error and ignore them completely when grading.
 6. If the student's translation conveys the same meaning as the model answer, give high score (85+)
 7. Do NOT penalize for different but equally valid Korean expressions of the same English phrase
 
