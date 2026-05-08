@@ -166,6 +166,14 @@
         <div style="font-size:12px;color:var(--text-muted)">듣고 한국어로 번역</div>
       </div>
     </a>
+    <a href="#dictation" onclick="setMode('dictation')" id="mode-dictation"
+      style="flex:1;display:flex;align-items:center;gap:14px;padding:20px 24px;background:var(--surface);border:1.5px solid var(--border);border-radius:12px;text-decoration:none;color:var(--text);transition:all 0.2s;">
+      <span style="font-size:24px">✏️</span>
+      <div>
+        <div style="font-weight:500;margin-bottom:4px">딕테이션</div>
+        <div style="font-size:12px;color:var(--text-muted)">듣고 영어로 받아쓰기</div>
+      </div>
+    </a>
   </div>
 
   <!-- Track list -->
@@ -179,6 +187,7 @@
     currentMode = mode;
     document.getElementById('mode-shadowing').style.borderColor = mode === 'shadowing' ? 'var(--accent)' : 'var(--border)';
     document.getElementById('mode-listening').style.borderColor = mode === 'listening' ? 'var(--accent)' : 'var(--border)';
+    document.getElementById('mode-dictation').style.borderColor = mode === 'dictation' ? 'var(--accent)' : 'var(--border)';
     renderTracks();
     return false;
   }
@@ -189,7 +198,10 @@
     TRACKS.forEach((track, i) => {
       const a = document.createElement('a');
       a.className = 'track-card';
-      a.href = currentMode === 'shadowing' ? `player.html?id=${track.id}` : `listening.html?id=${track.id}`;
+      const href = currentMode === 'shadowing' ? `player.html?id=${track.id}` :
+                   currentMode === 'listening' ? `listening.html?id=${track.id}` :
+                   `dictation.html`;
+      a.href = href;
       a.innerHTML = `
         <div class="track-left">
           <span class="track-num">${String(i + 1).padStart(2, '0')}</span>
