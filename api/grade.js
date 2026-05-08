@@ -1,45 +1,32 @@
 export default async function handler(req, res) {
-  // CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
-
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
+  if (req.method === 'OPTIONS') return res.status(200).end();
+  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   const { original, userTranslation } = req.body;
-
-  if (!original || !userTranslation) {
-    return res.status(400).json({ error: 'Missing required fields' });
-  }
+  if (!original || !userTranslation) return res.status(400).json({ error: 'Missing fields' });
 
   const apiKey = process.env.ANTHROPIC_API_KEY;
-  if (!apiKey) {
-    return res.status(500).json({ error: 'API key not configured' });
-  }
+  if (!apiKey) return res.status(500).json({ error: 'API key not configured' });
 
-  const prompt = `당신은 영어 직역 테스트 채점관입니다.
+  const prompt = `You are an English-to-Korean translation test grader.
 
-원문 (영어): "${original}"
-학습자 번역 (한국어): "${userTranslation}"
+Original English: ${original}
+Student Korean translation: ${userTranslation}
 
-다음 기준으로 채점해주세요:
-1. 핵심 의미가 전달됐는가 (가장 중요)
-2. 중요한 단어나 내용이 빠지지 않았는가
-3. 순서나 표현이 다소 달라도 의미가 맞으면 OK
+Grade based on:
+1. Are the key meanings conveyed? (most important)
+2. Are important words/content missing?
+3. Different word order or phrasing is OK if meaning is correct
 
-반드시 아래 JSON 형식으로만 답하세요 (다른 텍스트 없이):
-{
-  "score": 85,
-  "pass": true,
-  "feedback": "핵심 의미를 잘 전달했습니다.",
-  "model_answer": "모범 번역 예시"
-}`;
+Respond with ONLY these 4 lines, nothing else:
+SCORE: [number 0-100]
+PASS: [true or false]
+FEEDBACK: [one sentence feedback in Korean, no quotes or special characters]
+MODEL: [example Korean translation, no quotes or special characters]`;
 
   try {
     const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -63,12 +50,19 @@ export default async function handler(req, res) {
     }
 
     const text = data.content[0].text.trim();
-    // Extract JSON more robustly
-    const jsonMatch = text.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) {
-      return res.status(500).json({ error: '채점 결과를 파싱할 수 없어요.' });
-    }
-    const result = JSON.parse(jsonMatch[0]);
+
+    // Parse line-by-line instead of JSON
+    const scoreMatch = text.match(/SCORE:\s*(\d+)/);
+    const passMatch = text.match(/PASS:\s*(true|false)/i);
+    const feedbackMatch = text.match(/FEEDBACK:\s*(.+)/);
+    const modelMatch = text.match(/MODEL:\s*(.+)/);
+
+    const result = {
+      score: scoreMatch ? parseInt(scoreMatch[1]) : 50,
+      pass: passMatch ? passMatch[1].toLowerCase() === 'true' : false,
+      feedback: feedbackMatch ? feedbackMatch[1].trim() : '채점 완료',
+      model_answer: modelMatch ? modelMatch[1].trim() : ''
+    };
 
     return res.status(200).json(result);
 
