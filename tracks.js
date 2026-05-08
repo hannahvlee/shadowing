@@ -23,9 +23,9 @@ const TRACKS = [
       { start: 81.50, end: 86.00, text: "These photographs didn't just showcase beauty; they stirred a deep emotional response" },
       { start: 86.20, end: 91.00, text: "and heightened public awareness about the need to protect fragile natural environments." },
       { start: 91.00, end: 98.00, text: "Despite rapid change, photography still relies on core principles: composition, lighting, and perspective." },
-      { start: 98.00, end: 101.00, text: "These elements of photography are kind of like grammar and writing." },
-      { start: 101.00, end: 106.00, text: "Just like grammar gives language its structure, so do composition, lighting, and perspective." },
-      { start: 106.00, end: 112.00, text: "Umm well, they shape how a photograph tells a story and conveys emotions." },
+      { start: 98.00, end: 101.50, text: "These elements of photography are kind of like grammar and writing." },
+      { start: 101.50, end: 107.00, text: "Just like grammar gives language its structure, so do composition, lighting, and perspective." },
+      { start: 107.00, end: 112.00, text: "Umm well, they shape how a photograph tells a story and conveys emotions." },
     ]
   }
   // 새 음원 추가 시 여기에 추가:
