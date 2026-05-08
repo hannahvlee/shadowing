@@ -464,16 +464,6 @@
     <p class="subtitle">음원을 듣고 한국어로 직역하세요</p>
   </header>
 
-  <!-- API Key Setup -->
-  <div class="api-setup" id="apiSetup">
-    <p>Claude API 키를 입력하세요 (한 번만 입력하면 저장됩니다)</p>
-    <div class="api-row">
-      <input type="password" class="api-input" id="apiKeyInput" placeholder="sk-ant-...">
-      <button class="btn-save" onclick="saveApiKey()">저장</button>
-    </div>
-    <div class="api-saved" id="apiSaved">✓ API 키가 저장됐어요</div>
-  </div>
-
   <!-- Track selector -->
   <div class="track-selector" id="trackSelector"></div>
 
@@ -531,7 +521,7 @@
 // =====================
 // CONFIG — API 키 여기에 직접 입력하거나 아래 입력창 사용
 // =====================
-const HARDCODED_API_KEY = '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';  // 예: 'sk-ant-api03-...'
+const HARDCODED_API_KEY = ''; // 예: 'sk-ant-api03-...'
 
 // State
 let currentTrack = null;
@@ -738,12 +728,6 @@ async function toggleRecord() {
 // Claude API grading
 // =====================
 async function gradeWithClaude(userTranslation) {
-  const apiKey = getApiKey();
-  if (!apiKey) {
-    alert('API 키를 먼저 입력해주세요.');
-    return;
-  }
-
   const sentence = currentTrack.sentences[currentIndex];
   const original = sentence.text;
 
@@ -771,25 +755,18 @@ async function gradeWithClaude(userTranslation) {
 }`;
 
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
+    const res = await fetch('/api/grade', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true'
-      },
-      body: JSON.stringify({
-        model: 'claude-haiku-4-5-20251001',
-        max_tokens: 300,
-        messages: [{ role: 'user', content: prompt }]
-      })
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ original, userTranslation })
     });
 
-    const data = await res.json();
-    const text = data.content[0].text.trim();
-    const clean = text.replace(/```json|```/g, '').trim();
-    const result = JSON.parse(clean);
+    const result = await res.json();
+
+    if (!res.ok) {
+      document.getElementById('feedbackBox').textContent = '채점 중 오류가 발생했어요: ' + (result.error || '');
+      return;
+    }
 
     showResult(result);
     scores.push(result.score);
