@@ -84,52 +84,7 @@
   }
 
   /* Upload zone */
-  .upload-zone {
-    border: 1.5px dashed var(--border);
-    border-radius: 12px;
-    padding: 36px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.2s;
-    margin-bottom: 32px;
-    background: var(--surface);
-  }
 
-  .upload-zone:hover, .upload-zone.drag-over {
-    border-color: var(--accent);
-    background: rgba(200,240,96,0.04);
-  }
-
-  .upload-zone input { display: none; }
-
-  .upload-icon {
-    font-size: 32px;
-    margin-bottom: 12px;
-  }
-
-  .upload-zone p {
-    font-size: 14px;
-    color: var(--text-muted);
-  }
-
-  .upload-zone strong {
-    color: var(--accent);
-    font-weight: 500;
-  }
-
-  .file-loaded {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 16px;
-    background: rgba(200,240,96,0.08);
-    border: 1px solid rgba(200,240,96,0.2);
-    border-radius: 8px;
-    font-family: 'DM Mono', monospace;
-    font-size: 13px;
-    color: var(--accent);
-    margin-bottom: 32px;
-  }
 
   /* Global controls */
   .global-controls {
@@ -509,21 +464,8 @@
     <p class="subtitle">Upload your audio file and practice sentence by sentence</p>
   </header>
 
-  <!-- Upload zone -->
-  <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()">
-    <input type="file" id="fileInput" accept="audio/*,.m4a,.mp3,.wav,.ogg">
-    <div class="upload-icon">🎵</div>
-    <p><strong>Click to upload</strong> your audio file</p>
-    <p style="font-size:12px; margin-top:6px;">MP3, M4A, WAV supported</p>
-  </div>
-
-  <div id="fileLoaded" class="file-loaded" style="display:none">
-    <span>✓</span>
-    <span id="fileName"></span>
-  </div>
-
   <!-- Global controls -->
-  <div class="global-controls" id="globalControls" style="display:none">
+  <div class="global-controls" id="globalControls">
     <div class="speed-control">
       <span class="speed-label">Speed</span>
       <input type="range" id="speedSlider" min="0.5" max="1.5" step="0.05" value="1.0">
@@ -539,7 +481,7 @@
   <div class="sentences" id="sentenceList">
     <div class="no-audio">
       <div class="icon">🎧</div>
-      <p>Upload an audio file to get started</p>
+      <p>Loading audio...</p>
     </div>
   </div>
 
@@ -572,10 +514,6 @@ const SENTENCES = [
 ];
 
 const audio = document.getElementById('mainAudio');
-const fileInput = document.getElementById('fileInput');
-const uploadZone = document.getElementById('uploadZone');
-const fileLoaded = document.getElementById('fileLoaded');
-const fileName = document.getElementById('fileName');
 const globalControls = document.getElementById('globalControls');
 const sentenceList = document.getElementById('sentenceList');
 const speedSlider = document.getElementById('speedSlider');
@@ -599,22 +537,11 @@ async function getStream() {
   return sharedStream;
 }
 
-// File upload
-fileInput.addEventListener('change', e => loadAudio(e.target.files[0]));
-uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('drag-over'); });
-uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('drag-over'));
-uploadZone.addEventListener('drop', e => { e.preventDefault(); uploadZone.classList.remove('drag-over'); loadAudio(e.dataTransfer.files[0]); });
-
-function loadAudio(file) {
-  if (!file) return;
-  const url = URL.createObjectURL(file);
-  audio.src = url;
-  uploadZone.style.display = 'none';
-  fileLoaded.style.display = 'flex';
-  fileName.textContent = file.name;
-  globalControls.style.display = 'flex';
+// Auto-load audio
+window.addEventListener('DOMContentLoaded', () => {
+  audio.src = '6__Academic_Talk__Photography_.m4a';
   renderSentences();
-}
+});
 
 // Speed
 speedSlider.addEventListener('input', () => {
