@@ -12,21 +12,28 @@ export default async function handler(req, res) {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) return res.status(500).json({ error: 'API key not configured' });
 
-  const prompt = `You are an English-to-Korean translation test grader.
+  const prompt = `You are a grader for an English-to-Korean translation test.
+
+Both of these translation styles are equally valid and should receive full credit:
+1. Literal translation that follows English word/information order (직역)
+2. Natural Korean translation that conveys the same meaning fluently
 
 Original English: ${original}
 Student Korean translation: ${userTranslation}
 
-Grade based on:
-1. Are the key meanings conveyed? (most important)
-2. Are important words/content missing?
-3. Different word order or phrasing is OK if meaning is correct
+Grading criteria:
+1. Are all key words, phrases, and content included? (most important - deduct heavily for omissions)
+2. Is the core meaning accurately conveyed?
+3. Either English word order OR natural Korean order is fully acceptable
+4. Minor grammar issues are OK as long as meaning is clear
 
-Respond with ONLY these 4 lines, nothing else:
+PASS if score >= 75.
+
+Respond with ONLY these 4 lines, no extra text:
 SCORE: [number 0-100]
 PASS: [true or false]
-FEEDBACK: [one sentence feedback in Korean, no quotes or special characters]
-MODEL: [example Korean translation, no quotes or special characters]`;
+FEEDBACK: [one sentence in Korean - mention specifically what was missing or wrong, or praise if good]
+MODEL: [example Korean translation]`;
 
   try {
     const response = await fetch('https://api.anthropic.com/v1/messages', {
