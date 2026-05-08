@@ -33,7 +33,7 @@ Respond with ONLY these 5 lines, no extra text:
 SCORE: [number 0-100]
 PASS: [true or false]
 FEEDBACK: [one sentence in Korean - mention specifically what was missing or wrong, or praise if good]
-LITERAL: [Korean translation following English word order exactly, word by word]
+LITERAL: [Korean translation that strictly follows English word order - translate each word/phrase in the EXACT order they appear in English even if unnatural. Example: Photography has undergone remarkable changes = 사진술은 겪어왔다 놀라운 변화들을]
 NATURAL: [natural fluent Korean translation]`;
 
   try {
