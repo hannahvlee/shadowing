@@ -6,7 +6,7 @@ const TRACKS = [
     sentences: [
       { start: 0.00,  end: 2.20,  text: "Over its two centuries of existence," },
       { start: 2.20,  end: 8.00,  text: "photography has undergone remarkable changes in how it's created, shared, and understood." },
-      { start: 8.00,  end: 13.00, text: "In 1839, Louis Daguerre introduced the daguerreotype process," },
+      { start: 8.00,  end: 12.80, text: "In 1839, Louis Daguerre introduced the daguerreotype process," },
       { start: 13.00, end: 16.20, text: "producing photographic images on silver-plated copper." },
       { start: 17.00, end: 20.00, text: "Though each image was unique and couldn't be reproduced," },
       { start: 20.00, end: 23.00, text: "daguerreotypes were prized for their clarity and realism." },
