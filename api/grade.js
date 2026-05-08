@@ -26,6 +26,9 @@ Grading criteria:
 2. Is the core meaning accurately conveyed?
 3. Either English word order OR natural Korean order is fully acceptable
 4. Minor grammar issues are OK as long as meaning is clear
+5. Participial phrases like "producing..." can be translated as -면서, -하여, -한, etc. All are correct
+6. If the student's translation conveys the same meaning as the model answer, give high score (85+)
+7. Do NOT penalize for different but equally valid Korean expressions of the same English phrase
 
 PASS if score >= 75.
 
