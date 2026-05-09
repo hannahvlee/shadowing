@@ -571,6 +571,7 @@ function checkApiKey() {
 // =====================
 function renderTrackSelector() {
   const el = document.getElementById('trackSelector');
+  if (TRACKS.length <= 1) { el.style.display = 'none'; }
   TRACKS.forEach((t, i) => {
     const btn = document.createElement('button');
     btn.className = 'track-btn' + (i === 0 ? ' active' : '');
