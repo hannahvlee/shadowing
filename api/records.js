@@ -39,7 +39,7 @@ export default async function handler(req, res) {
   // POST - save a record
   if (req.method === 'POST') {
     try {
-      const { name, track, mode, score, details } = req.body;
+      const { name, track, mode, score, progress, details } = req.body;
       if (!name || !track || !mode) {
         return res.status(400).json({ error: 'Missing required fields' });
       }
@@ -50,6 +50,7 @@ export default async function handler(req, res) {
         track,
         mode,
         score,
+        progress,
         details,
         date: new Date().toISOString()
       };
