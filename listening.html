@@ -321,6 +321,10 @@ async function gradeWithClaude(i, userTranslation) {
     card.classList.remove('pass', 'fail');
     card.classList.add(pass ? 'pass' : 'fail');
 
+    if (result.feedback) {
+      const feedbackEl = document.getElementById(`feedback-${i}`);
+      if (feedbackEl) { feedbackEl.textContent = result.feedback; feedbackEl.style.display = 'block'; }
+    }
     if (result.model_answer) modelTextEl.innerHTML = result.model_answer.replace(/\n/g, '<br>');
     scores[i] = pct;
   } catch(e) {
