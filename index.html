@@ -149,7 +149,7 @@
   </header>
 
   <!-- Mode selector -->
-  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:40px">
+  <div style="display:grid;grid-template-columns:repeat(4,minmax(200px,1fr));gap:12px;margin-bottom:40px">
     <a href="#shadowing" onclick="setMode('shadowing')" id="mode-shadowing"
       style="flex:1;display:flex;align-items:center;gap:14px;padding:20px 24px;background:var(--surface);border:1.5px solid var(--accent);border-radius:12px;text-decoration:none;color:var(--text);transition:all 0.2s;">
       <span style="font-size:24px">🎙</span>
@@ -179,7 +179,7 @@
       <span style="font-size:24px">📝</span>
       <div>
         <div style="font-weight:500;margin-bottom:4px">어휘 퀴즈</div>
-        <div style="font-size:12px;color:var(--text-muted)">핵심 단어/구문 암기</div>
+        <div style="font-size:12px;color:var(--text-muted);white-space:nowrap">핵심 단어/구문 암기</div>
       </div>
     </a>
   </div>
