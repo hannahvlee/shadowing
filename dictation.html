@@ -214,7 +214,7 @@ speedSlider.addEventListener('input', () => {
   speedVal.textContent = parseFloat(speedSlider.value).toFixed(2).replace(/\.?0+$/, '') + '×';
 });
 
-function showSentence() {
+function showSentence(delay = 3000) {
   if (currentIndex >= currentTrack.sentences.length) { showSummary(); return; }
   const s = currentTrack.sentences;
   document.getElementById('sentenceCounter').textContent = `문장 ${currentIndex + 1} / ${s.length}`;
@@ -225,7 +225,7 @@ function showSentence() {
   document.getElementById('summaryCard').classList.remove('show');
   repeatCount = 0;
   updateDots();
-  startAutoRepeat();
+  startAutoRepeat(delay);
 }
 
 function updateDots() {
@@ -263,10 +263,10 @@ function playSegment() {
   };
 }
 
-function startAutoRepeat() {
+function startAutoRepeat(delay = 3000) {
   if (autoRepeatTimer) { clearTimeout(autoRepeatTimer); autoRepeatTimer = null; }
   document.getElementById('repeatStatus').textContent = '재생 준비 중...';
-  autoRepeatTimer = setTimeout(playSegment, 3000);
+  autoRepeatTimer = setTimeout(playSegment, delay);
 }
 
 function listenAgain() {
@@ -330,10 +330,10 @@ function retryThis() {
   document.getElementById('resultArea').classList.remove('show');
   repeatCount = 0;
   updateDots();
-  startAutoRepeat();
+  startAutoRepeat(1500);
 }
 
-function nextSentence() { currentIndex++; showSentence(); }
+function nextSentence() { currentIndex++; showSentence(1500); }
 
 function showSummary() {
   const avg = scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : 0;
