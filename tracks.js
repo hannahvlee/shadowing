@@ -66,8 +66,8 @@ const TRACKS = [
     title: "Social Capital",
     file: "9_2_1_Social_Capital.m4a",
     sentences: [
-      { start: 0.00, end: 3.65, text: "Social capital refers to the networks of relationships among people" },
-      { start: 3.65, end: 7.30, text: "who live and work in a particular society." },
+      { start: 0.00, end: 3.64, text: "Social capital refers to the networks of relationships" },
+      { start: 3.65, end: 7.30, text: "among people who live and work in a particular society." },
       { start: 7.30, end: 10.30, text: "Social capital can be bonding or bridging." },
       { start: 10.30, end: 14.40, text: "Bonding social capital occurs within a close-knit group," },
       { start: 14.40, end: 18.40, text: "such as family or close friends, where strong ties exist." },
@@ -80,6 +80,7 @@ const TRACKS = [
       { start: 51.50, end: 58.00, text: "such as the potential for reinforcing social inequalities due to the exclusion of outsiders." },
       { start: 58.00, end: 63.70, text: "Understanding social capital helps sociologists analyze how communities function." },
       { start: 63.70, end: 67.40, text: "So let's now look at a case study of a specific community." },
+
     ],
     vocab: [
       { en: "social capital", ko: "사회적 자본" },
