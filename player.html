@@ -676,6 +676,8 @@ document.addEventListener('keydown', e => {
 async function saveRecord() {
   const name = document.getElementById('saveName').value.trim();
   if (!name) { document.getElementById('saveName').focus(); return; }
+  const saveBtn = document.querySelector('.btn-save');
+  if (saveBtn) { saveBtn.disabled = true; saveBtn.textContent = '저장 중...'; }
 
   const avg = sessionScores.length
     ? Math.round(sessionScores.reduce((a,b) => a+b, 0) / sessionScores.length)
