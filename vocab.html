@@ -40,7 +40,7 @@
   .col-num { width: 44px; padding: 14px 0 14px 16px; font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-dim); text-align: center; }
   .col-ko { padding: 14px 16px; font-size: 14px; color: var(--text); line-height: 1.5; }
   .col-en { width: 260px; padding: 10px 12px; }
-  .col-answer { width: 220px; padding: 10px 16px; }
+  .col-answer { width: 240px; padding: 10px 16px; }
 
   .vocab-input { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 7px; padding: 9px 12px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 13px; outline: none; transition: border-color 0.2s; }
   .vocab-input:focus { border-color: var(--accent); }
@@ -49,12 +49,15 @@
   .vocab-input::placeholder { color: var(--text-dim); }
   .vocab-input:disabled { cursor: default; }
 
+  .answer-cell { display: flex; align-items: center; gap: 8px; }
+  .btn-reveal { padding: 5px 10px; border-radius: 6px; border: 1px solid var(--border); background: transparent; color: var(--text-muted); font-size: 11px; cursor: pointer; font-family: 'DM Mono', monospace; white-space: nowrap; transition: all 0.15s; flex-shrink: 0; }
+  .btn-reveal:hover { border-color: var(--accent2); color: var(--accent2); }
   .answer-text { font-size: 13px; color: var(--text-muted); line-height: 1.4; display: none; }
   .answer-text.show { display: block; }
   .answer-text.revealed-correct { color: var(--success); }
   .answer-text.revealed-wrong { color: var(--warn); }
 
-  .section-footer { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; background: var(--surface2); border: 1px solid var(--border); border-top: none; border-radius: 0 0 10px 10px; }
+  .section-footer { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; background: var(--surface2); border: 1px solid var(--border); border-top: none; border-radius: 0 0 10px 10px; flex-wrap: wrap; gap: 8px; }
   .section-result { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text-muted); }
   .section-result.great { color: var(--success); }
   .section-result.ok { color: var(--warn); }
@@ -102,6 +105,7 @@
     <div class="section-footer">
       <span class="section-result" id="wordResult"></span>
       <div class="footer-btns">
+        <button class="btn btn-secondary" onclick="showAllAnswers('w')">전체 정답 보기</button>
         <button class="btn btn-secondary" onclick="resetSection('w')">다시 풀기</button>
         <button class="btn btn-primary" onclick="gradeSection('w')">채점하기</button>
       </div>
@@ -129,6 +133,7 @@
     <div class="section-footer">
       <span class="section-result" id="phraseResult"></span>
       <div class="footer-btns">
+        <button class="btn btn-secondary" onclick="showAllAnswers('p')">전체 정답 보기</button>
         <button class="btn btn-secondary" onclick="resetSection('p')">다시 풀기</button>
         <button class="btn btn-primary" onclick="gradeSection('p')">채점하기</button>
       </div>
@@ -186,9 +191,34 @@ function renderTable(tbodyId, items, prefix) {
           onkeydown="handleEnter(event, '${prefix}', ${i}, ${items.length - 1})">
       </td>
       <td class="col-answer">
-        <span class="answer-text" id="answer-${prefix}-${i}">${item.en}</span>
+        <div class="answer-cell">
+          <button class="btn-reveal" onclick="toggleReveal('${prefix}', ${i})">정답 보기</button>
+          <span class="answer-text" id="answer-${prefix}-${i}">${item.en}</span>
+        </div>
       </td>`;
     tbody.appendChild(tr);
+  });
+}
+
+function toggleReveal(prefix, i) {
+  const answer = document.getElementById(`answer-${prefix}-${i}`);
+  const btn = answer.previousElementSibling;
+  if (answer.classList.contains('show')) {
+    answer.classList.remove('show');
+    btn.textContent = '정답 보기';
+  } else {
+    answer.classList.add('show');
+    btn.textContent = '정답 숨기기';
+  }
+}
+
+function showAllAnswers(prefix) {
+  const items = prefix === 'w' ? wordItems : phraseItems;
+  items.forEach((item, i) => {
+    const answer = document.getElementById(`answer-${prefix}-${i}`);
+    const btn = answer.previousElementSibling;
+    answer.classList.add('show');
+    btn.textContent = '정답 숨기기';
   });
 }
 
