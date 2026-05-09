@@ -122,7 +122,64 @@ const TRACKS = [
       { en: "be celebrated for", ko: "~로 칭송받다" }
     ]
   }
-    // 새 음원 추가 시 여기에 추가:
+  ,
+  {
+    id: 3,
+    title: "Impressionism",
+    file: "9_2_1_Impressionism.m4a",
+    sentences: [
+      { start: 0.00, end: 5.21, text: "Impressionism is a painting style that began in France in the late 19th century." },
+      { start: 5.21, end: 9.20, text: "It challenged traditional painting techniques and subject matter." },
+      { start: 9.20, end: 17.00, text: "Artists like Claude Monet, Edgar Degas, and Pierre-Auguste Renoir sought to capture the fleeting effects of light and color." },
+      { start: 17.00, end: 22.00, text: "Emphasizing the momentary impressions of a scene rather than its detailed realism." },
+      { start: 22.00, end: 27.00, text: "They often painted outdoors to better observe and depict natural light." },
+      { start: 27.00, end: 34.10, text: "This approach resulted in looser brush movement as they painted, compared to the precise techniques of earlier periods." },
+      { start: 34.10, end: 41.00, text: "Initially, Impressionism faced harsh criticism and was rejected by the established art community." },
+      { start: 41.00, end: 46.00, text: "However, it eventually gained recognition and profoundly influenced modern art." },
+      { start: 46.00, end: 50.00, text: "Paving the way for movements like post-impressionism and modernism." },
+      { start: 50.00, end: 55.00, text: "The emphasis on perception and experience, rather than meticulous detail," },
+      { start: 55.00, end: 58.00, text: "encouraged artists to experiment with form and color." },
+      { start: 58.00, end: 64.00, text: "Today, Impressionist works are celebrated for their innovative approach and emotional depth," },
+      { start: 64.00, end: 67.30, text: "attracting millions of visitors to museums worldwide." },
+    ],
+    vocab: [
+      { en: "impressionism", ko: "인상주의" },
+      { en: "challenge", ko: "도전하다, 반박하다" },
+      { en: "technique", ko: "기법, 기술" },
+      { en: "subject matter", ko: "주제, 소재" },
+      { en: "fleeting", ko: "순간적인, 덧없는" },
+      { en: "impression", ko: "인상, 느낌" },
+      { en: "momentary", ko: "순간적인" },
+      { en: "depict", ko: "묘사하다, 그리다" },
+      { en: "loose", ko: "느슨한, 자유로운" },
+      { en: "precise", ko: "정밀한, 정확한" },
+      { en: "established", ko: "기성의, 확립된" },
+      { en: "harsh", ko: "가혹한, 혹독한" },
+      { en: "criticism", ko: "비판, 비평" },
+      { en: "recognition", ko: "인정, 명성" },
+      { en: "profoundly", ko: "깊이, 심오하게" },
+      { en: "modernism", ko: "모더니즘" },
+      { en: "perception", ko: "인식, 지각" },
+      { en: "meticulous", ko: "꼼꼼한, 세심한" },
+      { en: "encourage", ko: "장려하다, 격려하다" },
+      { en: "innovative", ko: "혁신적인" },
+      { en: "emotional depth", ko: "감정적 깊이" },
+      { en: "seek to", ko: "~하려고 하다" },
+      { en: "rather than", ko: "~ 대신에, ~보다는" },
+      { en: "result in", ko: "~을 초래하다, ~로 이어지다" },
+      { en: "compared to", ko: "~에 비해" },
+      { en: "be rejected by", ko: "~에 의해 거부되다" },
+      { en: "the established art community", ko: "기성 예술계" },
+      { en: "gain recognition", ko: "인정받다" },
+      { en: "pave the way for", ko: "~의 길을 열다" },
+      { en: "in terms of", ko: "~의 관점에서" },
+      { en: "be celebrated for", ko: "~로 칭송받다" },
+      { en: "experiment with", ko: "~을 가지고 실험하다" },
+      { en: "attracting millions of", ko: "수백만 명을 끌어들이며" },
+      { en: "museums worldwide", ko: "전 세계 박물관" }
+    ]
+  }
+  // 새 음원 추가 시 여기에 추가:
   // {
   //   id: 2,
   //   title: "제목",
