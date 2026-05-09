@@ -78,6 +78,10 @@
     color: var(--accent);
   }
 
+  .track-selector { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+  .track-btn { padding: 8px 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; color: var(--text-muted); font-size: 13px; cursor: pointer; transition: all 0.15s; font-family: 'DM Sans', sans-serif; }
+  .track-btn:hover { border-color: var(--accent2); color: var(--accent2); }
+  .track-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(200,240,96,0.06); }
   .subtitle {
     font-size: 14px;
     color: var(--text-muted);
@@ -466,6 +470,9 @@
     <p class="subtitle">음원을 듣고 따라 말하세요</p>
   </header>
 
+  <!-- Track selector -->
+  <div class="track-selector" id="trackSelector"></div>
+
   <!-- Global controls -->
   <div class="global-controls" id="globalControls">
     <div class="speed-control">
@@ -509,6 +516,20 @@ const toggleSwitch = document.getElementById('toggleSwitch');
 
 // Set page title
 document.getElementById('pageTitle').textContent = track.title;
+
+// Render track selector
+const trackSelectorEl = document.getElementById('trackSelector');
+if (TRACKS.length <= 1) {
+  trackSelectorEl.style.display = 'none';
+} else {
+  TRACKS.forEach((t, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'track-btn' + (t.id === trackId ? ' active' : '');
+    btn.textContent = t.title;
+    btn.onclick = () => { window.location.href = `player.html?id=${t.id}`; };
+    trackSelectorEl.appendChild(btn);
+  });
+}
 
 
 let currentPlaying = null;
