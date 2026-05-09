@@ -518,6 +518,24 @@
     <button class="btn-restart" onclick="location.href='index.html'" style="background:var(--surface);color:var(--text);border:1px solid var(--border)">홈으로</button>
   </div>
 
+  <!-- Submit button -->
+  <div id="submitWrap" style="margin-top:32px;text-align:right;">
+    <button onclick="openSaveModal()" style="padding:12px 32px;border-radius:10px;border:none;background:var(--accent);color:#0e0e0e;font-size:14px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;">Submit</button>
+  </div>
+
+  <!-- Save modal -->
+  <div id="saveModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:200;align-items:center;justify-content:center;">
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:32px;width:340px;max-width:90vw;">
+      <div style="font-family:'DM Serif Display',serif;font-size:22px;margin-bottom:8px">기록 저장</div>
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:20px">이름을 입력하면 학습 기록이 저장돼요</p>
+      <input type="text" id="saveName" placeholder="이름 입력..." style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:11px 14px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;outline:none;margin-bottom:16px;">
+      <div style="display:flex;gap:8px;justify-content:flex-end;">
+        <button onclick="closeSaveModal()" style="padding:9px 18px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text-muted);font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;">취소</button>
+        <button onclick="saveRecord()" style="padding:9px 22px;border-radius:8px;border:none;background:var(--accent);color:#0e0e0e;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;">저장</button>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <audio id="mainAudio" style="display:none"></audio>
@@ -843,6 +861,35 @@ function restartTest() {
 // =====================
 // Init
 // =====================
+function openSaveModal() {
+  document.getElementById('saveModal').style.display = 'flex';
+  document.getElementById('saveName').focus();
+}
+
+function closeSaveModal() {
+  document.getElementById('saveModal').style.display = 'none';
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && document.getElementById('saveModal').style.display === 'flex') saveRecord();
+});
+
+async function saveRecord() {
+  const name = document.getElementById('saveName').value.trim();
+  if (!name) { document.getElementById('saveName').focus(); return; }
+  const avg = scores.length ? Math.round(scores.reduce((a,b) => a+b, 0) / scores.length) : null;
+  const progress = `${scores.length}/${currentTrack.sentences.length}문장`;
+  try {
+    await fetch('/api/records', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, track: currentTrack.title, mode: '청취테스트', score: avg, progress })
+    });
+    closeSaveModal();
+    window.location.href = 'history.html';
+  } catch(e) { alert('저장 중 오류가 발생했어요.'); }
+}
+
 window.addEventListener('DOMContentLoaded', () => {
   checkApiKey();
   renderTrackSelector();

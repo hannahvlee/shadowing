@@ -331,6 +331,35 @@ function showSummary() {
 
 function restart() { currentIndex = 0; scores = []; showSentence(); }
 
+function openSaveModal() {
+  document.getElementById('saveModal').style.display = 'flex';
+  document.getElementById('saveName').focus();
+}
+
+function closeSaveModal() {
+  document.getElementById('saveModal').style.display = 'none';
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && document.getElementById('saveModal').style.display === 'flex') saveRecord();
+});
+
+async function saveRecord() {
+  const name = document.getElementById('saveName').value.trim();
+  if (!name) { document.getElementById('saveName').focus(); return; }
+  const avg = scores.length ? Math.round(scores.reduce((a,b) => a+b, 0) / scores.length) : null;
+  const progress = `${scores.length}/${currentTrack.sentences.length}문장`;
+  try {
+    await fetch('/api/records', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, track: currentTrack.title, mode: '딕테이션', score: avg, progress })
+    });
+    closeSaveModal();
+    window.location.href = 'history.html';
+  } catch(e) { alert('저장 중 오류가 발생했어요.'); }
+}
+
 window.addEventListener('DOMContentLoaded', () => { renderTrackSelector(); });
 </script>
 </body>
