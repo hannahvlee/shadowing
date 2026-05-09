@@ -310,12 +310,9 @@ function submitDictation() {
   const badge = document.getElementById('scoreBadge');
   badge.textContent = pass ? '✓ PASS' : '✗ RETRY';
   badge.className = `score-badge ${pass ? 'pass' : 'fail'}`;
-  document.getElementById('scoreDetail').textContent = `${correct}/${answerWords.length} 단어`;
+  document.getElementById('scoreDetail').textContent = '';
 
-  const diffHtml = userResults.map(r =>
-    r.ok ? `<span class="word-correct">${r.word}</span>` : `<span class="word-wrong">${r.word}</span>`
-  ).join(' ');
-  document.getElementById('diffBox').innerHTML = diffHtml || '(입력 없음)';
+document.getElementById('diffBox').style.display = 'none';
   document.getElementById('answerText').textContent = answer;
   document.getElementById('resultArea').classList.add('show');
   document.getElementById('resultArea').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
