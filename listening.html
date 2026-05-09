@@ -8,587 +8,147 @@
 <script src="tracks.js"></script>
 <style>
   :root {
-    --bg: #0e0e0e;
-    --surface: #1a1a1a;
-    --surface2: #242424;
-    --border: #2e2e2e;
-    --accent: #c8f060;
-    --accent2: #60c8f0;
-    --text: #f0ede8;
-    --text-muted: #6e6e6e;
-    --text-dim: #3e3e3e;
-    --danger: #f06060;
-    --success: #60f0a0;
+    --bg: #0e0e0e; --surface: #1a1a1a; --surface2: #242424; --border: #2e2e2e;
+    --accent: #c8f060; --accent2: #60c8f0; --text: #f0ede8; --text-muted: #6e6e6e;
+    --text-dim: #3e3e3e; --danger: #f06060; --success: #60f0a0; --warn: #f0c060;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background: radial-gradient(ellipse 80% 50% at 20% 20%, rgba(200,240,96,0.04) 0%, transparent 60%),
-                radial-gradient(ellipse 60% 40% at 80% 80%, rgba(96,200,240,0.04) 0%, transparent 60%);
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .container {
-    max-width: 820px;
-    margin: 0 auto;
-    padding: 48px 24px 80px;
-    position: relative;
-    z-index: 1;
-  }
-
-  .label {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.15em;
-    color: var(--accent);
-    text-transform: uppercase;
-    margin-bottom: 10px;
-  }
-
-  h1 {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(28px, 5vw, 42px);
-    line-height: 1.1;
-    margin-bottom: 8px;
-  }
-
-  h1 em { font-style: italic; color: var(--accent); }
-
-  .subtitle {
-    font-size: 14px;
-    color: var(--text-muted);
-    font-weight: 300;
-    margin-bottom: 32px;
-  }
-
-  /* API Key setup */
-  .api-setup {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 24px;
-    margin-bottom: 32px;
-  }
-
-  .api-setup p {
-    font-size: 13px;
-    color: var(--text-muted);
-    margin-bottom: 12px;
-  }
-
-  .api-row {
-    display: flex;
-    gap: 10px;
-  }
-
-  .api-input {
-    flex: 1;
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 10px 14px;
-    color: var(--text);
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-
-  .api-input:focus { border-color: var(--accent); }
-
-  .btn-save {
-    padding: 10px 18px;
-    background: var(--accent);
-    color: #0e0e0e;
-    border: none;
-    border-radius: 8px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: opacity 0.15s;
-    white-space: nowrap;
-  }
-
-  .btn-save:hover { opacity: 0.85; }
-
-  .api-saved {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    color: var(--success);
-    margin-top: 8px;
-    display: none;
-  }
-
-  /* Track selector */
-  .track-selector {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 32px;
-    flex-wrap: wrap;
-  }
-
-  .track-btn {
-    padding: 8px 16px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    color: var(--text-muted);
-    font-size: 13px;
-    cursor: pointer;
-    transition: all 0.15s;
-    font-family: 'DM Sans', sans-serif;
-  }
-
+  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; }
+  body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(ellipse 80% 50% at 20% 20%, rgba(200,240,96,0.04) 0%, transparent 60%), radial-gradient(ellipse 60% 40% at 80% 80%, rgba(96,200,240,0.04) 0%, transparent 60%); pointer-events: none; z-index: 0; }
+  .container { max-width: 820px; margin: 0 auto; padding: 48px 24px 80px; position: relative; z-index: 1; }
+  .label { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 10px; }
+  h1 { font-family: 'DM Serif Display', serif; font-size: clamp(28px, 5vw, 42px); line-height: 1.1; margin-bottom: 8px; }
+  .subtitle { font-size: 14px; color: var(--text-muted); font-weight: 300; margin-bottom: 32px; }
+  .track-selector { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+  .track-btn { padding: 8px 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; color: var(--text-muted); font-size: 13px; cursor: pointer; transition: all 0.15s; font-family: 'DM Sans', sans-serif; }
   .track-btn:hover { border-color: var(--accent2); color: var(--accent2); }
   .track-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(200,240,96,0.06); }
 
-  /* Progress */
-  .progress-bar {
-    height: 3px;
-    background: var(--border);
-    border-radius: 2px;
-    margin-bottom: 32px;
-    overflow: hidden;
-  }
+  /* Global controls */
+  .global-controls { display: flex; align-items: center; gap: 16px; padding: 16px 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+  .speed-control { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 200px; }
+  .speed-label { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; }
+  .speed-value { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--accent); min-width: 36px; text-align: right; }
+  input[type="range"] { -webkit-appearance: none; flex: 1; height: 3px; background: var(--border); border-radius: 2px; outline: none; }
+  input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; background: var(--accent); border-radius: 50%; cursor: pointer; }
 
-  .progress-fill {
-    height: 100%;
-    background: var(--accent);
-    border-radius: 2px;
-    transition: width 0.4s ease;
-    width: 0%;
-  }
+  /* Sentence cards */
+  .sentences { display: flex; flex-direction: column; gap: 10px; }
+  .sentence-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; transition: all 0.2s; }
+  .sentence-card.active { border-color: var(--accent2); background: rgba(96,200,240,0.04); }
+  .sentence-card.pass { border-color: rgba(96,240,160,0.3); }
+  .sentence-card.fail { border-color: rgba(240,96,96,0.3); }
 
-  /* Main test card */
-  .test-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 32px;
-    margin-bottom: 16px;
-  }
+  .card-top { display: flex; align-items: center; gap: 12px; }
+  .sentence-num { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-dim); min-width: 24px; }
+  .card-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; flex-shrink: 0; }
 
-  .sentence-counter {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    color: var(--text-muted);
-    margin-bottom: 20px;
-    letter-spacing: 0.1em;
-  }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 7px 14px; border-radius: 8px; border: 1px solid transparent; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+  .btn-play { background: transparent; border-color: var(--border); color: var(--text); }
+  .btn-play:hover { border-color: var(--accent2); color: var(--accent2); }
+  .btn-play.playing { border-color: var(--accent2); color: var(--accent2); background: rgba(96,200,240,0.08); }
+  .btn-record { background: transparent; border-color: var(--border); color: var(--text-muted); padding: 7px 10px; }
+  .btn-record:hover { border-color: var(--danger); color: var(--danger); }
+  .btn-record.recording { border-color: var(--danger); color: var(--danger); background: rgba(240,96,96,0.1); animation: pulse-red 1s infinite; }
+  @keyframes pulse-red { 0%, 100% { box-shadow: 0 0 0 0 rgba(240,96,96,0.3); } 50% { box-shadow: 0 0 0 4px rgba(240,96,96,0); } }
 
-  /* Play button */
-  .play-area {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 28px;
-  }
-
-  .btn-play-main {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 24px;
-    background: transparent;
-    border: 1.5px solid var(--accent2);
-    border-radius: 10px;
-    color: var(--accent2);
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
-    transition: all 0.15s;
-  }
-
-  .btn-play-main:hover { background: rgba(96,200,240,0.08); }
-  .btn-play-main.playing { background: rgba(96,200,240,0.08); }
-
-  .play-hint {
-    font-size: 12px;
-    color: var(--text-muted);
-  }
-
-  /* Record area */
-  .record-area {
-    margin-bottom: 24px;
-  }
-
-  .record-label {
-    font-size: 12px;
-    color: var(--text-muted);
-    margin-bottom: 10px;
-    font-family: 'DM Mono', monospace;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  .btn-record-main {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 24px;
-    background: transparent;
-    border: 1.5px solid var(--border);
-    border-radius: 10px;
-    color: var(--text-muted);
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
-    transition: all 0.15s;
-  }
-
-  .btn-record-main:hover { border-color: var(--danger); color: var(--danger); }
-
-  .btn-record-main.recording {
-    border-color: var(--danger);
-    color: var(--danger);
-    background: rgba(240,96,96,0.08);
-    animation: pulse-red 1s infinite;
-  }
-
-  @keyframes pulse-red {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(240,96,96,0.3); }
-    50% { box-shadow: 0 0 0 6px rgba(240,96,96,0); }
-  }
-
-  .transcript-preview {
-    margin-top: 10px;
-    font-size: 13px;
-    color: var(--text-muted);
-    font-style: italic;
-    min-height: 20px;
-  }
-
-  /* Result */
-  .result-area {
-    border-top: 1px solid var(--border);
-    padding-top: 24px;
-    margin-top: 8px;
-    display: none;
-  }
-
+  /* Result area */
+  .result-area { margin-top: 12px; display: none; padding-top: 12px; border-top: 1px solid var(--border); }
   .result-area.show { display: block; }
+  .score-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+  .score-badge { font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500; padding: 4px 12px; border-radius: 20px; }
+  .score-badge.pass { background: rgba(96,240,160,0.15); color: var(--success); border: 1px solid rgba(96,240,160,0.3); }
+  .score-badge.fail { background: rgba(240,96,96,0.12); color: var(--danger); border: 1px solid rgba(240,96,96,0.3); }
+  .transcript-text { font-size: 12px; color: var(--text-muted); font-style: italic; flex: 1; }
+  .model-answer { margin-top: 8px; display: none; }
+  .model-answer.show { display: block; }
+  .model-answer-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; }
+  .model-answer-text { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+  .btn-toggle-answer { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); background: transparent; border: 1px solid var(--border); border-radius: 6px; padding: 3px 10px; cursor: pointer; transition: all 0.15s; margin-top: 8px; }
+  .btn-toggle-answer:hover { border-color: var(--accent); color: var(--accent); }
 
-  .score-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 16px;
-    flex-wrap: wrap;
-  }
+  /* Submit */
+  .submit-wrap { margin-top: 32px; text-align: right; }
+  .btn-submit { padding: 12px 32px; border-radius: 10px; border: none; background: var(--accent); color: #0e0e0e; font-size: 14px; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+  .btn-submit:hover { opacity: 0.85; }
 
-  .score-big {
-    font-family: 'DM Serif Display', serif;
-    font-size: 36px;
-    line-height: 1;
-  }
+  /* Save modal */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 200; align-items: center; justify-content: center; }
+  .modal-overlay.show { display: flex; }
+  .modal-box { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 32px; width: 340px; max-width: 90vw; }
+  .modal-title { font-family: 'DM Serif Display', serif; font-size: 22px; margin-bottom: 8px; }
+  .modal-desc { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
+  .modal-input { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 11px 14px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 15px; outline: none; margin-bottom: 16px; }
+  .modal-input:focus { border-color: var(--accent); }
+  .modal-btns { display: flex; gap: 8px; justify-content: flex-end; }
+  .btn-cancel { padding: 9px 18px; border-radius: 8px; border: 1px solid var(--border); background: transparent; color: var(--text-muted); font-size: 13px; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+  .btn-save { padding: 9px 22px; border-radius: 8px; border: none; background: var(--accent); color: #0e0e0e; font-size: 13px; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif; }
 
-  .score-big.pass { color: var(--success); }
-  .score-big.fail { color: var(--danger); }
-
-  .score-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    padding: 4px 12px;
-    border-radius: 20px;
-  }
-
-  .score-label.pass {
-    background: rgba(96,240,160,0.12);
-    color: var(--success);
-    border: 1px solid rgba(96,240,160,0.3);
-  }
-
-  .score-label.fail {
-    background: rgba(240,96,96,0.12);
-    color: var(--danger);
-    border: 1px solid rgba(240,96,96,0.3);
-  }
-
-  .feedback-box {
-    background: var(--surface2);
-    border-radius: 8px;
-    padding: 14px 16px;
-    font-size: 13px;
-    color: var(--text-muted);
-    line-height: 1.6;
-    margin-bottom: 16px;
-  }
-
-  .answer-box {
-    background: rgba(200,240,96,0.04);
-    border: 1px solid rgba(200,240,96,0.15);
-    border-radius: 8px;
-    padding: 14px 16px;
-    margin-bottom: 16px;
-  }
-
-  .answer-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    color: var(--accent);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 6px;
-  }
-
-  .answer-text {
-    font-size: 14px;
-    color: var(--text);
-    line-height: 1.5;
-  }
-
-  /* Navigation */
-  .nav-row {
-    display: flex;
-    gap: 10px;
-    justify-content: flex-end;
-  }
-
-  .btn-nav {
-    padding: 10px 20px;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    background: transparent;
-    color: var(--text-muted);
-    font-size: 13px;
-    cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
-    transition: all 0.15s;
-  }
-
-  .btn-nav:hover { border-color: var(--accent2); color: var(--accent2); }
-
-  .btn-next {
-    padding: 10px 24px;
-    border-radius: 8px;
-    border: none;
-    background: var(--accent);
-    color: #0e0e0e;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
-    transition: opacity 0.15s;
-  }
-
-  .btn-next:hover { opacity: 0.85; }
-  .btn-next:disabled { opacity: 0.3; cursor: not-allowed; }
-
-  /* Summary */
-  .summary-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 40px 32px;
-    text-align: center;
-    display: none;
-  }
-
-  .summary-card.show { display: block; }
-
-  .summary-score {
-    font-family: 'DM Serif Display', serif;
-    font-size: 64px;
-    margin-bottom: 8px;
-  }
-
-  .summary-score.great { color: var(--success); }
-  .summary-score.ok { color: var(--warn, #f0c060); }
-  .summary-score.poor { color: var(--danger); }
-
-  .summary-label {
-    font-size: 16px;
-    color: var(--text-muted);
-    margin-bottom: 32px;
-  }
-
-  .btn-restart {
-    padding: 12px 28px;
-    background: var(--accent);
-    color: #0e0e0e;
-    border: none;
-    border-radius: 10px;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
-    margin: 0 6px;
-  }
-
-  .btn-restart:hover { opacity: 0.85; }
-
-  .loading-spinner {
-    display: inline-block;
-    width: 14px;
-    height: 14px;
-    border: 2px solid var(--border);
-    border-top-color: var(--accent);
-    border-radius: 50%;
-    animation: spin 0.7s linear infinite;
-    margin-right: 6px;
-    vertical-align: middle;
-  }
-
-  @keyframes spin { to { transform: rotate(360deg); } }
-
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: transparent; } ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 </style>
 </head>
 <body>
 <div class="container">
-
   <header>
-    <div style="margin-bottom:16px">
-      <a href="index.html" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;">← Back</a>
-    </div>
+    <div style="margin-bottom:16px"><a href="index.html" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;">← Back</a></div>
     <div class="label">🎧 Listening Test</div>
     <h1 id="pageTitle"></h1>
     <p class="subtitle">음원을 듣고 한국어로 직역하세요</p>
   </header>
 
-  <!-- Track selector -->
   <div class="track-selector" id="trackSelector"></div>
 
-  <!-- Progress -->
-  <div class="progress-bar">
-    <div class="progress-fill" id="progressFill"></div>
-  </div>
-
-  <!-- Test card -->
-  <div class="test-card" id="testCard">
-    <div class="sentence-counter" id="sentenceCounter">문장 1 / 20</div>
-
-    <div class="play-area">
-      <button class="btn-play-main" id="playBtn" onclick="playCurrent()">▶ 듣기</button>
-      <span class="play-hint" id="playHint">문장을 들어보세요</span>
-    </div>
-
-    <div class="record-area">
-      <div class="record-label">한국어로 번역 녹음</div>
-      <button class="btn-record-main" id="recBtn" onclick="toggleRecord()">⏺ 녹음 시작</button>
-      <div class="transcript-preview" id="transcriptPreview"></div>
-    </div>
-
-    <div class="result-area" id="resultArea">
-      <div class="score-row">
-        <div class="score-big" id="scoreBig"></div>
-        <div class="score-label" id="scoreLabel"></div>
-      </div>
-      <div class="feedback-box" id="feedbackBox"></div>
-      <div class="answer-box" id="answerBox" style="display:none">
-        <div class="answer-label">모범 번역</div>
-        <div class="answer-text" id="answerText"></div>
-      </div>
-      <div class="nav-row">
-        <button class="btn-nav" onclick="toggleAnswer()">모범 번역 보기</button>
-        <button class="btn-nav" onclick="prevSentence()">← 이전</button>
-        <button class="btn-next" id="nextBtn" onclick="nextSentence()">다음 →</button>
-      </div>
+  <div class="global-controls">
+    <div class="speed-control">
+      <span class="speed-label">Speed</span>
+      <input type="range" id="speedSlider" min="0.5" max="1.5" step="0.05" value="1.0">
+      <span class="speed-value" id="speedVal">1.0×</span>
     </div>
   </div>
 
-  <!-- Summary -->
-  <div class="summary-card" id="summaryCard">
-    <div class="summary-score" id="summaryScore"></div>
-    <div class="summary-label" id="summaryLabel"></div>
-    <br>
-    <button class="btn-restart" onclick="restartTest()">다시 시작</button>
-    <button class="btn-restart" onclick="location.href='index.html'" style="background:var(--surface);color:var(--text);border:1px solid var(--border)">홈으로</button>
-  </div>
+  <div class="sentences" id="sentenceList"></div>
 
-  <!-- Submit button -->
-  <div id="submitWrap" style="margin-top:32px;text-align:right;">
-    <button onclick="openSaveModal()" style="padding:12px 32px;border-radius:10px;border:none;background:var(--accent);color:#0e0e0e;font-size:14px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;">Submit</button>
+  <div class="submit-wrap">
+    <button class="btn-submit" onclick="openSaveModal()">Submit</button>
   </div>
+</div>
 
-  <!-- Save modal -->
-  <div id="saveModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:200;align-items:center;justify-content:center;">
-    <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:32px;width:340px;max-width:90vw;">
-      <div style="font-family:'DM Serif Display',serif;font-size:22px;margin-bottom:8px">기록 저장</div>
-      <p style="font-size:13px;color:var(--text-muted);margin-bottom:20px">이름을 입력하면 학습 기록이 저장돼요</p>
-      <input type="text" id="saveName" placeholder="이름 입력..." style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:11px 14px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;outline:none;margin-bottom:16px;">
-      <div style="display:flex;gap:8px;justify-content:flex-end;">
-        <button onclick="closeSaveModal()" style="padding:9px 18px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text-muted);font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;">취소</button>
-        <button onclick="saveRecord()" style="padding:9px 22px;border-radius:8px;border:none;background:var(--accent);color:#0e0e0e;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;">저장</button>
-      </div>
+<!-- Save modal -->
+<div class="modal-overlay" id="saveModal">
+  <div class="modal-box">
+    <div class="modal-title">기록 저장</div>
+    <p class="modal-desc">이름을 입력하면 학습 기록이 저장돼요</p>
+    <input type="text" class="modal-input" id="saveName" placeholder="이름 입력...">
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closeSaveModal()">취소</button>
+      <button class="btn-save" onclick="saveRecord()">저장</button>
     </div>
   </div>
-
 </div>
 
 <audio id="mainAudio" style="display:none"></audio>
 
 <script>
-// =====================
-// CONFIG — API 키 여기에 직접 입력하거나 아래 입력창 사용
-// =====================
-const HARDCODED_API_KEY = ''; // 예: 'sk-ant-api03-...'
-
-// State
 let currentTrack = null;
-let currentIndex = 0;
 let scores = [];
-let isRecording = false;
-let mediaRecorder = null;
 let sharedStream = null;
-let sttRecognition = null;
-let finalTranscript = '';
-let showingAnswer = false;
+let isRecording = {};
+let mediaRecorders = {};
+let sttRecognitions = {};
+let finalTranscripts = {};
+let currentPlaying = null;
 
 const audio = document.getElementById('mainAudio');
+const speedSlider = document.getElementById('speedSlider');
+const speedVal = document.getElementById('speedVal');
 
-// =====================
-// API Key
-// =====================
-function getApiKey() {
-  return HARDCODED_API_KEY || localStorage.getItem('claude_api_key') || '';
-}
-
-function saveApiKey() {
-  const key = document.getElementById('apiKeyInput').value.trim();
-  if (!key) return;
-  localStorage.setItem('claude_api_key', key);
-  document.getElementById('apiSaved').style.display = 'block';
-  document.getElementById('apiKeyInput').value = '';
-  setTimeout(() => {
-    document.getElementById('apiSetup').style.display = 'none';
-  }, 1000);
-}
-
-function checkApiKey() {
-  const key = getApiKey();
-  if (key) {
-    document.getElementById('apiSetup').style.display = 'none';
-  }
-}
-
-// =====================
 // Track selector
-// =====================
 function renderTrackSelector() {
   const el = document.getElementById('trackSelector');
-  if (TRACKS.length <= 1) { el.style.display = 'none'; }
+  if (TRACKS.length <= 1) el.style.display = 'none';
   const params = new URLSearchParams(window.location.search);
   const trackId = parseInt(params.get('id')) || 1;
-  const initialIndex = TRACKS.findIndex(t => t.id === trackId) || 0;
+  const initialIndex = Math.max(0, TRACKS.findIndex(t => t.id === trackId));
   TRACKS.forEach((t, i) => {
     const btn = document.createElement('button');
     btn.className = 'track-btn' + (i === initialIndex ? ' active' : '');
@@ -603,278 +163,197 @@ function selectTrack(i, btn) {
   document.querySelectorAll('.track-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   currentTrack = TRACKS[i];
-  document.getElementById('pageTitle').textContent = currentTrack.title;
   audio.src = currentTrack.file;
-  currentIndex = 0;
+  document.getElementById('pageTitle').textContent = currentTrack.title;
   scores = [];
-  showSentence();
+  renderSentences();
 }
 
-// =====================
-// Sentence display
-// =====================
-function showSentence() {
-  const s = currentTrack.sentences;
-  if (currentIndex >= s.length) { showSummary(); return; }
+speedSlider.addEventListener('input', () => {
+  audio.playbackRate = parseFloat(speedSlider.value);
+  speedVal.textContent = parseFloat(speedSlider.value).toFixed(2).replace(/\.?0+$/, '') + '×';
+});
 
-  document.getElementById('sentenceCounter').textContent = `문장 ${currentIndex + 1} / ${s.length}`;
-  document.getElementById('progressFill').style.width = `${(currentIndex / s.length) * 100}%`;
-  document.getElementById('playHint').textContent = '문장을 들어보세요';
-  document.getElementById('playBtn').textContent = '▶ 듣기';
-  document.getElementById('playBtn').classList.remove('playing');
-  document.getElementById('recBtn').textContent = '⏺ 녹음 시작';
-  document.getElementById('recBtn').classList.remove('recording');
-  document.getElementById('transcriptPreview').textContent = '';
-  document.getElementById('resultArea').classList.remove('show');
-  document.getElementById('answerBox').style.display = 'none';
-  document.getElementById('testCard').style.display = 'block';
-  document.getElementById('summaryCard').classList.remove('show');
-  showingAnswer = false;
-  finalTranscript = '';
+// Render sentences
+function renderSentences() {
+  const list = document.getElementById('sentenceList');
+  list.innerHTML = '';
+  currentTrack.sentences.forEach((s, i) => {
+    const card = document.createElement('div');
+    card.className = 'sentence-card';
+    card.id = `card-${i}`;
+    card.innerHTML = `
+      <div class="card-top">
+        <span class="sentence-num">${String(i+1).padStart(2,'0')}</span>
+        <div class="card-actions">
+          <button class="btn btn-play" id="play-${i}" onclick="playSegment(${i})">▶ 듣기</button>
+          <button class="btn btn-record" id="rec-${i}" onclick="toggleRecord(${i})">⏺</button>
+        </div>
+      </div>
+      <div class="result-area" id="result-${i}">
+        <div class="score-row">
+          <span class="score-badge" id="badge-${i}"></span>
+          <span class="transcript-text" id="transcript-${i}"></span>
+        </div>
+        <button class="btn-toggle-answer" onclick="toggleAnswer(${i})">모범 번역 보기</button>
+        <div class="model-answer" id="model-${i}">
+          <div class="model-answer-label">모범 번역</div>
+          <div class="model-answer-text" id="model-text-${i}"></div>
+        </div>
+      </div>`;
+    list.appendChild(card);
+  });
 }
 
-// =====================
-// Audio playback
-// =====================
-function playCurrent() {
-  const s = currentTrack.sentences[currentIndex];
-  const btn = document.getElementById('playBtn');
-
-  if (!audio.paused && audio.currentTime >= s.start && audio.currentTime < s.end) {
-    audio.pause();
-    btn.textContent = '▶ 듣기';
-    btn.classList.remove('playing');
-    return;
+// Play
+function playSegment(i) {
+  const s = currentTrack.sentences[i];
+  const btn = document.getElementById(`play-${i}`);
+  if (currentPlaying === i && !audio.paused) {
+    audio.pause(); btn.textContent = '▶ 듣기'; btn.classList.remove('playing');
+    currentPlaying = null; return;
   }
-
+  if (currentPlaying !== null) {
+    const prev = document.getElementById(`play-${currentPlaying}`);
+    if (prev) { prev.textContent = '▶ 듣기'; prev.classList.remove('playing'); }
+    document.getElementById(`card-${currentPlaying}`)?.classList.remove('active');
+  }
+  currentPlaying = i;
+  audio.playbackRate = parseFloat(speedSlider.value);
   audio.currentTime = s.start;
-  audio.playbackRate = 1.0;
   audio.play();
-  btn.textContent = '⏸ 정지';
-  btn.classList.add('playing');
-  document.getElementById('playHint').textContent = '재생 중...';
-
+  btn.textContent = '⏸ 정지'; btn.classList.add('playing');
+  document.getElementById(`card-${i}`).classList.add('active');
   audio.ontimeupdate = () => {
     if (audio.currentTime >= s.end) {
-      audio.pause();
-      btn.textContent = '▶ 다시 듣기';
-      btn.classList.remove('playing');
-      document.getElementById('playHint').textContent = '이제 번역을 녹음해보세요';
-      audio.ontimeupdate = null;
+      audio.pause(); btn.textContent = '▶ 다시 듣기'; btn.classList.remove('playing');
+      document.getElementById(`card-${i}`).classList.remove('active');
+      audio.ontimeupdate = null; currentPlaying = null;
     }
   };
 }
 
-// =====================
-// Recording + STT
-// =====================
+// Record + STT
 async function getStream() {
   if (sharedStream && sharedStream.active) return sharedStream;
   sharedStream = await navigator.mediaDevices.getUserMedia({ audio: true });
   return sharedStream;
 }
 
-async function toggleRecord() {
-  const btn = document.getElementById('recBtn');
-
-  if (isRecording) {
-    mediaRecorder?.stop();
-    sttRecognition?.stop();
-    isRecording = false;
-    btn.textContent = '⏺ 다시 녹음';
-    btn.classList.remove('recording');
+async function toggleRecord(i) {
+  const btn = document.getElementById(`rec-${i}`);
+  if (isRecording[i]) {
+    mediaRecorders[i]?.stop();
+    try { sttRecognitions[i]?.stop(); } catch(e) {}
+    isRecording[i] = false; btn.classList.remove('recording'); btn.textContent = '⏺';
     return;
   }
-
   if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-    alert('Chrome 또는 Edge 브라우저를 사용해주세요.');
-    return;
+    alert('Chrome 또는 Edge를 사용해주세요.'); return;
   }
-
   try {
     const stream = await getStream();
-    const chunks = [];
-    mediaRecorder = new MediaRecorder(stream);
-    isRecording = true;
-    finalTranscript = '';
-    btn.textContent = '⏹ 녹음 중지';
-    btn.classList.add('recording');
-    document.getElementById('transcriptPreview').textContent = '🎙 듣는 중...';
-    document.getElementById('resultArea').classList.remove('show');
+    const mr = new MediaRecorder(stream);
+    mediaRecorders[i] = mr;
+    isRecording[i] = true;
+    btn.classList.add('recording'); btn.textContent = '⏹';
+    finalTranscripts[i] = '';
 
-    // STT (Korean)
+    const badge = document.getElementById(`badge-${i}`);
+    const transcript = document.getElementById(`transcript-${i}`);
+    const resultArea = document.getElementById(`result-${i}`);
+    resultArea.classList.add('show');
+    badge.className = 'score-badge'; badge.textContent = '🎙 듣는 중...';
+    transcript.textContent = '';
+
     const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-    sttRecognition = new SR();
-    sttRecognition.lang = 'ko-KR';
-    sttRecognition.continuous = true;
-    sttRecognition.interimResults = true;
+    const recognition = new SR();
+    recognition.lang = 'ko-KR'; recognition.continuous = true; recognition.interimResults = true;
+    sttRecognitions[i] = recognition;
 
-    sttRecognition.onresult = (e) => {
-      let interim = '';
-      finalTranscript = '';
+    recognition.onresult = (e) => {
+      let interim = ''; finalTranscripts[i] = '';
       for (const r of e.results) {
-        if (r.isFinal) finalTranscript += r[0].transcript;
+        if (r.isFinal) finalTranscripts[i] += r[0].transcript;
         else interim += r[0].transcript;
       }
-      document.getElementById('transcriptPreview').textContent = `"${(finalTranscript || interim).trim()}"`;
+      transcript.textContent = `"${(finalTranscripts[i] || interim).trim()}"`;
     };
 
-    sttRecognition.onend = () => {
-      if (finalTranscript.trim()) {
-        gradeWithClaude(finalTranscript.trim());
-      }
+    recognition.onend = () => {
+      if (finalTranscripts[i]?.trim()) gradeWithClaude(i, finalTranscripts[i].trim());
     };
 
-    sttRecognition.start();
+    recognition.start();
+    mr.ondataavailable = () => {};
+    mr.onstop = () => { setTimeout(() => { try { recognition.stop(); } catch(e) {} }, 400); };
+    mr.start();
 
-    mediaRecorder.ondataavailable = e => chunks.push(e.data);
-    mediaRecorder.onstop = () => {
-      setTimeout(() => { try { sttRecognition.stop(); } catch(e) {} }, 400);
-    };
-    mediaRecorder.start();
-
-    // Auto-stop after 15s
+    const duration = (currentTrack.sentences[i].end - currentTrack.sentences[i].start) * 1000 + 10000;
     setTimeout(() => {
-      if (isRecording) {
-        mediaRecorder.stop();
-        isRecording = false;
-        btn.textContent = '⏺ 다시 녹음';
-        btn.classList.remove('recording');
-      }
-    }, 15000);
-
-  } catch(e) {
-    alert('마이크 접근이 거부됐어요. 브라우저에서 마이크를 허용해주세요.');
-  }
+      if (isRecording[i]) { mr.stop(); isRecording[i] = false; btn.classList.remove('recording'); btn.textContent = '⏺'; }
+    }, duration);
+  } catch(e) { alert('마이크 접근이 거부됐어요.'); }
 }
 
-// =====================
-// Claude API grading
-// =====================
-async function gradeWithClaude(userTranslation) {
-  const sentence = currentTrack.sentences[currentIndex];
-  const original = sentence.text;
-
-  document.getElementById('feedbackBox').innerHTML = '<span class="loading-spinner"></span> AI가 채점 중...';
-  document.getElementById('scoreBig').textContent = '';
-  document.getElementById('scoreLabel').textContent = '';
-  document.getElementById('resultArea').classList.add('show');
-
-  const prompt = `당신은 영어 직역 테스트 채점관입니다.
-
-원문 (영어): "${original}"
-학습자 번역 (한국어): "${userTranslation}"
-
-다음 기준으로 채점해주세요:
-1. 핵심 의미가 전달됐는가 (가장 중요)
-2. 중요한 단어나 내용이 빠지지 않았는가
-3. 순서나 표현이 다소 달라도 의미가 맞으면 OK
-
-반드시 아래 JSON 형식으로만 답하세요 (다른 텍스트 없이):
-{
-  "score": 85,
-  "pass": true,
-  "feedback": "핵심 의미를 잘 전달했습니다. '놀라운 변화'를 잘 표현했어요.",
-  "model_answer": "사진술은 지난 두 세기에 걸쳐 창작, 공유, 이해 방식에서 놀라운 변화를 겪어왔습니다."
-}`;
+// Claude grading
+async function gradeWithClaude(i, userTranslation) {
+  const badge = document.getElementById(`badge-${i}`);
+  const modelTextEl = document.getElementById(`model-text-${i}`);
+  badge.textContent = '⏳ 채점 중...'; badge.className = 'score-badge';
 
   try {
     const res = await fetch('/api/grade', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ original, userTranslation })
+      body: JSON.stringify({ original: currentTrack.sentences[i].text, userTranslation })
     });
-
     const result = await res.json();
+    if (!res.ok) { badge.textContent = '오류'; return; }
 
-    if (!res.ok) {
-      document.getElementById('feedbackBox').textContent = '채점 중 오류가 발생했어요: ' + (result.error || '');
-      return;
-    }
+    const pct = result.score;
+    const pass = result.pass;
+    badge.textContent = pass ? `✓ PASS  ${pct}점` : `✗ RETRY  ${pct}점`;
+    badge.className = `score-badge ${pass ? 'pass' : 'fail'}`;
 
-    showResult(result);
-    scores.push(result.score);
+    const card = document.getElementById(`card-${i}`);
+    card.classList.remove('pass', 'fail');
+    card.classList.add(pass ? 'pass' : 'fail');
 
+    if (result.model_answer) modelTextEl.innerHTML = result.model_answer.replace(/\n/g, '<br>');
+    scores[i] = pct;
   } catch(e) {
-    document.getElementById('feedbackBox').textContent = '채점 중 오류가 발생했어요. API 키를 확인해주세요.';
-    console.error(e);
+    badge.textContent = '채점 오류'; badge.className = 'score-badge';
   }
 }
 
-function showResult(result) {
-  const pct = result.score;
-  const pass = result.pass;
-
-  document.getElementById('scoreBig').textContent = `${pct}점`;
-  document.getElementById('scoreBig').className = `score-big ${pass ? 'pass' : 'fail'}`;
-  document.getElementById('scoreLabel').textContent = pass ? '✓ PASS' : '✗ RETRY';
-  document.getElementById('scoreLabel').className = `score-label ${pass ? 'pass' : 'fail'}`;
-  document.getElementById('feedbackBox').textContent = result.feedback;
-  document.getElementById('answerText').innerHTML = result.model_answer.replace(/\n/g, '<br>');
+function toggleAnswer(i) {
+  const el = document.getElementById(`model-${i}`);
+  const btn = el.previousElementSibling;
+  const showing = el.classList.toggle('show');
+  btn.textContent = showing ? '모범 번역 숨기기' : '모범 번역 보기';
 }
 
-function toggleAnswer() {
-  const box = document.getElementById('answerBox');
-  showingAnswer = !showingAnswer;
-  box.style.display = showingAnswer ? 'block' : 'none';
-  document.querySelector('.btn-nav').textContent = showingAnswer ? '모범 번역 숨기기' : '모범 번역 보기';
-}
-
-// =====================
-// Navigation
-// =====================
-function prevSentence() {
-  if (currentIndex > 0) {
-    currentIndex--;
-    showSentence();
-  }
-}
-
-function nextSentence() {
-  currentIndex++;
-  showSentence();
-}
-
-function showSummary() {
-  const avg = scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : 0;
-  document.getElementById('testCard').style.display = 'none';
-  document.getElementById('summaryCard').classList.add('show');
-  document.getElementById('summaryScore').textContent = `${avg}점`;
-  document.getElementById('summaryScore').className = `summary-score ${avg >= 80 ? 'great' : avg >= 60 ? 'ok' : 'poor'}`;
-  document.getElementById('summaryLabel').textContent =
-    avg >= 80 ? '훌륭해요! 🎉' :
-    avg >= 60 ? '잘 하고 있어요! 조금만 더 연습하면 돼요 💪' :
-    '더 연습이 필요해요. 파이팅! 🔥';
-  document.getElementById('progressFill').style.width = '100%';
-}
-
-function restartTest() {
-  currentIndex = 0;
-  scores = [];
-  showSentence();
-}
-
-// =====================
-// Init
-// =====================
+// Save
 function openSaveModal() {
-  document.getElementById('saveModal').style.display = 'flex';
+  document.getElementById('saveModal').classList.add('show');
   document.getElementById('saveName').focus();
 }
 
 function closeSaveModal() {
-  document.getElementById('saveModal').style.display = 'none';
+  document.getElementById('saveModal').classList.remove('show');
 }
 
 document.addEventListener('keydown', e => {
-  if (e.key === 'Enter' && document.getElementById('saveModal').style.display === 'flex') saveRecord();
+  if (e.key === 'Enter' && document.getElementById('saveModal').classList.contains('show')) saveRecord();
 });
 
 async function saveRecord() {
   const name = document.getElementById('saveName').value.trim();
   if (!name) { document.getElementById('saveName').focus(); return; }
-  const avg = scores.length ? Math.round(scores.reduce((a,b) => a+b, 0) / scores.length) : null;
-  const progress = `${scores.length}/${currentTrack.sentences.length}문장`;
+  const validScores = scores.filter(s => s != null);
+  const avg = validScores.length ? Math.round(validScores.reduce((a,b) => a+b, 0) / validScores.length) : null;
+  const progress = `${validScores.length}/${currentTrack.sentences.length}문장`;
   try {
     await fetch('/api/records', {
       method: 'POST',
@@ -886,10 +365,7 @@ async function saveRecord() {
   } catch(e) { alert('저장 중 오류가 발생했어요.'); }
 }
 
-window.addEventListener('DOMContentLoaded', () => {
-  checkApiKey();
-  renderTrackSelector();
-});
+window.addEventListener('DOMContentLoaded', () => { renderTrackSelector(); });
 </script>
 </body>
 </html>
