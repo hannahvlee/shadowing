@@ -130,7 +130,7 @@ const TRACKS = [
     file: "9_2_1_Impressionism.mp3",
     sentences: [
       { start: 0.00, end: 5.21, text: "Impressionism is a painting style that began in France in the late 19th century." },
-      { start: 5.21, end: 9.20, text: "It challenged traditional painting techniques and subject matter." },
+      { start: 5.21, end: 9.00, text: "It challenged traditional painting techniques and subject matter." },
       { start: 9.20, end: 16.80, text: "Artists like Claude Monet, Edgar Degas, and Pierre-Auguste Renoir sought to capture the fleeting effects of light and color." },
       { start: 17.00, end: 21.80, text: "Emphasizing the momentary impressions of a scene rather than its detailed realism." },
       { start: 22.00, end: 26.80, text: "They often painted outdoors to better observe and depict natural light." },
@@ -138,7 +138,7 @@ const TRACKS = [
       { start: 34.10, end: 40.80, text: "Initially, Impressionism faced harsh criticism and was rejected by the established art community." },
       { start: 41.00, end: 45.80, text: "However, it eventually gained recognition and profoundly influenced modern art." },
       { start: 46.00, end: 50.00, text: "Paving the way for movements like post-impressionism and modernism." },
-      { start: 50.00, end: 54.80, text: "The emphasis on perception and experience, rather than meticulous detail," },
+      { start: 50.00, end: 54.70, text: "The emphasis on perception and experience, rather than meticulous detail," },
       { start: 55.00, end: 58.00, text: "encouraged artists to experiment with form and color." },
       { start: 58.00, end: 64.00, text: "Today, Impressionist works are celebrated for their innovative approach and emotional depth," },
       { start: 64.00, end: 67.30, text: "attracting millions of visitors to museums worldwide." },
