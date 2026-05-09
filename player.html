@@ -461,9 +461,9 @@
 
   <header>
     <div style="margin-bottom:16px"><a href="index.html" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;">← Back</a></div>
-    <div class="label">🎙 Shadowing Practice</div>
-    <h1 id="pageTitle">Listen. Speak. <em>Repeat.</em></h1>
-    <p class="subtitle" id="pageSubtitle">Practice sentence by sentence</p>
+    <div class="label">🎙 쉐도잉</div>
+    <h1 id="pageTitle"></h1>
+    <p class="subtitle">음원을 듣고 따라 말하세요</p>
   </header>
 
   <!-- Global controls -->
@@ -508,7 +508,7 @@ const blurToggle = document.getElementById('blurToggle');
 const toggleSwitch = document.getElementById('toggleSwitch');
 
 // Set page title
-document.getElementById('pageTitle').innerHTML = track.title + ' <em style="color:var(--accent2);font-style:italic;">→</em>';
+document.getElementById('pageTitle').textContent = track.title;
 
 
 let currentPlaying = null;

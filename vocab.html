@@ -89,7 +89,7 @@
   <header>
     <div style="margin-bottom:16px"><a href="index.html" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;">← Back</a></div>
     <div class="label">📝 Vocabulary Quiz</div>
-    <h1>핵심 <em>어휘 퀴즈</em></h1>
+    <h1 id="pageTitle3"></h1>
     <p class="subtitle">한국어 뜻을 보고 영어 단어/구문을 입력하세요</p>
   </header>
 
@@ -240,6 +240,8 @@ function selectTrack(i, btn) {
   document.querySelectorAll('.track-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   currentTrack = TRACKS[i];
+  const titleEl3 = document.getElementById('pageTitle3');
+  if (titleEl3) titleEl3.textContent = currentTrack.title;
   const vocab = currentTrack.vocab || [];
   wordItems = vocab.filter(v => v.en.split(' ').length <= 2 && !v.en.includes('~') && !v.en.includes('A'));
   phraseItems = vocab.filter(v => !wordItems.includes(v));

@@ -88,7 +88,7 @@
   <header>
     <div style="margin-bottom:16px"><a href="index.html" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;">← Back</a></div>
     <div class="label">✏️ Dictation</div>
-    <h1>듣고 <em>받아쓰기</em></h1>
+    <h1 id="pageTitle2"></h1>
     <p class="subtitle">문장을 5번 듣고 들린 내용을 영어로 받아쓰세요</p>
   </header>
   <div class="track-selector" id="trackSelector"></div>
@@ -177,6 +177,8 @@ function selectTrack(i, btn) {
   document.querySelectorAll('.track-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   currentTrack = TRACKS[i];
+  const titleEl = document.getElementById('pageTitle2');
+  if (titleEl) titleEl.textContent = currentTrack.title;
   audio.src = currentTrack.file;
   currentIndex = 0;
   scores = [];
@@ -229,7 +231,7 @@ function playSegment() {
       updateDots();
       if (repeatCount < MAX_REPEATS) {
         document.getElementById('repeatStatus').innerHTML = `<strong>${repeatCount}</strong>번 완료 — 잠시 후 다시 재생...`;
-        autoRepeatTimer = setTimeout(playSegment, 1200);
+        autoRepeatTimer = setTimeout(playSegment, 3000);
       } else {
         document.getElementById('repeatStatus').innerHTML = `5번 완료! 이제 받아쓰기 해보세요 ✏️`;
       }
@@ -240,7 +242,7 @@ function playSegment() {
 function startAutoRepeat() {
   if (autoRepeatTimer) { clearTimeout(autoRepeatTimer); autoRepeatTimer = null; }
   document.getElementById('repeatStatus').textContent = '재생 준비 중...';
-  autoRepeatTimer = setTimeout(playSegment, 500);
+  autoRepeatTimer = setTimeout(playSegment, 3000);
 }
 
 function listenAgain() {
