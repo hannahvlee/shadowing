@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>학습 기록</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e0e0e; --surface: #1a1a1a; --surface2: #242424; --border: #2e2e2e;
+    --accent: #c8f060; --accent2: #60c8f0; --text: #f0ede8; --text-muted: #6e6e6e;
+    --text-dim: #3e3e3e; --danger: #f06060; --success: #60f0a0; --warn: #f0c060;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; }
+  body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(ellipse 80% 50% at 20% 20%, rgba(200,240,96,0.04) 0%, transparent 60%), radial-gradient(ellipse 60% 40% at 80% 80%, rgba(96,200,240,0.04) 0%, transparent 60%); pointer-events: none; z-index: 0; }
+  .container { max-width: 1000px; margin: 0 auto; padding: 48px 24px 80px; position: relative; z-index: 1; }
+  .label { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 10px; }
+  h1 { font-family: 'DM Serif Display', serif; font-size: clamp(28px, 5vw, 42px); line-height: 1.1; margin-bottom: 8px; }
+  h1 em { font-style: italic; color: var(--accent); }
+  .subtitle { font-size: 14px; color: var(--text-muted); font-weight: 300; margin-bottom: 32px; }
+
+  /* Filter */
+  .filter-row { display: flex; gap: 10px; margin-bottom: 24px; flex-wrap: wrap; align-items: center; }
+  .filter-input { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 8px 14px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 13px; outline: none; transition: border-color 0.2s; }
+  .filter-input:focus { border-color: var(--accent); }
+  .filter-select { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 8px 14px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 13px; outline: none; cursor: pointer; }
+  .record-count { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); margin-left: auto; }
+
+  /* Table */
+  .table-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  table { width: 100%; border-collapse: collapse; }
+  thead tr { background: var(--surface2); border-bottom: 1px solid var(--border); }
+  th { padding: 12px 16px; text-align: left; font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; }
+  tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: rgba(255,255,255,0.02); }
+  td { padding: 14px 16px; font-size: 13px; }
+  .td-name { font-weight: 500; color: var(--text); }
+  .td-track { color: var(--text-muted); }
+  .td-mode { }
+  .mode-badge { display: inline-block; font-family: 'DM Mono', monospace; font-size: 10px; padding: 3px 8px; border-radius: 6px; }
+  .mode-shadowing { background: rgba(200,240,96,0.1); color: var(--accent); border: 1px solid rgba(200,240,96,0.2); }
+  .mode-listening { background: rgba(96,200,240,0.1); color: var(--accent2); border: 1px solid rgba(96,200,240,0.2); }
+  .mode-dictation { background: rgba(240,192,96,0.1); color: var(--warn); border: 1px solid rgba(240,192,96,0.2); }
+  .td-score { font-family: 'DM Mono', monospace; font-weight: 500; }
+  .score-great { color: var(--success); }
+  .score-ok { color: var(--warn); }
+  .score-poor { color: var(--danger); }
+  .td-date { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); }
+
+  /* Empty state */
+  .empty { text-align: center; padding: 60px 20px; color: var(--text-muted); }
+  .empty .icon { font-size: 40px; margin-bottom: 12px; }
+  .empty p { font-size: 14px; }
+
+  /* Loading */
+  .loading { text-align: center; padding: 40px; color: var(--text-muted); font-family: 'DM Mono', monospace; font-size: 12px; }
+
+  ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: transparent; } ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div style="margin-bottom:16px"><a href="index.html" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;">← Back</a></div>
+    <div class="label">📊 History</div>
+    <h1>학습 <em>기록</em></h1>
+    <p class="subtitle">모든 학습 기록을 확인하세요</p>
+  </header>
+
+  <div class="filter-row">
+    <input type="text" class="filter-input" id="nameFilter" placeholder="이름으로 검색..." oninput="renderTable()">
+    <select class="filter-select" id="modeFilter" onchange="renderTable()">
+      <option value="">전체 모드</option>
+      <option value="쉐도잉">쉐도잉</option>
+      <option value="청취테스트">청취테스트</option>
+      <option value="딕테이션">딕테이션</option>
+    </select>
+    <select class="filter-select" id="trackFilter" onchange="renderTable()">
+      <option value="">전체 트랙</option>
+    </select>
+    <span class="record-count" id="recordCount"></span>
+  </div>
+
+  <div class="table-wrap">
+    <div class="loading" id="loading">기록 불러오는 중...</div>
+    <table id="recordTable" style="display:none">
+      <thead>
+        <tr>
+          <th>이름</th>
+          <th>트랙</th>
+          <th>모드</th>
+          <th>점수</th>
+          <th>날짜</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+    <div class="empty" id="emptyState" style="display:none">
+      <div class="icon">📭</div>
+      <p>아직 기록이 없어요</p>
+    </div>
+  </div>
+</div>
+
+<script>
+let allRecords = [];
+
+async function loadRecords() {
+  try {
+    const res = await fetch('/api/records');
+    const data = await res.json();
+    allRecords = data.records || [];
+
+    // Populate track filter
+    const tracks = [...new Set(allRecords.map(r => r.track))];
+    const trackFilter = document.getElementById('trackFilter');
+    tracks.forEach(t => {
+      const opt = document.createElement('option');
+      opt.value = t; opt.textContent = t;
+      trackFilter.appendChild(opt);
+    });
+
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('recordTable').style.display = 'table';
+    renderTable();
+  } catch(e) {
+    document.getElementById('loading').textContent = '기록을 불러오지 못했어요.';
+  }
+}
+
+function formatDate(iso) {
+  const d = new Date(iso);
+  return `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+}
+
+function renderTable() {
+  const nameQ = document.getElementById('nameFilter').value.toLowerCase();
+  const modeQ = document.getElementById('modeFilter').value;
+  const trackQ = document.getElementById('trackFilter').value;
+
+  const filtered = allRecords.filter(r =>
+    (!nameQ || r.name.toLowerCase().includes(nameQ)) &&
+    (!modeQ || r.mode === modeQ) &&
+    (!trackQ || r.track === trackQ)
+  );
+
+  document.getElementById('recordCount').textContent = `${filtered.length}개`;
+
+  const tbody = document.getElementById('tableBody');
+  tbody.innerHTML = '';
+
+  if (filtered.length === 0) {
+    document.getElementById('recordTable').style.display = 'none';
+    document.getElementById('emptyState').style.display = 'block';
+    return;
+  }
+
+  document.getElementById('recordTable').style.display = 'table';
+  document.getElementById('emptyState').style.display = 'none';
+
+  filtered.forEach(r => {
+    const tr = document.createElement('tr');
+    const scoreClass = r.score >= 80 ? 'score-great' : r.score >= 60 ? 'score-ok' : 'score-poor';
+    const modeClass = r.mode === '쉐도잉' ? 'mode-shadowing' : r.mode === '청취테스트' ? 'mode-listening' : 'mode-dictation';
+    tr.innerHTML = `
+      <td class="td-name">${r.name}</td>
+      <td class="td-track">${r.track}</td>
+      <td><span class="mode-badge ${modeClass}">${r.mode}</span></td>
+      <td class="td-score ${scoreClass}">${r.score != null ? r.score + '점' : '-'}</td>
+      <td class="td-date">${formatDate(r.date)}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+window.addEventListener('DOMContentLoaded', loadRecords);
+</script>
+</body>
+</html>
