@@ -678,8 +678,9 @@ async function saveRecord() {
   if (!name) { document.getElementById('saveName').focus(); return; }
 
   const avg = sessionScores.length
-    ? Math.round(sessionScores.reduce((a,b) => a+b, 0) / SENTENCES.length)
+    ? Math.round(sessionScores.reduce((a,b) => a+b, 0) / sessionScores.length)
     : null;
+  const progress = `${sessionScores.length}/${SENTENCES.length}문장`;
 
   try {
     await fetch('/api/records', {
@@ -690,6 +691,7 @@ async function saveRecord() {
         track: track.title,
         mode: '쉐도잉',
         score: avg,
+        progress,
         details: sessionScores
       })
     });
