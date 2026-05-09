@@ -2,7 +2,7 @@ const TRACKS = [
   {
     id: 1,
     title: "Photography",
-    file: "9_1_Photography.m4a",
+    file: "9_1_Photography.mp3",
     sentences: [
       { start: 0.00, end: 2.20, text: "Over its two centuries of existence," },
       { start: 2.20, end: 8.00, text: "photography has undergone remarkable changes in how it's created, shared, and understood." },
@@ -64,7 +64,7 @@ const TRACKS = [
   {
     id: 2,
     title: "Social Capital",
-    file: "9_2_1_Social_Capital.m4a",
+    file: "9_2_1_Social_Capital.mp3",
     sentences: [
       { start: 0.00, end: 3.60, text: "Social capital refers to the networks of relationships" },
       { start: 3.65, end: 7.30, text: "among people who live and work in a particular society." },
@@ -126,7 +126,7 @@ const TRACKS = [
   {
     id: 3,
     title: "Impressionism",
-    file: "9_2_1_Impressionism.m4a",
+    file: "9_2_1_Impressionism.mp3",
     sentences: [
       { start: 0.00, end: 5.21, text: "Impressionism is a painting style that began in France in the late 19th century." },
       { start: 5.21, end: 9.20, text: "It challenged traditional painting techniques and subject matter." },
@@ -183,7 +183,7 @@ const TRACKS = [
   // {
   //   id: 2,
   //   title: "제목",
-  //   file: "파일명.m4a",
+  //   file: "파일명.mp3",
   //   sentences: [
   //     { start: 0.00, end: 5.00, text: "문장 텍스트" },
   //     ...
