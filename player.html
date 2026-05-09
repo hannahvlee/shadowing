@@ -678,7 +678,7 @@ async function saveRecord() {
   if (!name) { document.getElementById('saveName').focus(); return; }
 
   const avg = sessionScores.length
-    ? Math.round(sessionScores.reduce((a,b) => a+b, 0) / sessionScores.length)
+    ? Math.round(sessionScores.reduce((a,b) => a+b, 0) / SENTENCES.length)
     : null;
 
   try {
