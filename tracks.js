@@ -66,7 +66,7 @@ const TRACKS = [
     title: "Social Capital",
     file: "9_2_1_Social_Capital.m4a",
     sentences: [
-      { start: 0.00, end: 3.62, text: "Social capital refers to the networks of relationships" },
+      { start: 0.00, end: 3.60, text: "Social capital refers to the networks of relationships" },
       { start: 3.65, end: 7.30, text: "among people who live and work in a particular society." },
       { start: 7.30, end: 10.30, text: "Social capital can be bonding or bridging." },
       { start: 10.30, end: 14.40, text: "Bonding social capital occurs within a close-knit group," },
