@@ -195,6 +195,7 @@ function renderSentences() {
           <span class="score-badge" id="badge-${i}"></span>
           <span class="transcript-text" id="transcript-${i}"></span>
         </div>
+        <div id="feedback-${i}" style="font-size:13px;color:var(--text-muted);margin-bottom:8px;display:none"></div>
         <button class="btn-toggle-answer" onclick="toggleAnswer(${i})">모범 번역 보기</button>
         <div class="model-answer" id="model-${i}">
           <div class="model-answer-label">모범 번역</div>
