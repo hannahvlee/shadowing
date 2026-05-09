@@ -60,7 +60,67 @@ const TRACKS = [
       { en: "give structure to", ko: "~에 구조를 부여하다" }
     ]
   }
-  // 새 음원 추가 시 여기에 추가:
+,
+  {
+    id: 2,
+    title: "Social Capital",
+    file: "9_2_1_Social_Capital.m4a",
+    sentences: [
+      { start: 0.00,  end: 7.50,  text: "Social capital refers to the networks of relationships among people who live and work in a particular society." },
+      { start: 7.50,  end: 10.50, text: "Social capital can be bonding or bridging." },
+      { start: 10.50, end: 14.40, text: "Bonding social capital occurs within a close-knit group," },
+      { start: 14.40, end: 18.40, text: "such as family or close friends, where strong ties exist." },
+      { start: 18.40, end: 25.90, text: "Bridging social capital refers to the connections that link people across different social groups," },
+      { start: 25.90, end: 29.00, text: "which might involve acquaintances or colleagues." },
+      { start: 29.00, end: 35.00, text: "High levels of social capital have been associated with numerous benefits," },
+      { start: 35.00, end: 41.30, text: "including improved mental health, higher educational achievement, and greater economic prosperity." },
+      { start: 41.30, end: 46.00, text: "It fosters trust, cooperation, and a sense of belonging." },
+      { start: 46.00, end: 51.80, text: "However, it's important to note that social capital can also have negative aspects," },
+      { start: 51.80, end: 58.00, text: "such as the potential for reinforcing social inequalities due to the exclusion of outsiders." },
+      { start: 58.00, end: 63.70, text: "Understanding social capital helps sociologists analyze how communities function." },
+      { start: 63.70, end: 67.40, text: "So let's now look at a case study of a specific community." }
+    ],
+    vocab: [
+      { en: "social capital", ko: "사회적 자본" },
+      { en: "bonding", ko: "유대, 결속" },
+      { en: "bridging", ko: "연결, 가교" },
+      { en: "close-knit", ko: "긴밀한, 단단히 결속된" },
+      { en: "ties", ko: "유대, 연결고리" },
+      { en: "acquaintance", ko: "지인, 아는 사람" },
+      { en: "colleague", ko: "동료" },
+      { en: "prosperity", ko: "번영, 번창" },
+      { en: "foster", ko: "촉진하다, 육성하다" },
+      { en: "cooperation", ko: "협력, 협동" },
+      { en: "belonging", ko: "소속감" },
+      { en: "reinforce", ko: "강화하다" },
+      { en: "inequality", ko: "불평등" },
+      { en: "exclusion", ko: "배제, 제외" },
+      { en: "outsider", ko: "외부인" },
+      { en: "sociologist", ko: "사회학자" },
+      { en: "analyze", ko: "분석하다" },
+      { en: "intentional", ko: "의도적인" },
+      { en: "identify", ko: "파악하다, 확인하다" },
+      { en: "refer to", ko: "~을 가리키다, 언급하다" },
+      { en: "occur within", ko: "~ 안에서 발생하다" },
+      { en: "strong ties", ko: "강한 유대" },
+      { en: "link people across", ko: "~을 넘어 사람들을 연결하다" },
+      { en: "be associated with", ko: "~와 관련되다" },
+      { en: "a sense of belonging", ko: "소속감" },
+      { en: "it's important to note that", ko: "~을 주목하는 것이 중요하다" },
+      { en: "due to", ko: "~ 때문에" },
+      { en: "case study", ko: "사례 연구" },
+      { en: "seek to", ko: "~하려고 하다" },
+      { en: "rather than", ko: "~ 대신에, ~보다는" },
+      { en: "result in", ko: "~을 초래하다, ~로 이어지다" },
+      { en: "be rejected by", ko: "~에 의해 거부되다" },
+      { en: "the established art community", ko: "기성 예술계" },
+      { en: "gain recognition", ko: "인정받다" },
+      { en: "pave the way for", ko: "~의 길을 열다" },
+      { en: "in terms of", ko: "~의 관점에서, ~면에서" },
+      { en: "be celebrated for", ko: "~로 칭송받다" }
+    ]
+  }
+    // 새 음원 추가 시 여기에 추가:
   // {
   //   id: 2,
   //   title: "제목",
