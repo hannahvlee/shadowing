@@ -227,14 +227,17 @@ function renderStudyTables() {
 function renderTrackSelector() {
   const el = document.getElementById('trackSelector');
   if (TRACKS.length <= 1) { el.style.display = 'none'; }
+  const params = new URLSearchParams(window.location.search);
+  const trackId = parseInt(params.get('id')) || 1;
+  const initialIndex = TRACKS.findIndex(t => t.id === trackId) || 0;
   TRACKS.forEach((t, i) => {
     const btn = document.createElement('button');
-    btn.className = 'track-btn' + (i === 0 ? ' active' : '');
+    btn.className = 'track-btn' + (i === initialIndex ? ' active' : '');
     btn.textContent = t.title;
     btn.onclick = () => selectTrack(i, btn);
     el.appendChild(btn);
   });
-  selectTrack(0, el.children[0]);
+  selectTrack(initialIndex, el.children[initialIndex]);
 }
 
 function selectTrack(i, btn) {
