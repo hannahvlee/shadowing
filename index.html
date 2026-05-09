@@ -209,8 +209,8 @@
       a.className = 'track-card';
       const href = currentMode === 'shadowing' ? `player.html?id=${track.id}` :
                    currentMode === 'listening' ? `listening.html?id=${track.id}` :
-                   currentMode === 'dictation' ? `dictation.html` :
-                   `vocab.html`;
+                   currentMode === 'dictation' ? `dictation.html?id=${track.id}` :
+                   `vocab.html?id=${track.id}`;
       a.href = href;
       a.innerHTML = `
         <div class="track-left">
