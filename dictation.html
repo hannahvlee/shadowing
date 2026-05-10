@@ -316,20 +316,45 @@ function submitDictation() {
   badge.className = `score-badge ${pass ? 'pass' : 'fail'}`;
   document.getElementById('scoreDetail').textContent = '';
 
-  // Show diff box: highlight words user wrote that aren't in the answer
   const answerWordSet = new Set(answerWords);
   const userWordSet = new Set(userWords);
 
-  const diffHtml = userWords.map(w =>
-    answerWordSet.has(w)
-      ? `<span style="color:var(--success)">${w}</span>`
-      : `<span style="color:var(--danger);text-decoration:line-through">${w}</span>`
-  ).join(' ');
+  // Top: answer order - correct words green, wrong words red strikethrough, missing words as ___
+  const mergedHtml = answerWords.map(answerWord => {
+    if (userWordSet.has(answerWord)) {
+      return `<span style="color:var(--success)">${answerWord}</span>`;
+    } else {
+      // Find if user wrote a wrong word in this position (extra words)
+      return `<span style="color:var(--danger);border-bottom:2px solid var(--danger);padding-bottom:1px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>`;
+    }
+  });
+  // Also append extra wrong words user wrote that aren't in answer
+  const extraWords = userWords.filter(w => !answerWordSet.has(w)).map(w =>
+    `<span style="color:var(--danger);text-decoration:line-through">${w}</span>`
+  );
+
+  // Better approach: go through answer words, show user's correct words, show ___ for missing
+  // Also interleave user's wrong words where they appear
+  const usedUserWords = new Set();
+  const diffParts = answerWords.map(aw => {
+    if (userWordSet.has(aw) && !usedUserWords.has(aw)) {
+      usedUserWords.add(aw);
+      return `<span style="color:var(--success)">${aw}</span>`;
+    } else {
+      return `<span style="color:var(--danger);border-bottom:2px solid var(--danger);padding-bottom:1px">&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;</span>`;
+    }
+  });
+  // Add wrong extra words at end
+  const wrongWords = userWords.filter(w => !answerWordSet.has(w)).map(w =>
+    `<span style="color:var(--danger);text-decoration:line-through">${w}</span>`
+  );
+  if (wrongWords.length) diffParts.push(...wrongWords);
+
   const diffBox = document.getElementById('diffBox');
-  diffBox.innerHTML = diffHtml || '(입력 없음)';
+  diffBox.innerHTML = diffParts.join(' ');
   diffBox.style.display = 'block';
 
-  // Highlight missing words in answer
+  // Bottom: highlight missing words in answer
   const answerHighlighted = answerWords.map(w =>
     userWordSet.has(w)
       ? w
