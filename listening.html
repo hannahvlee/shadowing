@@ -314,7 +314,7 @@ async function toggleRecord(i) {
     mr.onstop = () => { setTimeout(() => { try { recognition.stop(); } catch(e) {} }, 400); };
     mr.start();
 
-    const duration = (currentTrack.sentences[i].end - currentTrack.sentences[i].start) * 1000 + 10000;
+    const duration = (currentTrack.sentences[i].end - currentTrack.sentences[i].start) * 1000 + 30000;
     setTimeout(() => {
       if (isRecording[i]) { mr.stop(); isRecording[i] = false; btn.classList.remove('recording'); btn.textContent = '⏺'; }
     }, duration);
