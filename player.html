@@ -748,7 +748,7 @@ async function toggleRecord(i) {
   const btn = document.getElementById(`rec-${i}`);
 
   if (isRecording[i]) {
-    // Stop both recording and STT
+    // Stop recording and trigger grading
     mediaRecorders[i]?.stop();
     if (window._sttRecognitions && window._sttRecognitions[i]) {
       try { window._sttRecognitions[i].stop(); } catch(e) {}
@@ -756,6 +756,19 @@ async function toggleRecord(i) {
     isRecording[i] = false;
     btn.classList.remove('recording');
     btn.title = 'Record';
+    // Grade with what we have after short delay
+    setTimeout(() => {
+      if (!sessionScores[i]) {
+        const detail = document.getElementById(`detail-${i}`);
+        const text = detail?.textContent?.replace(/^"|"$/g, '').trim();
+        if (text) {
+          const transcript = text.toLowerCase();
+          const original = SENTENCES[i].text.toLowerCase().replace(/[^a-z0-9\s]/g, '').trim();
+          const score = similarity(transcript, original);
+          showResult(i, score, text);
+        }
+      }
+    }, 500);
     return;
   }
 
@@ -839,7 +852,7 @@ async function toggleRecord(i) {
     mr.start();
 
     // Auto-stop
-    const duration = (SENTENCES[i].end - SENTENCES[i].start) * 1000 + 4000;
+    const duration = (SENTENCES[i].end - SENTENCES[i].start) * 1000 + 30000;
     setTimeout(() => {
       if (isRecording[i]) {
         mr.stop();
