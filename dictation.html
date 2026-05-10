@@ -226,6 +226,7 @@ function showSentence(delay = 3000) {
   repeatCount = 0;
   updateDots();
   startAutoRepeat(delay);
+  setTimeout(() => document.getElementById('dictationInput').focus(), delay);
 }
 
 function updateDots() {
@@ -279,7 +280,10 @@ function listenAgain() {
 }
 
 function normalize(text) {
-  return text.toLowerCase().replace(/[.,!?;:'"()\-\u2013\u2014]/g, '').replace(/\s+/g, ' ').trim();
+  return text.toLowerCase()
+    .replace(/[.,!?;:'"()]/g, '')
+    .replace(/[-\u2013\u2014]/g, ' ')
+    .replace(/\s+/g, ' ').trim();
 }
 
 function submitDictation() {
@@ -312,7 +316,13 @@ function submitDictation() {
   badge.className = `score-badge ${pass ? 'pass' : 'fail'}`;
   document.getElementById('scoreDetail').textContent = '';
 
-document.getElementById('diffBox').style.display = 'none';
+  const diffHtml = userResults.map(r =>
+    r.ok ? `<span style="color:var(--success)">${r.word}</span>`
+         : `<span style="color:var(--danger);text-decoration:line-through">${r.word}</span>`
+  ).join(' ');
+  const diffBox = document.getElementById('diffBox');
+  diffBox.innerHTML = diffHtml || '(입력 없음)';
+  diffBox.style.display = 'block';
   document.getElementById('answerText').textContent = answer;
   document.getElementById('resultArea').classList.add('show');
   document.getElementById('resultArea').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
