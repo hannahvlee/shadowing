@@ -657,7 +657,7 @@ function playSegment(i) {
 
 // Save record
 let sessionScores = [];
-let sessionDetails = []; // stores {index, text, userSaid, score}
+let sessionDetails = {}; // stores {index: {text, userSaid, score}}
 
 function openSaveModal() {
   document.getElementById('saveModal').style.display = 'flex';
@@ -699,7 +699,7 @@ async function saveRecord() {
         mode: '쉐도잉',
         score: avg,
         progress,
-        details: sessionDetails
+        details: Object.keys(sessionDetails).sort((a,b) => parseInt(a)-parseInt(b)).map(k => sessionDetails[k])
       })
     });
     closeSaveModal();
@@ -897,12 +897,12 @@ function showResult(i, score, transcript) {
   card.classList.remove('pass', 'fail');
   card.classList.add(pass ? 'pass' : 'fail');
   sessionScores.push(pct);
-  sessionDetails.push({
+  sessionDetails[i] = {
     index: i,
     text: SENTENCES[i].text,
     userSaid: transcript || '',
     score: pct
-  });
+  };
 }
 
 // Strict similarity — penalizes missing words, wrong order, bad pronunciation
