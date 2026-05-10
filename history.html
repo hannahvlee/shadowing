@@ -164,7 +164,7 @@ function renderTable() {
   filtered.forEach(r => {
     const tr = document.createElement('tr');
     const scoreClass = r.score >= 80 ? 'score-great' : r.score >= 60 ? 'score-ok' : 'score-poor';
-    const modeClass = r.mode === '쉐도잉' ? 'mode-shadowing' : r.mode === '청취테스트' ? 'mode-listening' : r.mode === '어휘퀴즈' ? 'mode-vocab' : 'mode-dictation';
+    const modeClass = r.mode === '쉐도잉' ? 'mode-shadowing' : r.mode === '청취테스트' ? 'mode-listening' : r.mode === '어휘테스트' ? 'mode-vocab' : 'mode-dictation';
     tr.innerHTML = `
       <td class="td-name">${r.name}</td>
       <td class="td-track">${r.track}</td>
