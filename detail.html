@@ -129,7 +129,7 @@ function renderSentences(details, mode) {
         <div class="detail-label">내 번역</div>
         <div class="detail-value">"${d.userSaid}"</div>`;
       if (d.feedback) inner += `<div style="margin-top:8px"><div class="detail-label">AI 피드백</div><div class="detail-value">${d.feedback}</div></div>`;
-      if (d.modelAnswer) inner += `<div style="margin-top:8px"><div class="detail-label">모범 번역</div><div class="detail-value">${d.modelAnswer}</div></div>`;
+      if (d.modelAnswer) inner += `<div style="margin-top:8px"><div class="detail-label">모범 번역</div><div class="detail-value">${d.modelAnswer.replace('\n의역:', '<br>의역:')}</div></div>`;
       inner += `</div>`;
     }
 
