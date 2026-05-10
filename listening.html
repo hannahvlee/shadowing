@@ -187,6 +187,7 @@ function renderSentences() {
     card.innerHTML = `
       <div class="card-top">
         <span class="sentence-num">${String(i+1).padStart(2,'0')}</span>
+        <span class="sentence-text" id="text-${i}" style="font-size:13px;color:var(--text-muted);flex:1;display:none;">${s.text}</span>
         <div class="card-actions">
           <button class="btn btn-play" id="play-${i}" onclick="playSegment(${i})">▶ 듣기</button>
           <button class="btn btn-record" id="rec-${i}" onclick="toggleRecord(${i})">⏺</button>
@@ -390,6 +391,18 @@ async function saveRecord() {
     closeSaveModal();
     window.location.href = 'history.html';
   } catch(e) { alert('저장 중 오류가 발생했어요.'); }
+}
+
+let showText = false;
+function toggleText() {
+  showText = !showText;
+  const toggle = document.getElementById('showTextToggle');
+  const thumb = document.getElementById('toggleThumb');
+  toggle.style.background = showText ? 'var(--accent2)' : 'var(--border)';
+  thumb.style.left = showText ? '18px' : '2px';
+  document.querySelectorAll('[id^="text-"]').forEach(el => {
+    el.style.display = showText ? 'block' : 'none';
+  });
 }
 
 window.addEventListener('DOMContentLoaded', () => { renderTrackSelector(); });
