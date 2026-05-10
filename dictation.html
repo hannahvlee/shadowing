@@ -176,7 +176,7 @@ let currentIndex = 0;
 let repeatCount = 0;
 let isPlaying = false;
 let scores = [];
-let sessionDetails = [];
+let sessionDetails = {};
 let autoRepeatTimer = null;
 
 const audio = document.getElementById('mainAudio');
@@ -208,6 +208,7 @@ function selectTrack(i, btn) {
   audio.src = currentTrack.file;
   currentIndex = 0;
   scores = [];
+  sessionDetails = {};
   showSentence();
 }
 
@@ -309,6 +310,12 @@ function submitDictation() {
   const score = Math.round((correct / answerWords.length) * 100);
   const pass = score >= 80;
   scores.push(score);
+  sessionDetails[currentIndex] = {
+    index: currentIndex,
+    text: answer,
+    userInput: userInput,
+    score: score
+  };
 
   const scoreBig = document.getElementById('scoreBig');
   scoreBig.textContent = `${score}점`;
@@ -407,7 +414,7 @@ async function saveRecord() {
         mode: '딕테이션', 
         score: avg, 
         progress,
-        details: sessionDetails
+        details: Object.keys(sessionDetails).sort((a,b) => parseInt(a)-parseInt(b)).map(k => sessionDetails[k])
       })
     });
     closeSaveModal();
