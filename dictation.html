@@ -176,6 +176,7 @@ let currentIndex = 0;
 let repeatCount = 0;
 let isPlaying = false;
 let scores = [];
+let sessionDetails = [];
 let autoRepeatTimer = null;
 
 const audio = document.getElementById('mainAudio');
@@ -400,7 +401,14 @@ async function saveRecord() {
     await fetch('/api/records', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, track: currentTrack.title, mode: '딕테이션', score: avg, progress })
+      body: JSON.stringify({ 
+        name, 
+        track: currentTrack.title, 
+        mode: '딕테이션', 
+        score: avg, 
+        progress,
+        details: sessionDetails
+      })
     });
     closeSaveModal();
     window.location.href = 'history.html';

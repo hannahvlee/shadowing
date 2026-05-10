@@ -94,6 +94,7 @@
           <th>완료</th>
           <th>점수</th>
           <th>날짜</th>
+          <th></th>
         </tr>
       </thead>
       <tbody id="tableBody"></tbody>
@@ -171,7 +172,8 @@ function renderTable() {
       <td><span class="mode-badge ${modeClass}">${r.mode}</span></td>
       <td style="font-family:'DM Mono',monospace;font-size:12px;color:var(--text-muted)">${r.progress || '-'}</td>
       <td class="td-score ${scoreClass}">${r.score != null ? r.score + '점' : '-'}</td>
-      <td class="td-date">${formatDate(r.date)}</td>`;
+      <td class="td-date">${formatDate(r.date)}</td>
+      <td><a href="detail.html?id=${r.id}" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--accent2);text-decoration:none;white-space:nowrap;">상세 →</a></td>`;
     tbody.appendChild(tr);
   });
 }

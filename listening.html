@@ -131,6 +131,7 @@
 <script>
 let currentTrack = null;
 let scores = [];
+let sessionDetails = [];
 let sharedStream = null;
 let isRecording = {};
 let mediaRecorders = {};
@@ -327,6 +328,14 @@ async function gradeWithClaude(i, userTranslation) {
     }
     if (result.model_answer) modelTextEl.innerHTML = result.model_answer.replace(/\n/g, '<br>');
     scores[i] = pct;
+    sessionDetails[i] = {
+      index: i,
+      text: currentTrack.sentences[i].text,
+      userSaid: userTranslation,
+      score: pct,
+      feedback: result.feedback || '',
+      modelAnswer: result.model_answer || ''
+    };
   } catch(e) {
     badge.textContent = '채점 오류'; badge.className = 'score-badge';
   }
@@ -366,7 +375,14 @@ async function saveRecord() {
     await fetch('/api/records', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, track: currentTrack.title, mode: '청취테스트', score: avg, progress })
+      body: JSON.stringify({ 
+        name, 
+        track: currentTrack.title, 
+        mode: '청취테스트', 
+        score: avg, 
+        progress,
+        details: sessionDetails.filter(Boolean)
+      })
     });
     closeSaveModal();
     window.location.href = 'history.html';

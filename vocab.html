@@ -402,22 +402,32 @@ async function saveRecord() {
   isSaving = true;
   const name = document.getElementById('saveName').value.trim();
   if (!name) { isSaving = false; document.getElementById('saveName').focus(); return; }
-  // Calculate total score from both sections
+  
   const vocab = currentTrack.vocab || [];
-  const words = vocab.filter(v => v.en.split(' ').length <= 2 && !v.en.includes('~') && !v.en.includes('A'));
-  const phrases = vocab.filter(v => !words.includes(v));
-  let correct = 0, total = vocab.length;
-  [...words.map((_,i) => `w-${i}`), ...phrases.map((_,i) => `p-${i}`)].forEach(id => {
-    const input = document.getElementById(`input-${id}`);
-    if (input && input.classList.contains('correct')) correct++;
+  let correct = 0;
+  const details = vocab.map((v, i) => {
+    const prefix = (v.type === 'phrase' || (!v.type && (v.en.includes(' ') || v.en.includes('~')))) ? 'p' : 'w';
+    const idx = (prefix === 'w' ? wordItems : phraseItems).indexOf(v);
+    const inputEl = document.getElementById(`input-${prefix}-${idx}`);
+    const userAnswer = inputEl ? inputEl.value.trim() : '';
+    const isCorrect = inputEl ? inputEl.classList.contains('correct') : false;
+    if (isCorrect) correct++;
+    return {
+      ko: v.ko,
+      en: v.en,
+      userAnswer,
+      correct: isCorrect
+    };
   });
+  
+  const total = vocab.length;
   const score = total > 0 ? Math.round((correct / total) * 100) : null;
   const progress = `${correct}/${total}개`;
   try {
     await fetch('/api/records', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, track: currentTrack.title, mode: '어휘테스트', score, progress })
+      body: JSON.stringify({ name, track: currentTrack.title, mode: '어휘테스트', score, progress, details })
     });
     closeSaveModal();
     window.location.href = 'history.html';

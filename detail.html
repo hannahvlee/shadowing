@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>상세 기록</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e0e0e; --surface: #1a1a1a; --surface2: #242424; --border: #2e2e2e;
+    --accent: #c8f060; --accent2: #60c8f0; --text: #f0ede8; --text-muted: #6e6e6e;
+    --danger: #f06060; --success: #60f0a0; --warn: #f0c060;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; }
+  body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(ellipse 80% 50% at 20% 20%, rgba(200,240,96,0.04) 0%, transparent 60%); pointer-events: none; z-index: 0; }
+  .container { max-width: 820px; margin: 0 auto; padding: 48px 24px 80px; position: relative; z-index: 1; }
+  .label { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 10px; }
+  h1 { font-family: 'DM Sans', sans-serif; font-size: clamp(24px, 4vw, 36px); font-weight: 600; margin-bottom: 8px; }
+  .meta { font-size: 13px; color: var(--text-muted); margin-bottom: 32px; display: flex; gap: 16px; flex-wrap: wrap; }
+  .meta span { display: flex; align-items: center; gap: 6px; }
+
+  /* Cards */
+  .section-title { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; margin: 32px 0 12px; }
+  .detail-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; margin-bottom: 10px; }
+  .detail-card.pass { border-color: rgba(96,240,160,0.3); }
+  .detail-card.fail { border-color: rgba(240,96,96,0.3); }
+  .card-top { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .card-num { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); min-width: 24px; }
+  .card-text { font-size: 14px; color: var(--text); flex: 1; line-height: 1.5; }
+  .score-pill { font-family: 'DM Mono', monospace; font-size: 11px; padding: 3px 10px; border-radius: 20px; margin-left: auto; white-space: nowrap; }
+  .score-pill.pass { background: rgba(96,240,160,0.15); color: var(--success); border: 1px solid rgba(96,240,160,0.3); }
+  .score-pill.fail { background: rgba(240,96,96,0.12); color: var(--danger); border: 1px solid rgba(240,96,96,0.3); }
+  .card-detail { font-size: 13px; color: var(--text-muted); padding-top: 10px; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 6px; }
+  .detail-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; }
+  .detail-value { font-size: 13px; line-height: 1.5; }
+
+  /* Vocab */
+  .vocab-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; }
+  .vocab-card.correct { border-color: rgba(96,240,160,0.3); }
+  .vocab-card.wrong { border-color: rgba(240,96,96,0.3); }
+  .vocab-ko { font-size: 14px; color: var(--text); min-width: 140px; }
+  .vocab-user { font-size: 13px; flex: 1; }
+  .vocab-user.correct { color: var(--success); }
+  .vocab-user.wrong { color: var(--danger); }
+  .vocab-answer { font-size: 13px; color: var(--text-muted); font-family: 'DM Mono', monospace; }
+  .check { font-size: 14px; margin-left: auto; }
+
+  .loading { text-align: center; padding: 60px; color: var(--text-muted); font-family: 'DM Mono', monospace; font-size: 12px; }
+  ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: transparent; } ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div style="margin-bottom:16px"><a href="history.html" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;">← 기록으로</a></div>
+  <div class="label">📋 Detail</div>
+  <h1 id="pageTitle">상세 기록</h1>
+  <div class="meta" id="pageMeta"></div>
+  <div id="content"><div class="loading">불러오는 중...</div></div>
+</div>
+
+<script>
+async function loadDetail() {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+  if (!id) { document.getElementById('content').innerHTML = '<div class="loading">기록을 찾을 수 없어요.</div>'; return; }
+
+  try {
+    const res = await fetch(`/api/records?id=${id}`);
+    const data = await res.json();
+    const r = data.record;
+    if (!r) { document.getElementById('content').innerHTML = '<div class="loading">기록을 찾을 수 없어요.</div>'; return; }
+
+    document.getElementById('pageTitle').textContent = r.track;
+    document.getElementById('pageMeta').innerHTML = `
+      <span>${r.name}</span>
+      <span>·</span>
+      <span>${r.mode}</span>
+      <span>·</span>
+      <span>${r.progress || '-'}</span>
+      <span>·</span>
+      <span>${r.score != null ? r.score + '점' : '-'}</span>
+      <span>·</span>
+      <span>${formatDate(r.date)}</span>`;
+
+    if (!r.details || r.details.length === 0) {
+      document.getElementById('content').innerHTML = '<div class="loading">상세 기록이 없어요.</div>';
+      return;
+    }
+
+    if (r.mode === '어휘테스트') renderVocab(r.details);
+    else renderSentences(r.details, r.mode);
+
+  } catch(e) {
+    document.getElementById('content').innerHTML = '<div class="loading">불러오기 실패.</div>';
+  }
+}
+
+function formatDate(iso) {
+  const d = new Date(iso);
+  return `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+}
+
+function renderSentences(details, mode) {
+  const el = document.getElementById('content');
+  el.innerHTML = '';
+
+  details.forEach((d, i) => {
+    const pass = d.score >= 80;
+    const card = document.createElement('div');
+    card.className = `detail-card ${pass ? 'pass' : 'fail'}`;
+
+    let inner = `
+      <div class="card-top">
+        <span class="card-num">${String(i+1).padStart(2,'0')}</span>
+        <span class="card-text">${d.text}</span>
+        <span class="score-pill ${pass ? 'pass' : 'fail'}">${d.score}점</span>
+      </div>`;
+
+    if (mode === '쉐도잉' && d.userSaid) {
+      inner += `<div class="card-detail">
+        <div class="detail-label">내가 말한 것</div>
+        <div class="detail-value">"${d.userSaid}"</div>
+      </div>`;
+    }
+
+    if (mode === '청취테스트') {
+      if (d.userSaid) inner += `<div class="card-detail">
+        <div class="detail-label">내 번역</div>
+        <div class="detail-value">"${d.userSaid}"</div>`;
+      if (d.feedback) inner += `<div style="margin-top:8px"><div class="detail-label">AI 피드백</div><div class="detail-value">${d.feedback}</div></div>`;
+      if (d.modelAnswer) inner += `<div style="margin-top:8px"><div class="detail-label">모범 번역</div><div class="detail-value">${d.modelAnswer}</div></div>`;
+      inner += `</div>`;
+    }
+
+    if (mode === '딕테이션') {
+      inner += `<div class="card-detail">`;
+      if (d.userInput) inner += `<div><div class="detail-label">내가 쓴 것</div><div class="detail-value">"${d.userInput}"</div></div>`;
+      inner += `<div style="margin-top:8px"><div class="detail-label">정답</div><div class="detail-value">${d.text}</div></div>`;
+      inner += `</div>`;
+    }
+
+    card.innerHTML = inner;
+    el.appendChild(card);
+  });
+}
+
+function renderVocab(details) {
+  const el = document.getElementById('content');
+  el.innerHTML = '';
+
+  const words = details.filter(d => !d.isPhrase);
+  const phrases = details.filter(d => d.isPhrase);
+
+  if (words.length) {
+    el.innerHTML += '<div class="section-title">단어</div>';
+    words.forEach(d => el.appendChild(vocabCard(d)));
+  }
+  if (phrases.length) {
+    el.innerHTML += '<div class="section-title">구문</div>';
+    phrases.forEach(d => el.appendChild(vocabCard(d)));
+  }
+}
+
+function vocabCard(d) {
+  const card = document.createElement('div');
+  card.className = `vocab-card ${d.correct ? 'correct' : 'wrong'}`;
+  card.innerHTML = `
+    <span class="vocab-ko">${d.ko}</span>
+    <span class="vocab-user ${d.correct ? 'correct' : 'wrong'}">${d.userAnswer || '(미입력)'}</span>
+    ${!d.correct ? `<span class="vocab-answer">→ ${d.en}</span>` : ''}
+    <span class="check">${d.correct ? '✓' : '✗'}</span>`;
+  return card;
+}
+
+window.addEventListener('DOMContentLoaded', loadDetail);
+</script>
+</body>
+</html>
