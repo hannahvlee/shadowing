@@ -877,6 +877,7 @@ function playMyRecording(i) {
 }
 
 function showResult(i, score, transcript) {
+  if (sessionScores[i] !== undefined) return; // prevent duplicate
   const badge = document.getElementById(`badge-${i}`);
   const detail = document.getElementById(`detail-${i}`);
   const card = document.getElementById(`card-${i}`);
