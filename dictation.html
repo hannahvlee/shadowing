@@ -118,7 +118,10 @@
       <div class="input-label">받아쓰기 입력</div>
       <textarea class="dictation-input" id="dictationInput" placeholder="들린 내용을 영어로 입력하세요..."></textarea>
       <div class="input-row">
+        <div style="display:flex;gap:8px;">
         <button class="btn-skip" onclick="skipSentence()">건너뛰기 →</button>
+        <button class="btn-skip" onclick="openSaveModal()">Submit</button>
+      </div>
         <button class="btn-submit" onclick="submitDictation()">채점하기</button>
       </div>
     </div>
@@ -144,13 +147,11 @@
     <div class="summary-label" id="summaryLabel"></div>
     <br>
     <button class="btn-restart" onclick="restart()">다시 시작</button>
+    <button class="btn-restart" onclick="openSaveModal()" style="background:var(--accent2);color:#0e0e0e;">Submit</button>
     <button class="btn-restart" onclick="location.href='index.html'" style="background:var(--surface);color:var(--text);border:1px solid var(--border)">홈으로</button>
   </div>
 
-  <!-- Submit button -->
-  <div style="margin-top:32px;text-align:right;">
-    <button onclick="openSaveModal()" style="padding:8px 16px;border-radius:8px;border:none;background:transparent;color:var(--accent);font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;">Submit</button>
-  </div>
+
 
 </div>
 
