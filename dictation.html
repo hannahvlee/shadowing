@@ -322,7 +322,7 @@ function submitDictation() {
 
   const diffHtml = userWords.map(w =>
     answerWordSet.has(w)
-      ? `<span>${w}</span>`
+      ? `<span style="color:var(--success)">${w}</span>`
       : `<span style="color:var(--danger);text-decoration:line-through">${w}</span>`
   ).join(' ');
   const diffBox = document.getElementById('diffBox');
