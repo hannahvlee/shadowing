@@ -316,14 +316,26 @@ function submitDictation() {
   badge.className = `score-badge ${pass ? 'pass' : 'fail'}`;
   document.getElementById('scoreDetail').textContent = '';
 
-  const diffHtml = userResults.map(r =>
-    r.ok ? `<span style="color:var(--success)">${r.word}</span>`
-         : `<span style="color:var(--danger);text-decoration:line-through">${r.word}</span>`
+  // Show diff box: highlight words user wrote that aren't in the answer
+  const answerWordSet = new Set(answerWords);
+  const userWordSet = new Set(userWords);
+
+  const diffHtml = userWords.map(w =>
+    answerWordSet.has(w)
+      ? `<span>${w}</span>`
+      : `<span style="color:var(--danger);text-decoration:line-through">${w}</span>`
   ).join(' ');
   const diffBox = document.getElementById('diffBox');
   diffBox.innerHTML = diffHtml || '(입력 없음)';
   diffBox.style.display = 'block';
-  document.getElementById('answerText').textContent = answer;
+
+  // Highlight missing words in answer
+  const answerHighlighted = answerWords.map(w =>
+    userWordSet.has(w)
+      ? w
+      : `<span style="color:var(--danger);font-weight:500">${w}</span>`
+  ).join(' ');
+  document.getElementById('answerText').innerHTML = answerHighlighted;
   document.getElementById('resultArea').classList.add('show');
   document.getElementById('resultArea').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
