@@ -389,15 +389,19 @@ function openSaveModal() {
 
 function closeSaveModal() {
   document.getElementById('saveModal').style.display = 'none';
+  isSaving = false;
 }
 
 document.addEventListener('keydown', e => {
   if (e.key === 'Enter' && document.getElementById('saveModal').style.display === 'flex') saveRecord();
 });
 
+let isSaving = false;
 async function saveRecord() {
+  if (isSaving) return;
+  isSaving = true;
   const name = document.getElementById('saveName').value.trim();
-  if (!name) { document.getElementById('saveName').focus(); return; }
+  if (!name) { isSaving = false; document.getElementById('saveName').focus(); return; }
   // Calculate total score from both sections
   const vocab = currentTrack.vocab || [];
   const words = vocab.filter(v => v.en.split(' ').length <= 2 && !v.en.includes('~') && !v.en.includes('A'));

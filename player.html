@@ -665,6 +665,7 @@ function openSaveModal() {
 
 function closeSaveModal() {
   document.getElementById('saveModal').style.display = 'none';
+  isSaving = false;
 }
 
 document.addEventListener('keydown', e => {
@@ -673,9 +674,12 @@ document.addEventListener('keydown', e => {
   }
 });
 
+let isSaving = false;
 async function saveRecord() {
+  if (isSaving) return;
+  isSaving = true;
   const name = document.getElementById('saveName').value.trim();
-  if (!name) { document.getElementById('saveName').focus(); return; }
+  if (!name) { isSaving = false; document.getElementById('saveName').focus(); return; }
   const saveBtn = document.querySelector('.btn-save');
   if (saveBtn) { saveBtn.disabled = true; saveBtn.textContent = '저장 중...'; }
 

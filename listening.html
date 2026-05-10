@@ -353,9 +353,12 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Enter' && document.getElementById('saveModal').classList.contains('show')) saveRecord();
 });
 
+let isSaving = false;
 async function saveRecord() {
+  if (isSaving) return;
+  isSaving = true;
   const name = document.getElementById('saveName').value.trim();
-  if (!name) { document.getElementById('saveName').focus(); return; }
+  if (!name) { isSaving = false; document.getElementById('saveName').focus(); return; }
   const validScores = scores.filter(s => s != null);
   const avg = validScores.length ? Math.round(validScores.reduce((a,b) => a+b, 0) / validScores.length) : null;
   const progress = `${validScores.length}/${currentTrack.sentences.length}문장`;

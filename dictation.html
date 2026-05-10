@@ -381,15 +381,19 @@ function openSaveModal() {
 
 function closeSaveModal() {
   document.getElementById('saveModal').style.display = 'none';
+  isSaving = false;
 }
 
 document.addEventListener('keydown', e => {
   if (e.key === 'Enter' && document.getElementById('saveModal').style.display === 'flex') saveRecord();
 });
 
+let isSaving = false;
 async function saveRecord() {
+  if (isSaving) return;
+  isSaving = true;
   const name = document.getElementById('saveName').value.trim();
-  if (!name) { document.getElementById('saveName').focus(); return; }
+  if (!name) { isSaving = false; document.getElementById('saveName').focus(); return; }
   const avg = scores.length ? Math.round(scores.reduce((a,b) => a+b, 0) / scores.length) : null;
   const progress = `${scores.length}/${currentTrack.sentences.length}문장`;
   try {
