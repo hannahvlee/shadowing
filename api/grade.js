@@ -27,7 +27,7 @@ Grading criteria:
 3. Either English word order OR natural Korean order is fully acceptable
 4. Minor grammar issues are OK as long as meaning is clear
 5. Participial phrases like "producing..." can be translated as -면서, -하여, -한, etc. All are correct
-6. COMPLETELY IGNORE proper nouns and technical terms when grading - these include people's names (Daguerre, Ansel Adams), technical terms (daguerreotype, daguerreotypes), place names, etc. The student can say anything for these (even just "d의" or "그 사람의") and it should NOT affect the score at all. Only grade the non-proper-noun content.
+6. COMPLETELY IGNORE proper nouns and technical terms when grading - these include people's names (Daguerre, Ansel Adams), technical terms (daguerreotype, daguerreotypes, bonding social capital, bridging social capital, social capital, bonding, bridging), place names, etc. The student can say anything for these (even just "d의" or "그 사람의") and it should NOT affect the score at all. Only grade the non-proper-noun content.
 7. The student's answer was captured by speech-to-text (STT) which often mishears words. If you see nonsensical words or phrases, assume STT error and ignore them completely when grading.
 6. If the student's translation conveys the same meaning as the model answer, give high score (85+)
 7. Do NOT penalize for different but equally valid Korean expressions of the same English phrase
@@ -37,7 +37,7 @@ PASS if score >= 75.
 Respond with ONLY these 5 lines, no extra text:
 SCORE: [number 0-100]
 PASS: [true or false]
-FEEDBACK: [one sentence in Korean - if score is 80+, give encouraging praise. Only mention errors if a KEY word/phrase is completely missing or meaning is wrong. Do NOT nitpick minor expression differences that still convey the same meaning]
+FEEDBACK: [one sentence in Korean - focus ONLY on whether key content words are included or missing. Do NOT comment on Korean naturalness, grammar structure, or word order - this is a direct translation (직역) test so unnatural Korean order is totally fine. If score is 80+, give brief encouraging praise. Only mention if a KEY word/phrase is completely missing or meaning is significantly wrong.]
 LITERAL: [Korean translation that strictly follows English word order - translate each word/phrase in the EXACT order they appear in English even if unnatural. Example: Photography has undergone remarkable changes = 사진술은 겪어왔다 놀라운 변화들을]
 NATURAL: [natural fluent Korean translation]`;
 
