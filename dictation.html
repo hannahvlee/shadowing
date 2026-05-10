@@ -331,12 +331,14 @@ function submitDictation() {
   diffBox.innerHTML = diffHtml || '(입력 없음)';
   diffBox.style.display = 'block';
 
-  // Bottom: answer words in order, missing ones in red
-  const answerHighlighted = answerWords.map(w =>
-    userWordSet.has(w)
+  // Bottom: original answer words in order, missing ones in red
+  const originalAnswerWords = answer.split(' ').filter(w => w);
+  const answerHighlighted = originalAnswerWords.map(w => {
+    const normalized = normalize(w);
+    return userWordSet.has(normalized)
       ? w
-      : `<span style="color:var(--danger);font-weight:500">${w}</span>`
-  ).join(' ');
+      : `<span style="color:var(--danger);font-weight:500">${w}</span>`;
+  }).join(' ');
   document.getElementById('answerText').innerHTML = answerHighlighted;
   document.getElementById('resultArea').classList.add('show');
   document.getElementById('resultArea').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
