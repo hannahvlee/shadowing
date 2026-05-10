@@ -116,7 +116,7 @@
     </div>
     <div class="input-section">
       <div class="input-label">받아쓰기 입력</div>
-      <textarea class="dictation-input" id="dictationInput" placeholder="들린 내용을 영어로 입력하세요..."></textarea>
+      <textarea class="dictation-input" id="dictationInput" placeholder="들린 내용을 영어로 입력하세요..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();submitDictation();}"></textarea>
       <div class="input-row">
         <div style="display:flex;gap:8px;">
         <button class="btn-skip" onclick="skipSentence()">건너뛰기 →</button>
