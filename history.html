@@ -42,6 +42,7 @@
   .mode-shadowing { background: rgba(200,240,96,0.1); color: var(--accent); border: 1px solid rgba(200,240,96,0.2); }
   .mode-listening { background: rgba(96,200,240,0.1); color: var(--accent2); border: 1px solid rgba(96,200,240,0.2); }
   .mode-dictation { background: rgba(180,96,240,0.1); color: #c060f0; border: 1px solid rgba(180,96,240,0.2); }
+  .mode-vocab { background: rgba(240,150,60,0.1); color: #f09640; border: 1px solid rgba(240,150,60,0.2); }
   .td-score { font-family: 'DM Mono', monospace; font-weight: 500; }
   .score-great { color: var(--success); }
   .score-ok { color: var(--warn); }
@@ -163,7 +164,7 @@ function renderTable() {
   filtered.forEach(r => {
     const tr = document.createElement('tr');
     const scoreClass = r.score >= 80 ? 'score-great' : r.score >= 60 ? 'score-ok' : 'score-poor';
-    const modeClass = r.mode === '쉐도잉' ? 'mode-shadowing' : r.mode === '청취테스트' ? 'mode-listening' : 'mode-dictation';
+    const modeClass = r.mode === '쉐도잉' ? 'mode-shadowing' : r.mode === '청취테스트' ? 'mode-listening' : r.mode === '어휘퀴즈' ? 'mode-vocab' : 'mode-dictation';
     tr.innerHTML = `
       <td class="td-name">${r.name}</td>
       <td class="td-track">${r.track}</td>
