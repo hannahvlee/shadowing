@@ -140,6 +140,7 @@ let scores = [];
 let sessionDetails = [];
 let sharedStream = null;
 let isRecording = {};
+let isGraded = {};
 let mediaRecorders = {};
 let sttRecognitions = {};
 let finalTranscripts = {};
@@ -253,9 +254,15 @@ async function getStream() {
 async function toggleRecord(i) {
   const btn = document.getElementById(`rec-${i}`);
   if (isRecording[i]) {
+    // Stop recording and trigger grading
     mediaRecorders[i]?.stop();
     try { sttRecognitions[i]?.stop(); } catch(e) {}
     isRecording[i] = false; btn.classList.remove('recording'); btn.textContent = '⏺';
+    // Grade with whatever we have
+    setTimeout(() => {
+      const toGrade = finalTranscripts[i]?.trim() || lastInterim[i]?.trim();
+      if (toGrade && !isGraded[i]) gradeWithClaude(i, toGrade);
+    }, 500);
     return;
   }
   if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
@@ -292,6 +299,12 @@ async function toggleRecord(i) {
     };
 
     recognition.onend = () => {
+      // Reset recording state
+      if (isRecording[i]) {
+        isRecording[i] = false;
+        btn.classList.remove('recording');
+        btn.textContent = '⏺';
+      }
       const toGrade = finalTranscripts[i]?.trim() || lastInterim[i]?.trim();
       if (toGrade) gradeWithClaude(i, toGrade);
     };
@@ -338,6 +351,7 @@ async function gradeWithClaude(i, userTranslation) {
     }
     if (result.model_answer) modelTextEl.innerHTML = result.model_answer.replace(/\n/g, '<br>');
     scores[i] = pct;
+    isGraded[i] = true;
     sessionDetails[i] = {
       index: i,
       text: currentTrack.sentences[i].text,
