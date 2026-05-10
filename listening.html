@@ -137,6 +137,7 @@ let isRecording = {};
 let mediaRecorders = {};
 let sttRecognitions = {};
 let finalTranscripts = {};
+let lastInterim = {};
 let currentPlaying = null;
 
 const audio = document.getElementById('mainAudio');
@@ -279,11 +280,13 @@ async function toggleRecord(i) {
         if (r.isFinal) finalTranscripts[i] += r[0].transcript;
         else interim += r[0].transcript;
       }
-      transcript.textContent = `"${(finalTranscripts[i] || interim).trim()}"`;
+      lastInterim[i] = interim;
+      transcript.textContent = `"${(finalTranscripts[i] || interim).trim()}"`; 
     };
 
     recognition.onend = () => {
-      if (finalTranscripts[i]?.trim()) gradeWithClaude(i, finalTranscripts[i].trim());
+      const toGrade = finalTranscripts[i]?.trim() || lastInterim[i]?.trim();
+      if (toGrade) gradeWithClaude(i, toGrade);
     };
 
     recognition.start();
