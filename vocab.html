@@ -265,8 +265,8 @@ function selectTrack(i, btn) {
   const titleEl3 = document.getElementById('pageTitle3');
   if (titleEl3) titleEl3.textContent = currentTrack.title;
   const vocab = currentTrack.vocab || [];
-  wordItems = vocab.filter(v => v.en.split(' ').length <= 2 && !v.en.includes('~') && !v.en.includes('A'));
-  phraseItems = vocab.filter(v => !wordItems.includes(v));
+  wordItems = vocab.filter(v => v.type === 'word' || (!v.type && v.en.split(' ').length <= 2 && !v.en.includes('~') && !v.en.includes('A')));
+  phraseItems = vocab.filter(v => v.type === 'phrase' || (!v.type && !wordItems.includes(v)));
   renderTable('wordBody', wordItems, 'w');
   renderTable('phraseBody', phraseItems, 'p');
   renderStudyTables();
