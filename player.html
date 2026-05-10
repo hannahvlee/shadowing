@@ -886,7 +886,7 @@ function showResult(i, score, transcript) {
   sessionDetails.push({
     index: i,
     text: SENTENCES[i].text,
-    userSaid: finalTranscript.trim(),
+    userSaid: transcript || '',
     score: pct
   });
 }
