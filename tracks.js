@@ -355,6 +355,59 @@ const TRACKS = [
       { type: "phrase", en: "precisely that", ko: "바로 그것" }
     ]
   }
+  ,
+  {
+    id: 6,
+    title: "Graffiti",
+    file: "10_1_Graffiti.mp3",
+    sentences: [
+      { start: 7.00, end: 14.50, text: "Graffiti are writings and drawings created by private citizens in public places, like on walls." },
+      { start: 14.50, end: 18.12, text: "graffiti have long been a controversial form of expression." },
+      { start: 18.12, end: 25.82, text: "They originated as a form of protest and rebellion in ancient civilizations. For example, in ancient Rome." },
+      { start: 25.82, end: 31.78, text: "Modern graffiti originally gained popularity in the 1970s in New York City," },
+      { start: 31.78, end: 41.00, text: "where artists began to create increasingly elaborate writings and other designs on the walls of subway stations and on subway trains." },
+      { start: 41.00, end: 46.53, text: "As in ancient times, these graffiti often carried social and political messages." },
+      { start: 46.53, end: 52.53, text: "With artists using public spaces for commenting on issues like inequality and injustice." },
+      { start: 52.53, end: 57.34, text: "There's debate about whether graffiti are legitimate art or simply vandalism." },
+      { start: 57.34, end: 60.71, text: "They're said to deface property, and they're typically illegal." },
+      { start: 60.71, end: 67.32, text: "Some argue, however, that graffiti are a powerful means of self-expression and community dialogue." },
+      { start: 67.32, end: 77.54, text: "Highly skilled graffiti artists have been especially successful in elevating the perception of graffiti from street vandalism to recognised art." },
+      { start: 77.54, end: 83.30, text: "The British artist known as Banksy, for example, has become a true celebrity," },
+      { start: 83.30, end: 87.56, text: "with his graffiti artworks getting sold for millions of dollars," },
+      { start: 87.56, end: 93.64, text: "with whole building walls being removed and transported to museums or private collections." },
+      { start: 93.64, end: 100.74, text: "For something like this, you need specialised cranes and trucks, and yet the buyers aren't deterred." },
+      { start: 100.74, end: 105.86, text: "Of course, not all graffiti are equally sophisticated, so the debate continues." },
+      { start: 105.86, end: 110.92, text: "Some cities have designated specific areas for artists to work legally." },
+      { start: 110.92, end: 115.00, text: "Which has reduced the tension between creativity and law." }
+    ],
+    vocab: [
+      { type: "word", en: "graffiti", ko: "그래피티 (공공장소의 낙서/그림)" },
+      { type: "word", en: "controversial", ko: "논란이 많은" },
+      { type: "word", en: "rebellion", ko: "반항, 저항" },
+      { type: "word", en: "elaborate", ko: "정교한, 공들인" },
+      { type: "word", en: "inequality", ko: "불평등" },
+      { type: "word", en: "injustice", ko: "불의, 부당함" },
+      { type: "word", en: "legitimate", ko: "정당한, 합법적인" },
+      { type: "word", en: "vandalism", ko: "기물 파손" },
+      { type: "word", en: "deface", ko: "훼손하다" },
+      { type: "word", en: "elevate", ko: "높이다, 격상시키다" },
+      { type: "word", en: "perception", ko: "인식" },
+      { type: "word", en: "sophisticated", ko: "세련된, 정교한" },
+      { type: "word", en: "designated", ko: "지정된" },
+      { type: "word", en: "deterred", ko: "저지된, 단념한" },
+      { type: "word", en: "crane", ko: "크레인" },
+      { type: "phrase", en: "a form of expression", ko: "표현의 한 형태" },
+      { type: "phrase", en: "gained popularity", ko: "인기를 얻다" },
+      { type: "phrase", en: "carry a message", ko: "메시지를 담다" },
+      { type: "phrase", en: "comment on", ko: "~에 대해 언급하다" },
+      { type: "phrase", en: "means of self-expression", ko: "자기표현의 수단" },
+      { type: "phrase", en: "community dialogue", ko: "지역 사회 대화" },
+      { type: "phrase", en: "private collection", ko: "개인 소장" },
+      { type: "phrase", en: "be deterred", ko: "단념하다, 저지되다" },
+      { type: "phrase", en: "designate specific areas", ko: "특정 구역을 지정하다" },
+      { type: "phrase", en: "reduce tension", ko: "긴장을 완화하다" }
+    ]
+  }
   // 새 음원 추가 시 여기에 추가:
   // {
   //   id: 2,
