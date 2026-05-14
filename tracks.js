@@ -367,7 +367,7 @@ const TRACKS = [
       { start: 23.26, end: 25.71, text: "For example, in ancient Rome." },
       { start: 25.71, end: 31.74, text: "Modern graffiti originally gained popularity in the 1970s in New York City," },
       { start: 31.84, end: 36.89, text: "where artists began to create increasingly elaborate writings and other designs" },
-      { start: 36.90, end: 41.70, text: "on the walls of subway stations and on subway trains." },
+      { start: 36.90, end: 41.00, text: "on the walls of subway stations and on subway trains." },
       { start: 41.00, end: 46.53, text: "As in ancient times, these graffiti often carried social and political messages." },
       { start: 46.53, end: 52.53, text: "With artists using public spaces for commenting on issues like inequality and injustice." },
       { start: 52.53, end: 57.20, text: "There's debate about whether graffiti are legitimate art or simply vandalism." },
