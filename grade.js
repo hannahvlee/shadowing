@@ -67,9 +67,9 @@ NATURAL: [natural fluent Korean translation]`;
     // Parse line-by-line instead of JSON
     const scoreMatch = text.match(/SCORE:\s*(\d+)/);
     const passMatch = text.match(/PASS:\s*(true|false)/i);
-    const feedbackMatch = text.match(/FEEDBACK:\s*(.+)/);
-    const literalMatch = text.match(/LITERAL:\s*(.+)/);
-    const naturalMatch = text.match(/NATURAL:\s*(.+)/);
+    const feedbackMatch = text.match(/FEEDBACK:\s*([\s\S]+?)(?=\nLITERAL:|\nNATURAL:|$)/);
+    const literalMatch = text.match(/LITERAL:\s*([\s\S]+?)(?=\nNATURAL:|$)/);
+    const naturalMatch = text.match(/NATURAL:\s*([\s\S]+?)$/);
 
     const result = {
       score: scoreMatch ? parseInt(scoreMatch[1]) : 50,
