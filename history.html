@@ -12,9 +12,9 @@
     --text-dim: #3e3e3e; --danger: #f06060; --success: #60f0a0; --warn: #f0c060;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
   body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(ellipse 80% 50% at 20% 20%, rgba(200,240,96,0.04) 0%, transparent 60%), radial-gradient(ellipse 60% 40% at 80% 80%, rgba(96,200,240,0.04) 0%, transparent 60%); pointer-events: none; z-index: 0; }
-  .container { max-width: 1000px; margin: 0 auto; padding: 48px 24px 80px; position: relative; z-index: 1; }
+  .container { max-width: 1000px; margin: 0 auto; padding: 48px 24px 80px; position: relative; z-index: 1; flex: 1; }
   .label { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 10px; }
   h1 { font-family: 'DM Sans', sans-serif; font-size: clamp(28px, 5vw, 42px); line-height: 1.1; margin-bottom: 8px; font-weight: 500; }
   .subtitle { font-size: 14px; color: var(--text-muted); font-weight: 300; margin-bottom: 32px; }
@@ -270,7 +270,7 @@ window.addEventListener('DOMContentLoaded', loadRecords);
 </script>
 
 
-<footer style="border-top:1px solid var(--border);margin-top:48px;padding:28px 24px;text-align:center;">
+<footer style="border-top:1px solid var(--border);padding:28px 24px;text-align:center;">
   <div style="display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;">
     <a href="terms.html" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);text-decoration:none;letter-spacing:0.08em;transition:color 0.15s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-muted)'">이용약관</a>
     <span style="color:var(--border);">|</span>
