@@ -93,7 +93,7 @@ export default async function handler(req, res) {
 
       await redis(['DEL', 'records']);
       for (let i = records.length - 1; i >= 0; i--) {
-        await redis(['RPUSH', 'records', JSON.stringify(records[i])]);
+        await redis(['LPUSH', 'records', JSON.stringify(records[i])]);
       }
       return res.status(200).json({ success: true });
     } catch(e) {
