@@ -24,7 +24,7 @@
   .track-btn { padding: 8px 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; color: var(--text-muted); font-size: 13px; cursor: pointer; transition: all 0.15s; font-family: 'DM Sans', sans-serif; }
   .track-btn:hover { border-color: var(--accent2); color: var(--accent2); }
   .track-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(200,240,96,0.06); }
-  .progress-bar { height: 3px; background: var(--border); border-radius: 2px; margin-bottom: 32px; }
+  .progress-bar { height: 0; background: var(--border); border-radius: 2px; margin-bottom: 0; }
   .progress-fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width 0.4s ease; width: 0%; }
   .test-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 32px; margin-bottom: 16px; }
   .sentence-counter { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); margin-bottom: 20px; letter-spacing: 0.1em; }
@@ -97,7 +97,7 @@
     <div style="margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border)"><a href="index.html" style="font-family:'DM Mono',monospace;font-size:15px;color:var(--accent2);text-decoration:none;letter-spacing:0.18em;font-weight:700;">🎧 ListenUp!</a></div>
     <h1 id="pageTitle2"></h1>
     <p class="subtitle">문장을 5번 듣고 들린 내용을 영어로 받아쓰세요</p>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;" id="modeTabs"></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;margin-bottom:24px;" id="modeTabs"></div>
   </header>
   <div class="track-selector" id="trackSelector" style="display:none"></div>
   <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
