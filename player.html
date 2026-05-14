@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ListenUp</title>
 <script src="tracks.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #0e0e0e;
@@ -66,7 +66,7 @@
   }
 
   h1 {
-    font-family: 'DM Serif Display', serif;
+    font-family: 'DM Sans', sans-serif; font-weight: 600;
     font-size: clamp(28px, 5vw, 42px);
     line-height: 1.1;
     color: var(--text);
@@ -510,7 +510,7 @@
   <!-- Save modal -->
   <div id="saveModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:200;display:none;align-items:center;justify-content:center;">
     <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:32px;width:340px;max-width:90vw;">
-      <div style="font-family:'DM Serif Display',serif;font-size:22px;margin-bottom:8px">기록 저장</div>
+      <div style="font-family:'DM Sans',sans-serif;font-weight:600;font-size:22px;margin-bottom:8px">기록 저장</div>
       <p style="font-size:13px;color:var(--text-muted);margin-bottom:20px">이름을 입력하면 학습 기록이 저장돼요</p>
       <input type="text" id="saveName" placeholder="이름 입력..." style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:11px 14px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;outline:none;margin-bottom:16px;">
       <div style="display:flex;gap:8px;justify-content:flex-end;">
