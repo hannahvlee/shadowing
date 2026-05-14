@@ -23,7 +23,7 @@
   .filter-row { display: flex; gap: 10px; margin-bottom: 24px; flex-wrap: wrap; align-items: center; }
   .filter-input { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 8px 14px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 13px; outline: none; transition: border-color 0.2s; }
   .filter-input:focus { border-color: var(--accent); }
-  .filter-select { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 8px 32px 8px 14px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 13px; outline: none; cursor: pointer; appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236e6e6e' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; }
+  .filter-select { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 8px 14px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 13px; outline: none; cursor: pointer; }
   .record-count { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); margin-left: auto; }
 
   /* Table */
@@ -48,9 +48,6 @@
   .score-ok { color: var(--warn); }
   .score-poor { color: var(--danger); }
   .td-date { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); }
-  .admin-btn { font-size: 14px; width: 28px; height: 28px; border-radius: 6px; cursor: pointer; border: none; background: none; display: inline-flex; align-items: center; justify-content: center; opacity: 0.25; transition: opacity 0.15s; }
-  .admin-btn:hover { opacity: 0.5; }
-  .admin-btn.on { opacity: 1; background: rgba(240,192,96,0.1); border: 1px solid rgba(240,192,96,0.3); }
 
   /* Empty state */
   .empty { text-align: center; padding: 60px 20px; color: var(--text-muted); }
@@ -74,10 +71,8 @@
 <body>
 <div class="container">
   <header>
-    <div style="margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
-      <a href="index.html" style="font-family:'DM Mono',monospace;font-size:15px;color:var(--accent2);text-decoration:none;letter-spacing:0.18em;font-weight:700;">🎧 ListenUp!</a>
-      <button class="admin-btn" id="adminBtn" onclick="toggleAdmin()">🔒</button>
-    </div>
+    <div style="margin-bottom:16px"><a href="index.html" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;">← Back</a></div>
+    <div class="label">📊 History</div>
     <h1>학습 기록</h1>
     <p class="subtitle">모든 학습 기록을 확인하세요</p>
   </header>
@@ -89,16 +84,9 @@
       <option value="쉐도잉">쉐도잉</option>
       <option value="청취테스트">청취테스트</option>
       <option value="딕테이션">딕테이션</option>
-      <option value="어휘테스트">어휘테스트</option>
     </select>
     <select class="filter-select" id="trackFilter" onchange="renderTable()">
       <option value="">전체 트랙</option>
-    </select>
-    <select class="filter-select" id="dateFilter" onchange="renderTable()">
-      <option value="">전체 기간</option>
-      <option value="today">오늘</option>
-      <option value="week">이번 주</option>
-      <option value="month">이번 달</option>
     </select>
     <span class="record-count" id="recordCount"></span>
   </div>
@@ -127,28 +115,6 @@
 </div>
 
 <script>
-let isAdmin = false;
-const ADMIN_PASSWORD = '1234567';
-
-function toggleAdmin() {
-  if (isAdmin) {
-    isAdmin = false;
-    document.getElementById('adminBtn').textContent = '🔒';
-    document.getElementById('adminBtn').classList.remove('on');
-    renderTable();
-  } else {
-    const pw = prompt('관리자 비밀번호를 입력하세요');
-    if (pw === ADMIN_PASSWORD) {
-      isAdmin = true;
-      document.getElementById('adminBtn').textContent = '🔓';
-      document.getElementById('adminBtn').classList.add('on');
-      renderTable();
-    } else if (pw !== null) {
-      alert('비밀번호가 틀렸어요.');
-    }
-  }
-}
-
 let allRecords = [];
 
 async function loadRecords() {
@@ -183,24 +149,12 @@ function renderTable() {
   const nameQ = document.getElementById('nameFilter').value.toLowerCase();
   const modeQ = document.getElementById('modeFilter').value;
   const trackQ = document.getElementById('trackFilter').value;
-  const dateQ = document.getElementById('dateFilter').value;
 
-  const now = new Date();
-  const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  const startOfWeek = new Date(startOfDay); startOfWeek.setDate(startOfDay.getDate() - startOfDay.getDay());
-  const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
-
-  const filtered = allRecords.filter(r => {
-    const d = new Date(r.date);
-    const dateOk = !dateQ ||
-      (dateQ === 'today' && d >= startOfDay) ||
-      (dateQ === 'week' && d >= startOfWeek) ||
-      (dateQ === 'month' && d >= startOfMonth);
-    return (!nameQ || r.name.toLowerCase().includes(nameQ)) &&
-      (!modeQ || r.mode === modeQ) &&
-      (!trackQ || r.track === trackQ) &&
-      dateOk;
-  });
+  const filtered = allRecords.filter(r =>
+    (!nameQ || r.name.toLowerCase().includes(nameQ)) &&
+    (!modeQ || r.mode === modeQ) &&
+    (!trackQ || r.track === trackQ)
+  );
 
   document.getElementById('recordCount').textContent = `${filtered.length}개`;
 
@@ -218,55 +172,31 @@ function renderTable() {
 
   filtered.forEach(r => {
     const tr = document.createElement('tr');
-    tr.id = `row-${r.id}`;
     const scoreClass = r.score >= 80 ? 'score-great' : r.score >= 60 ? 'score-ok' : 'score-poor';
     const modeClass = r.mode === '쉐도잉' ? 'mode-shadowing' : r.mode === '청취테스트' ? 'mode-listening' : r.mode === '어휘테스트' ? 'mode-vocab' : 'mode-dictation';
     tr.innerHTML = `
-      <td class="td-name" id="name-${r.id}">${r.name}</td>
+      <td class="td-name">${r.name}</td>
       <td class="td-track">${r.track}</td>
       <td><span class="mode-badge ${modeClass}">${r.mode}</span></td>
       <td style="font-family:'DM Mono',monospace;font-size:12px;color:var(--text-muted)">${r.progress || '-'}</td>
       <td class="td-score ${scoreClass}">${r.score != null ? r.score + '점' : '-'}</td>
       <td class="td-date">${formatDate(r.date)}</td>
-      <td style="display:flex;gap:6px;align-items:center;">
-        <a href="detail.html?id=${r.id}" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--accent2);text-decoration:none;white-space:nowrap;">상세 →</a>
-        ${isAdmin ? `<button onclick="startEdit(${r.id}, '${r.name.replace(/'/g, "\\'")}')" style="font-family:'DM Mono',monospace;font-size:10px;color:var(--text-muted);background:none;border:1px solid var(--border);border-radius:6px;padding:3px 8px;cursor:pointer;">✏️</button>` : ''}
-      </td>`;
+      <td><a href="detail.html?id=${r.id}" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--accent2);text-decoration:none;white-space:nowrap;">상세 →</a></td>`;
     tbody.appendChild(tr);
   });
 }
 
-function startEdit(id, currentName) {
-  const nameCell = document.getElementById(`name-${id}`);
-  nameCell.innerHTML = `
-    <input id="input-${id}" value="${currentName}" style="background:var(--surface2);border:1px solid var(--accent2);border-radius:6px;padding:4px 8px;color:var(--text);font-size:13px;font-family:'DM Sans',sans-serif;outline:none;width:160px;">
-    <button onclick="saveName(${id})" style="font-family:'DM Mono',monospace;font-size:10px;color:#0e0e0e;background:var(--accent);border:none;border-radius:6px;padding:4px 8px;cursor:pointer;margin-left:4px;">저장</button>
-    <button onclick="cancelEdit(${id}, '${currentName.replace(/'/g, "\\'")}')}" style="font-family:'DM Mono',monospace;font-size:10px;color:var(--text-muted);background:none;border:1px solid var(--border);border-radius:6px;padding:4px 8px;cursor:pointer;margin-left:2px;">취소</button>`;
-  document.getElementById(`input-${id}`).focus();
-}
-
-function cancelEdit(id, originalName) {
-  document.getElementById(`name-${id}`).innerHTML = originalName;
-}
-
-async function saveName(id) {
-  const newName = document.getElementById(`input-${id}`).value.trim();
-  if (!newName) return;
-  try {
-    const res = await fetch(`/api/records?id=${id}`, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: newName }) });
-    if (res.ok) {
-      document.getElementById(`name-${id}`).innerHTML = newName;
-      const rec = allRecords.find(r => String(r.id) === String(id));
-      if (rec) rec.name = newName;
-    } else {
-      alert('저장 실패. 다시 시도해주세요.');
-    }
-  } catch(e) {
-    alert('오류가 발생했어요.');
-  }
-}
-
 window.addEventListener('DOMContentLoaded', loadRecords);
 </script>
+
+  <!-- Footer -->
+  <footer style="border-top:1px solid var(--border);padding-top:24px;margin-top:60px;display:flex;flex-direction:column;gap:12px;">
+    <div style="display:flex;gap:20px;">
+      <a href="terms.html" style="font-family:'DM Sans',sans-serif;font-size:12px;color:var(--text-muted);text-decoration:none;">이용약관</a>
+      <a href="privacy.html" style="font-family:'DM Sans',sans-serif;font-size:12px;color:var(--text-muted);text-decoration:none;">개인정보 처리방침</a>
+    </div>
+    <p style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-dim);margin:0;">Hanna Lee © 2026. All Rights Reserved.</p>
+  </footer>
+
 </body>
 </html>

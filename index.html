@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ListenUp</title>
+<title>Shadowing Practice</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="tracks.js"></script>
 <style>
@@ -152,12 +152,12 @@
 <body>
 <div class="container">
   <header>
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border)">
-      <a href="index.html" style="font-family:'DM Mono',monospace;font-size:15px;color:var(--accent2);text-decoration:none;letter-spacing:0.18em;font-weight:700;">🎧 ListenUp!</a>
+    <div class="label">📚 English Practice</div>
+    <h1>어떻게 연습할까요?</h1>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:32px">
+      <p class="subtitle" style="margin-bottom:0">학습 모드를 선택하세요</p>
       <a href="history.html" style="font-family:'DM Mono',monospace;font-size:12px;color:var(--text-muted);text-decoration:none;letter-spacing:0.05em;transition:color 0.15s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-muted)'">📊 기록 보기 →</a>
     </div>
-    <h1>어떻게 연습할까요?</h1>
-    <p class="subtitle" style="margin-bottom:32px">학습 모드를 선택하세요</p>
   </header>
 
   <!-- Mode selector -->
@@ -240,5 +240,15 @@
 
   renderTracks();
 </script>
+
+  <!-- Footer -->
+  <footer style="border-top:1px solid var(--border);padding-top:24px;margin-top:60px;display:flex;flex-direction:column;gap:12px;">
+    <div style="display:flex;gap:20px;">
+      <a href="terms.html" style="font-family:'DM Sans',sans-serif;font-size:12px;color:var(--text-muted);text-decoration:none;">이용약관</a>
+      <a href="privacy.html" style="font-family:'DM Sans',sans-serif;font-size:12px;color:var(--text-muted);text-decoration:none;">개인정보 처리방침</a>
+    </div>
+    <p style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-dim);margin:0;">Hanna Lee © 2026. All Rights Reserved.</p>
+  </footer>
+
 </body>
 </html>

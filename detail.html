@@ -60,7 +60,7 @@
 </head>
 <body>
 <div class="container">
-  <div style="margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between"><a href="history.html" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;">← 기록으로</a><a href="index.html" style="font-family:'DM Mono',monospace;font-size:15px;color:var(--accent2);text-decoration:none;letter-spacing:0.18em;font-weight:700;">🎧 ListenUp!</a></div>
+  <div style="margin-bottom:16px"><a href="history.html" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;">← 기록으로</a></div>
   <div class="label">📋 Detail</div>
   <h1 id="pageTitle">상세 기록</h1>
   <div class="meta" id="pageMeta"></div>
@@ -183,5 +183,15 @@ function vocabCard(d) {
 
 window.addEventListener('DOMContentLoaded', loadDetail);
 </script>
+
+  <!-- Footer -->
+  <footer style="border-top:1px solid var(--border);padding-top:24px;margin-top:60px;display:flex;flex-direction:column;gap:12px;">
+    <div style="display:flex;gap:20px;">
+      <a href="terms.html" style="font-family:'DM Sans',sans-serif;font-size:12px;color:var(--text-muted);text-decoration:none;">이용약관</a>
+      <a href="privacy.html" style="font-family:'DM Sans',sans-serif;font-size:12px;color:var(--text-muted);text-decoration:none;">개인정보 처리방침</a>
+    </div>
+    <p style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-dim);margin:0;">Hanna Lee © 2026. All Rights Reserved.</p>
+  </footer>
+
 </body>
 </html>
