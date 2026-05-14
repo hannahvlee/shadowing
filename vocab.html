@@ -96,9 +96,9 @@
 <div class="container">
   <header>
     <div style="margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border)"><a href="index.html" style="font-family:'DM Mono',monospace;font-size:15px;color:var(--accent2);text-decoration:none;letter-spacing:0.18em;font-weight:700;">🎧 ListenUp!</a></div>
-    <div class="label">Vocabulary Quiz</div>
     <h1 id="pageTitle3"></h1>
     <p class="subtitle">한국어 뜻을 보고 영어 단어/구문을 입력하세요</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;" id="modeTabs"></div>
   </header>
 
   <div class="track-selector" id="trackSelector"></div>
@@ -263,6 +263,23 @@ function renderTrackSelector() {
     btn.onclick = () => selectTrack(i, btn);
     el.appendChild(btn);
   });
+
+  // Render mode tabs
+  const tabContainer = document.getElementById('modeTabs');
+  const tabs = [
+    { label: '🎙 쉐도잉', href: 'player.html?id=' + trackId, active: false },
+    { label: '🎧 청취 테스트', href: 'listening.html?id=' + trackId, active: false },
+    { label: '✏️ 딕테이션', href: 'dictation.html?id=' + trackId, active: false },
+    { label: '📝 어휘 테스트', href: 'vocab.html?id=' + trackId, active: true },
+  ];
+  tabs.forEach(function(t) {
+    const a = document.createElement('a');
+    a.href = t.href;
+    a.textContent = t.label;
+    a.style.cssText = 'font-family:\'DM Mono\',monospace;font-size:11px;padding:7px 16px;border-radius:20px;letter-spacing:0.06em;border:1px solid;text-decoration:none;white-space:nowrap;margin-bottom:8px;' + (t.active ? 'background:rgba(200,240,96,0.12);color:var(--accent);border-color:rgba(200,240,96,0.4);' : 'color:var(--text-muted);border-color:var(--border);');
+    tabContainer.appendChild(a);
+  });
+
   selectTrack(initialIndex, el.children[initialIndex]);
 }
 
