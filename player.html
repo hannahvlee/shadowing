@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shadowing Practice</title>
+<title>ListenUp</title>
 <script src="tracks.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #0e0e0e;
@@ -53,7 +53,7 @@
 
   /* Header */
   header {
-    margin-bottom: 40px;
+    margin-bottom: 0;
   }
 
   .label {
@@ -66,7 +66,7 @@
   }
 
   h1 {
-    font-family: 'DM Serif Display', serif;
+    font-family: 'DM Sans', sans-serif; font-weight: 600;
     font-size: clamp(28px, 5vw, 42px);
     line-height: 1.1;
     color: var(--text);
@@ -472,14 +472,14 @@
 <div class="container">
 
   <header>
-    <div style="margin-bottom:16px"><a href="index.html" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;">← Back</a></div>
-    <div class="label">🎙 쉐도잉</div>
+    <div style="margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border)"><a href="index.html" style="font-family:'DM Mono',monospace;font-size:15px;color:var(--accent2);text-decoration:none;letter-spacing:0.18em;font-weight:700;">🎧 ListenUp!</a></div>
     <h1 id="pageTitle"></h1>
     <p class="subtitle">음원을 듣고 따라 말하세요</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;margin-bottom:24px;" id="modeTabs"></div>
   </header>
 
   <!-- Track selector -->
-  <div class="track-selector" id="trackSelector"></div>
+  <div class="track-selector" id="trackSelector" style="display:none"></div>
 
   <!-- Global controls -->
   <div class="global-controls" id="globalControls">
@@ -510,7 +510,7 @@
   <!-- Save modal -->
   <div id="saveModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:200;display:none;align-items:center;justify-content:center;">
     <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:32px;width:340px;max-width:90vw;">
-      <div style="font-family:'DM Serif Display',serif;font-size:22px;margin-bottom:8px">기록 저장</div>
+      <div style="font-family:'DM Sans',sans-serif;font-weight:600;font-size:22px;margin-bottom:8px">기록 저장</div>
       <p style="font-size:13px;color:var(--text-muted);margin-bottom:20px">이름을 입력하면 학습 기록이 저장돼요</p>
       <input type="text" id="saveName" placeholder="이름 입력..." style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:11px 14px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;outline:none;margin-bottom:16px;">
       <div style="display:flex;gap:8px;justify-content:flex-end;">
@@ -520,16 +520,6 @@
     </div>
   </div>
 
-
-
-  <!-- Footer -->
-  <footer style="border-top:1px solid var(--border);padding-top:24px;margin-top:60px;display:flex;flex-direction:column;gap:12px;">
-    <div style="display:flex;gap:20px;">
-      <a href="terms.html" style="font-family:'DM Sans',sans-serif;font-size:12px;color:var(--text-muted);text-decoration:none;">이용약관</a>
-      <a href="privacy.html" style="font-family:'DM Sans',sans-serif;font-size:12px;color:var(--text-muted);text-decoration:none;">개인정보 처리방침</a>
-    </div>
-    <p style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-dim);margin:0;">Hanna Lee © 2026. All Rights Reserved.</p>
-  </footer>
 </div>
 
 <audio id="mainAudio" style="display:none"></audio>
@@ -552,6 +542,24 @@ const toggleSwitch = document.getElementById('toggleSwitch');
 
 // Set page title
 document.getElementById('pageTitle').textContent = track.title;
+
+// Render mode tabs
+(function() {
+  const tabs = [
+    { label: '🎙 쉐도잉', href: 'player.html?id=' + trackId, active: true },
+    { label: '🎧 청취 테스트', href: 'listening.html?id=' + trackId, active: false },
+    { label: '✏️ 딕테이션', href: 'dictation.html?id=' + trackId, active: false },
+    { label: '📝 어휘 테스트', href: 'vocab.html?id=' + trackId, active: false },
+  ];
+  const container = document.getElementById('modeTabs');
+  tabs.forEach(function(t) {
+    const a = document.createElement('a');
+    a.href = t.href;
+    a.textContent = t.label;
+    a.style.cssText = 'font-family:\'DM Mono\',monospace;font-size:11px;padding:7px 16px;border-radius:20px;letter-spacing:0.06em;border:1px solid;text-decoration:none;white-space:nowrap;margin-bottom:8px;' + (t.active ? 'background:rgba(200,240,96,0.12);color:var(--accent);border-color:rgba(200,240,96,0.4);' : 'color:var(--text-muted);border-color:var(--border);');
+    container.appendChild(a);
+  });
+})();
 
 // Render track selector
 const trackSelectorEl = document.getElementById('trackSelector');
@@ -1002,5 +1010,6 @@ function editDistance(a, b) {
         : 1 + Math.min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]);
   return dp[a.length][b.length];
 }
-</script></body>
+</script>
+</body>
 </html>
