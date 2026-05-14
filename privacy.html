@@ -3,8 +3,29 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>개인정보 처리방침</title>
+<title>개인정보 처리방침 · ListenUp</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e0e0e; --surface: #1a1a1a; --surface2: #242424; --border: #2e2e2e;
+    --accent: #c8f060; --accent2: #60c8f0; --text: #f0ede8; --text-muted: #6e6e6e;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; }
+  body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(ellipse 80% 50% at 20% 20%, rgba(96,200,240,0.04) 0%, transparent 60%); pointer-events: none; z-index: 0; }
+  .container { max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; position: relative; z-index: 1; }
+  .label { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: var(--accent2); text-transform: uppercase; margin-bottom: 10px; }
+  h1 { font-family: 'DM Sans', sans-serif; font-size: clamp(24px, 4vw, 36px); font-weight: 600; margin-bottom: 8px; }
+  .updated { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); margin-bottom: 40px; }
+  h2 { font-size: 15px; font-weight: 600; color: var(--accent2); margin: 32px 0 10px; font-family: 'DM Mono', monospace; letter-spacing: 0.05em; }
+  p { font-size: 14px; color: var(--text-muted); line-height: 1.8; margin-bottom: 8px; }
+  ul { padding-left: 20px; margin-bottom: 8px; }
+  ul li { font-size: 14px; color: var(--text-muted); line-height: 1.8; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+  th { background: var(--surface2); padding: 10px 14px; text-align: left; font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); letter-spacing: 0.06em; border: 1px solid var(--border); }
+  td { padding: 10px 14px; font-size: 13px; color: var(--text-muted); border: 1px solid var(--border); line-height: 1.6; }
+  ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: transparent; } ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+</style>
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-MDELTEL4XC"></script>
 <script>
@@ -13,50 +34,78 @@
   gtag('js', new Date());
   gtag('config', 'G-MDELTEL4XC');
 </script>
-<style>
-  :root { --bg: #0e0e0e; --surface: #1a1a1a; --border: #2e2e2e; --accent: #c8f060; --text: #f0ede8; --text-muted: #6e6e6e; --text-dim: #3e3e3e; }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; }
-  .container { max-width: 680px; margin: 0 auto; padding: 48px 24px 80px; }
-  .label { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 10px; }
-  h1 { font-family: 'DM Sans', sans-serif; font-size: 28px; font-weight: 600; margin-bottom: 32px; }
-  h2 { font-size: 15px; font-weight: 500; margin: 28px 0 10px; color: var(--text); }
-  p { font-size: 14px; color: var(--text-muted); line-height: 1.8; margin-bottom: 12px; }
-  .updated { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-dim); margin-bottom: 32px; }
-  footer { border-top: 1px solid var(--border); padding-top: 24px; margin-top: 60px; display: flex; flex-direction: column; gap: 12px; }
-  footer a { font-family: 'DM Sans', sans-serif; font-size: 12px; color: var(--text-muted); text-decoration: none; }
-  footer p { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-dim); margin: 0; }
-</style>
 </head>
 <body>
 <div class="container">
-  <div style="margin-bottom:24px"><a href="index.html" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;">← Back</a></div>
-  <div class="label">Legal</div>
+  <div style="margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
+    <a href="index.html" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;">← 홈으로</a>
+    <a href="index.html" style="font-family:'DM Mono',monospace;font-size:15px;color:var(--accent2);text-decoration:none;letter-spacing:0.18em;font-weight:700;">🎧 ListenUp!</a>
+  </div>
+
+  <div class="label">Privacy</div>
   <h1>개인정보 처리방침</h1>
-  <p class="updated">최종 수정일: 2026년 5월</p>
+  <p class="updated">최종 업데이트: 2026년 1월 1일</p>
 
-  <h2>수집 항목</h2>
-  <p>이름 (사용자 직접 입력), 학습 기록 (점수, 완료 문장 수, 학습 모드, 날짜)</p>
+  <h2>01. 수집하는 개인정보</h2>
+  <p>ListenUp은 서비스 제공을 위해 아래와 같은 정보를 수집합니다:</p>
+  <table>
+    <tr><th>수집 항목</th><th>수집 목적</th><th>보유 기간</th></tr>
+    <tr><td>이름 (사용자 입력)</td><td>학습 기록 식별</td><td>서비스 이용 종료 시까지</td></tr>
+    <tr><td>학습 기록 (점수, 진도, 모드)</td><td>학습 통계 제공</td><td>서비스 이용 종료 시까지</td></tr>
+    <tr><td>서비스 이용 로그 (Google Analytics)</td><td>서비스 개선</td><td>26개월</td></tr>
+  </table>
 
-  <h2>수집 목적</h2>
-  <p>학습 기록 저장 및 조회를 위해 사용됩니다.</p>
+  <h2>02. 개인정보 수집 방법</h2>
+  <ul>
+    <li>서비스 이용 중 사용자가 직접 입력하는 이름 및 학습 결과</li>
+    <li>Google Analytics를 통한 자동 수집 (방문 기록, 페이지 조회 등)</li>
+  </ul>
 
-  <h2>보관 기간</h2>
-  <p>서비스 종료 시까지 보관됩니다.</p>
+  <h2>03. 개인정보의 이용 목적</h2>
+  <ul>
+    <li>학습 기록 저장 및 통계 제공</li>
+    <li>서비스 품질 개선 및 오류 분석</li>
+    <li>AI 채점 기능 제공 (입력된 텍스트는 채점 후 저장되지 않음)</li>
+  </ul>
 
-  <h2>Google Analytics</h2>
-  <p>본 서비스는 Google Analytics를 통해 방문 데이터(페이지뷰, 접속 국가 등)를 수집합니다. 개인을 특정할 수 없는 통계 데이터이며, Google의 개인정보 처리방침이 적용됩니다.</p>
+  <h2>04. 제3자 제공</h2>
+  <p>수집된 개인정보는 원칙적으로 제3자에게 제공하지 않습니다. 단, 다음의 경우는 예외입니다:</p>
+  <ul>
+    <li>Google Analytics: 서비스 이용 통계 분석 목적 (익명화된 데이터)</li>
+    <li>법령에 의거하거나 수사기관의 요청이 있는 경우</li>
+  </ul>
 
-  <h2>제3자 제공</h2>
-  <p>수집된 개인정보는 제3자에게 제공되지 않습니다.</p>
+  <h2>05. 개인정보 보호</h2>
+  <p>서비스는 개인정보 보호를 위해 다음과 같은 조치를 취합니다:</p>
+  <ul>
+    <li>HTTPS를 통한 데이터 암호화 전송</li>
+    <li>관리자 인증을 통한 기록 접근 제한</li>
+    <li>불필요한 개인정보 최소 수집 원칙 준수</li>
+  </ul>
 
-  <footer>
-    <div style="display:flex;gap:20px;">
-      <a href="terms.html">이용약관</a>
-      <a href="privacy.html">개인정보 처리방침</a>
-    </div>
-    <p>Hanna Lee © 2026. All Rights Reserved.</p>
-  </footer>
+  <h2>06. 이용자의 권리</h2>
+  <p>이용자는 자신의 학습 기록에 대해 다음의 권리를 갖습니다:</p>
+  <ul>
+    <li>열람 및 확인 요청</li>
+    <li>수정 또는 삭제 요청</li>
+  </ul>
+  <p>요청 사항은 서비스 운영자에게 직접 문의해 주세요.</p>
+
+  <h2>07. 쿠키 및 분석 도구</h2>
+  <p>본 서비스는 Google Analytics를 사용하여 방문자 통계를 수집합니다. 브라우저 설정을 통해 쿠키 수집을 거부할 수 있으나, 일부 서비스 기능이 제한될 수 있습니다.</p>
+
+  <h2>08. 방침 변경</h2>
+  <p>개인정보 처리방침이 변경될 경우 서비스 내 공지를 통해 안내하며, 변경된 방침은 공지 후 즉시 효력이 발생합니다.</p>
 </div>
+
+<footer style="border-top:1px solid var(--border);margin-top:48px;padding:28px 24px;text-align:center;">
+  <div style="display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;">
+    <a href="terms.html" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);text-decoration:none;letter-spacing:0.08em;transition:color 0.15s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-muted)'">이용약관</a>
+    <span style="color:var(--border);">|</span>
+    <a href="privacy.html" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);text-decoration:none;letter-spacing:0.08em;transition:color 0.15s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-muted)'">개인정보 처리방침</a>
+    <span style="color:var(--border);">|</span>
+    <span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);letter-spacing:0.08em;">© 2026 ListenUp. All Rights Reserved.</span>
+  </div>
+</footer>
 </body>
 </html>
