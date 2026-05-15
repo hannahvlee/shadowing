@@ -16,9 +16,8 @@
   body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
   body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(ellipse 60% 40% at 20% 10%, rgba(200,240,96,0.04) 0%, transparent 60%); pointer-events: none; z-index: 0; }
 
-  /* Login */
-  .login-wrap { flex: 1; display: flex; align-items: center; justify-content: center; }
-  .login-box { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 40px; width: 100%; max-width: 360px; position: relative; z-index: 1; }
+  .login-wrap { flex: 1; display: flex; align-items: center; justify-content: center; position: relative; z-index: 1; }
+  .login-box { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 40px; width: 100%; max-width: 360px; }
   .login-box h2 { font-size: 20px; font-weight: 600; margin-bottom: 6px; }
   .login-box p { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
   .login-input { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 11px 14px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 14px; outline: none; margin-bottom: 12px; transition: border-color 0.2s; }
@@ -26,39 +25,37 @@
   .login-btn { width: 100%; padding: 11px; background: var(--accent); color: #0e0e0e; border: none; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif; }
   .login-error { font-size: 12px; color: var(--danger); margin-top: 8px; display: none; }
 
-  /* Main layout */
+  .main-wrap { display: none; flex: 1; flex-direction: column; }
   .container { max-width: 1100px; margin: 0 auto; padding: 48px 24px 80px; position: relative; z-index: 1; flex: 1; width: 100%; }
   .label { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 10px; }
   h1 { font-size: clamp(24px, 4vw, 32px); font-weight: 600; margin-bottom: 32px; }
 
-  /* Tabs */
   .tabs { display: flex; gap: 4px; margin-bottom: 32px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 4px; width: fit-content; }
   .tab { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.08em; padding: 8px 16px; border-radius: 7px; cursor: pointer; color: var(--text-muted); border: none; background: none; transition: all 0.15s; }
   .tab.active { background: var(--surface2); color: var(--text); }
 
-  /* Stats */
-  .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 32px; }
+  .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 24px; }
   .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
   .stat-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
   .stat-value { font-size: 28px; font-weight: 600; color: var(--accent); font-family: 'DM Mono', monospace; }
   .stat-sub { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
-
-  /* Chart bars */
   .chart-section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 16px; }
   .chart-title { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 16px; }
   .bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
   .bar-label { font-size: 12px; color: var(--text-muted); min-width: 100px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .bar-wrap { flex: 1; background: var(--surface2); border-radius: 4px; height: 8px; overflow: hidden; }
-  .bar-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; }
+  .bar-fill { height: 100%; border-radius: 4px; }
   .bar-count { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); min-width: 30px; text-align: right; }
-
-  /* Score dist */
   .score-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
   .score-bucket { background: var(--surface2); border-radius: 8px; padding: 12px 8px; text-align: center; }
   .score-bucket .val { font-family: 'DM Mono', monospace; font-size: 18px; font-weight: 600; }
   .score-bucket .lbl { font-size: 10px; color: var(--text-muted); margin-top: 4px; }
 
-  /* Table */
+  .filter-row { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; align-items: center; }
+  .filter-input { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 8px 14px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 13px; outline: none; }
+  .filter-input:focus { border-color: var(--accent); }
+  .filter-select { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 8px 32px 8px 14px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 13px; outline: none; cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236e6e6e' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; }
+  .record-count { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); margin-left: auto; }
   .table-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
   table { width: 100%; border-collapse: collapse; }
   thead tr { background: var(--surface2); border-bottom: 1px solid var(--border); }
@@ -76,24 +73,17 @@
   .score-ok { color: var(--warn); font-family: 'DM Mono', monospace; }
   .score-poor { color: var(--danger); font-family: 'DM Mono', monospace; }
 
-  /* Track toggle */
   .track-list { display: flex; flex-direction: column; gap: 10px; }
-  .track-row { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; display: flex; align-items: center; gap: 16px; }
+  .track-row { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; display: flex; align-items: center; gap: 16px; transition: opacity 0.2s; }
   .track-row.hidden-track { opacity: 0.4; }
   .track-num { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); min-width: 24px; }
   .track-name { flex: 1; font-size: 14px; }
+  .track-status { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); margin-right: 8px; }
   .toggle-btn { position: relative; width: 44px; height: 24px; background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; cursor: pointer; transition: background 0.2s; flex-shrink: 0; }
   .toggle-btn.on { background: var(--accent); border-color: var(--accent); }
   .toggle-btn::after { content: ''; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; background: var(--text-muted); border-radius: 50%; transition: all 0.2s; }
   .toggle-btn.on::after { left: 23px; background: #0e0e0e; }
   .save-notice { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--success); margin-top: 12px; display: none; }
-
-  /* Filter row */
-  .filter-row { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; align-items: center; }
-  .filter-input { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 8px 14px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 13px; outline: none; }
-  .filter-input:focus { border-color: var(--accent); }
-  .filter-select { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 8px 32px 8px 14px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 13px; outline: none; cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236e6e6e' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; }
-  .record-count { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); margin-left: auto; }
 
   .loading { text-align: center; padding: 40px; color: var(--text-muted); font-family: 'DM Mono', monospace; font-size: 12px; }
   .empty { text-align: center; padding: 40px; color: var(--text-muted); font-size: 13px; }
@@ -109,22 +99,22 @@
 </head>
 <body>
 
-<!-- Login screen -->
+<!-- 로그인 -->
 <div class="login-wrap" id="loginScreen">
   <div class="login-box">
     <div style="font-family:'DM Mono',monospace;font-size:15px;color:var(--accent2);margin-bottom:20px;letter-spacing:0.18em;font-weight:700;">🎧 ListenUp!</div>
     <h2>관리자 로그인</h2>
     <p>관리자 비밀번호를 입력하세요</p>
-    <input type="password" class="login-input" id="pwInput" placeholder="비밀번호" onkeydown="if(event.key==='Enter')tryLogin()">
+    <input type="password" class="login-input" id="pwInput" placeholder="비밀번호" onkeydown="if(event.key==='Enter') tryLogin()">
     <button class="login-btn" onclick="tryLogin()">로그인</button>
     <div class="login-error" id="loginError">비밀번호가 틀렸어요.</div>
   </div>
 </div>
 
-<!-- Admin main -->
-<div id="adminMain" style="display:none; flex:1; flex-direction:column;">
+<!-- 메인 -->
+<div class="main-wrap" id="mainWrap">
   <div class="container">
-    <div style="margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
+    <div style="margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;">
       <a href="index.html" style="font-family:'DM Mono',monospace;font-size:15px;color:var(--accent2);text-decoration:none;letter-spacing:0.18em;font-weight:700;">🎧 ListenUp!</a>
       <div style="display:flex;gap:16px;align-items:center;">
         <a href="history.html" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);text-decoration:none;letter-spacing:0.08em;">기록 →</a>
@@ -140,10 +130,10 @@
       <button class="tab" onclick="showTab('tracks')">🎵 트랙 관리</button>
     </div>
 
-    <!-- STATS TAB -->
+    <!-- 통계 탭 -->
     <div id="tab-stats">
       <div class="stat-grid" id="statGrid"><div class="loading">불러오는 중...</div></div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;" id="chartRow">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
         <div class="chart-section">
           <div class="chart-title">모드별 학습 횟수</div>
           <div id="modeChart"></div>
@@ -159,7 +149,7 @@
       </div>
     </div>
 
-    <!-- RECORDS TAB -->
+    <!-- 기록 관리 탭 -->
     <div id="tab-records" style="display:none;">
       <div class="filter-row">
         <input type="text" class="filter-input" id="nameFilter" placeholder="이름 검색..." oninput="renderRecords()">
@@ -177,19 +167,21 @@
       </div>
       <div class="table-wrap">
         <div class="loading" id="recordsLoading">불러오는 중...</div>
-        <table id="recordsTable" style="display:none">
-          <thead><tr>
-            <th>이름</th><th>트랙</th><th>모드</th><th>완료</th><th>점수</th><th>날짜</th><th></th>
-          </tr></thead>
+        <table id="recordsTable" style="display:none;">
+          <thead>
+            <tr>
+              <th>이름</th><th>트랙</th><th>모드</th><th>완료</th><th>점수</th><th>날짜</th><th></th>
+            </tr>
+          </thead>
           <tbody id="recordsBody"></tbody>
         </table>
-        <div class="empty" id="recordsEmpty" style="display:none">기록이 없어요</div>
+        <div class="empty" id="recordsEmpty" style="display:none;">기록이 없어요</div>
       </div>
     </div>
 
-    <!-- TRACKS TAB -->
+    <!-- 트랙 관리 탭 -->
     <div id="tab-tracks" style="display:none;">
-      <p style="font-size:13px;color:var(--text-muted);margin-bottom:20px;">홈 화면에서 보여줄 트랙을 선택하세요. 숨긴 트랙은 학생들에게 표시되지 않아요.</p>
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:20px;">홈 화면에서 보여줄 트랙을 선택하세요.</p>
       <div class="track-list" id="trackToggleList"></div>
       <div class="save-notice" id="saveNotice">✓ 저장됐어요</div>
     </div>
@@ -207,15 +199,14 @@
 </div>
 
 <script>
-const ADMIN_PW = '1234567';
-let allRecords = [];
+var ADMIN_PW = '1234567';
+var allRecords = [];
 
-// ── Auth ──────────────────────────────────────────
 function tryLogin() {
-  const pw = document.getElementById('pwInput').value;
+  var pw = document.getElementById('pwInput').value;
   if (pw === ADMIN_PW) {
     document.getElementById('loginScreen').style.display = 'none';
-    document.getElementById('adminMain').style.display = 'flex';
+    document.getElementById('mainWrap').style.display = 'flex';
     init();
   } else {
     document.getElementById('loginError').style.display = 'block';
@@ -223,22 +214,20 @@ function tryLogin() {
 }
 
 function logout() {
-  document.getElementById('adminMain').style.display = 'none';
+  document.getElementById('mainWrap').style.display = 'none';
   document.getElementById('loginScreen').style.display = 'flex';
   document.getElementById('pwInput').value = '';
 }
 
-// ── Tabs ──────────────────────────────────────────
 function showTab(name) {
-  ['stats','records','tracks'].forEach(t => {
-    document.getElementById(`tab-${t}`).style.display = t === name ? 'block' : 'none';
+  ['stats', 'records', 'tracks'].forEach(function(t) {
+    document.getElementById('tab-' + t).style.display = (t === name) ? 'block' : 'none';
   });
-  document.querySelectorAll('.tab').forEach((el, i) => {
-    el.classList.toggle('active', ['stats','records','tracks'][i] === name);
+  document.querySelectorAll('.tab').forEach(function(el, i) {
+    el.classList.toggle('active', ['stats', 'records', 'tracks'][i] === name);
   });
 }
 
-// ── Init ──────────────────────────────────────────
 async function init() {
   await loadRecords();
   renderTrackToggles();
@@ -246,102 +235,97 @@ async function init() {
 
 async function loadRecords() {
   try {
-    const res = await fetch('/api/records');
-    const data = await res.json();
+    var res = await fetch('/api/records');
+    var data = await res.json();
     allRecords = data.records || [];
 
-    // Populate track filter
-    const tracks = [...new Set(allRecords.map(r => r.track))];
-    const trackFilter = document.getElementById('trackFilter');
-    tracks.forEach(t => {
-      const opt = document.createElement('option');
-      opt.value = t; opt.textContent = t;
+    var tracks = [];
+    allRecords.forEach(function(r) {
+      if (tracks.indexOf(r.track) === -1) tracks.push(r.track);
+    });
+    var trackFilter = document.getElementById('trackFilter');
+    tracks.forEach(function(t) {
+      var opt = document.createElement('option');
+      opt.value = t;
+      opt.textContent = t;
       trackFilter.appendChild(opt);
     });
 
-    renderStats();
+    document.getElementById('recordsLoading').style.display = 'none';
+    document.getElementById('recordsTable').style.display = 'table';
     renderRecords();
+    renderStats();
   } catch(e) {
     document.getElementById('recordsLoading').textContent = '기록을 불러오지 못했어요.';
   }
 }
 
-// ── Stats ─────────────────────────────────────────
 function renderStats() {
-  const total = allRecords.length;
-  const avgScore = total ? Math.round(allRecords.filter(r => r.score != null).reduce((s, r) => s + r.score, 0) / allRecords.filter(r => r.score != null).length) : 0;
-  const uniqueNames = new Set(allRecords.map(r => r.name)).size;
-  const today = new Date(); today.setHours(0,0,0,0);
-  const todayCount = allRecords.filter(r => new Date(r.date) >= today).length;
+  var total = allRecords.length;
+  var scored = allRecords.filter(function(r) { return r.score != null; });
+  var avgScore = scored.length ? Math.round(scored.reduce(function(s, r) { return s + r.score; }, 0) / scored.length) : 0;
+  var names = [];
+  allRecords.forEach(function(r) { if (names.indexOf(r.name) === -1) names.push(r.name); });
+  var today = new Date(); today.setHours(0, 0, 0, 0);
+  var todayCount = allRecords.filter(function(r) { return new Date(r.date) >= today; }).length;
 
-  document.getElementById('statGrid').innerHTML = `
-    <div class="stat-card"><div class="stat-label">총 학습 기록</div><div class="stat-value">${total}</div><div class="stat-sub">전체 제출 수</div></div>
-    <div class="stat-card"><div class="stat-label">유저 수</div><div class="stat-value">${uniqueNames}</div><div class="stat-sub">고유 이름 기준</div></div>
-    <div class="stat-card"><div class="stat-label">평균 점수</div><div class="stat-value">${avgScore}<span style="font-size:14px">점</span></div><div class="stat-sub">전체 평균</div></div>
-    <div class="stat-card"><div class="stat-label">오늘 학습</div><div class="stat-value">${todayCount}</div><div class="stat-sub">오늘 제출 수</div></div>
-  `;
+  document.getElementById('statGrid').innerHTML =
+    '<div class="stat-card"><div class="stat-label">총 학습 기록</div><div class="stat-value">' + total + '</div><div class="stat-sub">전체 제출 수</div></div>' +
+    '<div class="stat-card"><div class="stat-label">유저 수</div><div class="stat-value">' + names.length + '</div><div class="stat-sub">고유 이름 기준</div></div>' +
+    '<div class="stat-card"><div class="stat-label">평균 점수</div><div class="stat-value">' + avgScore + '<span style="font-size:14px">점</span></div><div class="stat-sub">전체 평균</div></div>' +
+    '<div class="stat-card"><div class="stat-label">오늘 학습</div><div class="stat-value">' + todayCount + '</div><div class="stat-sub">오늘 제출 수</div></div>';
 
-  // Mode chart
-  const modes = ['쉐도잉','청취테스트','딕테이션','어휘테스트'];
-  const modeColors = ['var(--accent)','var(--accent2)','#c060f0','#f09640'];
-  const modeCounts = modes.map(m => allRecords.filter(r => r.mode === m).length);
-  const modeMax = Math.max(...modeCounts, 1);
-  document.getElementById('modeChart').innerHTML = modes.map((m, i) => `
-    <div class="bar-row">
-      <span class="bar-label">${m}</span>
-      <div class="bar-wrap"><div class="bar-fill" style="width:${(modeCounts[i]/modeMax*100).toFixed(1)}%;background:${modeColors[i]}"></div></div>
-      <span class="bar-count">${modeCounts[i]}</span>
-    </div>`).join('');
+  var modes = ['쉐도잉', '청취테스트', '딕테이션', '어휘테스트'];
+  var modeColors = ['var(--accent)', 'var(--accent2)', '#c060f0', '#f09640'];
+  var modeCounts = modes.map(function(m) {
+    return allRecords.filter(function(r) { return r.mode === m; }).length;
+  });
+  var modeMax = Math.max.apply(null, modeCounts.concat([1]));
+  document.getElementById('modeChart').innerHTML = modes.map(function(m, i) {
+    return '<div class="bar-row"><span class="bar-label">' + m + '</span><div class="bar-wrap"><div class="bar-fill" style="width:' + (modeCounts[i] / modeMax * 100).toFixed(1) + '%;background:' + modeColors[i] + '"></div></div><span class="bar-count">' + modeCounts[i] + '</span></div>';
+  }).join('');
 
-  // Track chart
-  const trackCounts = {};
-  allRecords.forEach(r => { trackCounts[r.track] = (trackCounts[r.track] || 0) + 1; });
-  const sortedTracks = Object.entries(trackCounts).sort((a,b) => b[1]-a[1]);
-  const trackMax = Math.max(...Object.values(trackCounts), 1);
-  document.getElementById('trackChart').innerHTML = sortedTracks.map(([t, c]) => `
-    <div class="bar-row">
-      <span class="bar-label" title="${t}">${t}</span>
-      <div class="bar-wrap"><div class="bar-fill" style="width:${(c/trackMax*100).toFixed(1)}%;background:var(--accent2)"></div></div>
-      <span class="bar-count">${c}</span>
-    </div>`).join('') || '<div style="color:var(--text-muted);font-size:13px;">데이터 없음</div>';
+  var trackCounts = {};
+  allRecords.forEach(function(r) { trackCounts[r.track] = (trackCounts[r.track] || 0) + 1; });
+  var sortedTracks = Object.keys(trackCounts).map(function(k) { return [k, trackCounts[k]]; }).sort(function(a, b) { return b[1] - a[1]; });
+  var trackMax = Math.max.apply(null, Object.values(trackCounts).concat([1]));
+  document.getElementById('trackChart').innerHTML = sortedTracks.length ? sortedTracks.map(function(pair) {
+    return '<div class="bar-row"><span class="bar-label" title="' + pair[0] + '">' + pair[0] + '</span><div class="bar-wrap"><div class="bar-fill" style="width:' + (pair[1] / trackMax * 100).toFixed(1) + '%;background:var(--accent2)"></div></div><span class="bar-count">' + pair[1] + '</span></div>';
+  }).join('') : '<div style="color:var(--text-muted);font-size:13px;">데이터 없음</div>';
 
-  // Score distribution
-  const buckets = [
-    {label:'0–19', min:0, max:20, color:'var(--danger)'},
-    {label:'20–39', min:20, max:40, color:'var(--danger)'},
-    {label:'40–59', min:40, max:60, color:'var(--warn)'},
-    {label:'60–79', min:60, max:80, color:'var(--warn)'},
-    {label:'80–100', min:80, max:101, color:'var(--success)'},
+  var buckets = [
+    {label: '0–19', min: 0, max: 20, color: 'var(--danger)'},
+    {label: '20–39', min: 20, max: 40, color: 'var(--danger)'},
+    {label: '40–59', min: 40, max: 60, color: 'var(--warn)'},
+    {label: '60–79', min: 60, max: 80, color: 'var(--warn)'},
+    {label: '80–100', min: 80, max: 101, color: 'var(--success)'}
   ];
-  const scored = allRecords.filter(r => r.score != null);
-  document.getElementById('scoreGrid').innerHTML = buckets.map(b => {
-    const cnt = scored.filter(r => r.score >= b.min && r.score < b.max).length;
-    return `<div class="score-bucket"><div class="val" style="color:${b.color}">${cnt}</div><div class="lbl">${b.label}점</div></div>`;
+  document.getElementById('scoreGrid').innerHTML = buckets.map(function(b) {
+    var cnt = scored.filter(function(r) { return r.score >= b.min && r.score < b.max; }).length;
+    return '<div class="score-bucket"><div class="val" style="color:' + b.color + '">' + cnt + '</div><div class="lbl">' + b.label + '점</div></div>';
   }).join('');
 }
 
-// ── Records ───────────────────────────────────────
 function formatDate(iso) {
-  const d = new Date(iso);
-  return `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+  var d = new Date(iso);
+  return d.getFullYear() + '.' + String(d.getMonth() + 1).padStart(2, '0') + '.' + String(d.getDate()).padStart(2, '0') + ' ' + String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
 }
 
 function renderRecords() {
-  const nameQ = document.getElementById('nameFilter').value.toLowerCase();
-  const modeQ = document.getElementById('modeFilter').value;
-  const trackQ = document.getElementById('trackFilter').value;
+  var nameQ = document.getElementById('nameFilter').value.toLowerCase();
+  var modeQ = document.getElementById('modeFilter').value;
+  var trackQ = document.getElementById('trackFilter').value;
 
-  const filtered = allRecords.filter(r =>
-    (!nameQ || r.name.toLowerCase().includes(nameQ)) &&
-    (!modeQ || r.mode === modeQ) &&
-    (!trackQ || r.track === trackQ)
-  );
+  var filtered = allRecords.filter(function(r) {
+    return (!nameQ || r.name.toLowerCase().indexOf(nameQ) !== -1) &&
+           (!modeQ || r.mode === modeQ) &&
+           (!trackQ || r.track === trackQ);
+  });
 
-  document.getElementById('recordCount').textContent = `${filtered.length}개`;
-  const tbody = document.getElementById('recordsBody');
+  document.getElementById('recordCount').textContent = filtered.length + '개';
+  var tbody = document.getElementById('recordsBody');
   tbody.innerHTML = '';
 
-  document.getElementById('recordsLoading').style.display = 'none';
   if (!filtered.length) {
     document.getElementById('recordsTable').style.display = 'none';
     document.getElementById('recordsEmpty').style.display = 'block';
@@ -350,55 +334,69 @@ function renderRecords() {
   document.getElementById('recordsTable').style.display = 'table';
   document.getElementById('recordsEmpty').style.display = 'none';
 
-  filtered.forEach(r => {
-    const tr = document.createElement('tr');
-    tr.id = `row-${r.id}`;
-    const sc = r.score >= 80 ? 'score-great' : r.score >= 60 ? 'score-ok' : 'score-poor';
-    const mc = r.mode === '쉐도잉' ? 'mode-shadowing' : r.mode === '청취테스트' ? 'mode-listening' : r.mode === '어휘테스트' ? 'mode-vocab' : 'mode-dictation';
-    tr.innerHTML = `
-      <td id="name-${r.id}" style="font-weight:500">${r.name}</td>
-      <td style="color:var(--text-muted);font-size:12px">${r.track}</td>
-      <td><span class="mode-badge ${mc}">${r.mode}</span></td>
-      <td style="font-family:'DM Mono',monospace;font-size:12px;color:var(--text-muted)">${r.progress || '-'}</td>
-      <td class="${sc}">${r.score != null ? r.score + '점' : '-'}</td>
-      <td style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted)">${formatDate(r.date)}</td>
-      <td style="display:flex;gap:6px;align-items:center;">
-        <a href="detail.html?id=${r.id}" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--accent2);text-decoration:none;white-space:nowrap;">상세 →</a>
-        <button onclick="startEdit(${r.id}, '${r.name.replace(/'/g, "\\'")}')" style="font-family:'DM Mono',monospace;font-size:10px;color:var(--text-muted);background:none;border:1px solid var(--border);border-radius:6px;padding:3px 8px;cursor:pointer;">✏️</button>
-      </td>`;
+  filtered.forEach(function(r) {
+    var tr = document.createElement('tr');
+    var sc = r.score >= 80 ? 'score-great' : r.score >= 60 ? 'score-ok' : 'score-poor';
+    var mc = r.mode === '쉐도잉' ? 'mode-shadowing' : r.mode === '청취테스트' ? 'mode-listening' : r.mode === '어휘테스트' ? 'mode-vocab' : 'mode-dictation';
+    var safeName = r.name.replace(/'/g, "\\'");
+    tr.innerHTML =
+      '<td id="name-' + r.id + '" style="font-weight:500">' + r.name + '</td>' +
+      '<td style="color:var(--text-muted);font-size:12px">' + r.track + '</td>' +
+      '<td><span class="mode-badge ' + mc + '">' + r.mode + '</span></td>' +
+      '<td style="font-family:\'DM Mono\',monospace;font-size:12px;color:var(--text-muted)">' + (r.progress || '-') + '</td>' +
+      '<td class="' + sc + '">' + (r.score != null ? r.score + '점' : '-') + '</td>' +
+      '<td style="font-family:\'DM Mono\',monospace;font-size:11px;color:var(--text-muted)">' + formatDate(r.date) + '</td>' +
+      '<td style="display:flex;gap:6px;align-items:center;">' +
+        '<a href="detail.html?id=' + r.id + '" style="font-family:\'DM Mono\',monospace;font-size:11px;color:var(--accent2);text-decoration:none;white-space:nowrap;">상세 →</a>' +
+        '<button onclick="startEdit(' + r.id + ', \'' + safeName + '\')" style="font-family:\'DM Mono\',monospace;font-size:10px;color:var(--text-muted);background:none;border:1px solid var(--border);border-radius:6px;padding:3px 8px;cursor:pointer;">✏️</button>' +
+      '</td>';
     tbody.appendChild(tr);
   });
 }
 
 function startEdit(id, currentName) {
-  const cell = document.getElementById(`name-${id}`);
-  cell.innerHTML = `
-    <input id="input-${id}" value="${currentName}" style="background:var(--surface2);border:1px solid var(--accent2);border-radius:6px;padding:4px 8px;color:var(--text);font-size:13px;font-family:'DM Sans',sans-serif;outline:none;width:140px;">
-    <button onclick="saveName(${id})" style="font-family:'DM Mono',monospace;font-size:10px;color:#0e0e0e;background:var(--accent);border:none;border-radius:6px;padding:4px 8px;cursor:pointer;margin-left:4px;">저장</button>
-    <button onclick="cancelEdit(${id},'${currentName.replace(/'/g,"\\'")}')" style="font-family:'DM Mono',monospace;font-size:10px;color:var(--text-muted);background:none;border:1px solid var(--border);border-radius:6px;padding:4px 8px;cursor:pointer;margin-left:2px;">취소</button>`;
-  document.getElementById(`input-${id}`).focus();
+  var cell = document.getElementById('name-' + id);
+  var safeName = currentName.replace(/'/g, "\\'");
+  cell.innerHTML =
+    '<input id="input-' + id + '" value="' + currentName + '" style="background:var(--surface2);border:1px solid var(--accent2);border-radius:6px;padding:4px 8px;color:var(--text);font-size:13px;font-family:\'DM Sans\',sans-serif;outline:none;width:140px;">' +
+    '<button onclick="saveName(' + id + ')" style="font-family:\'DM Mono\',monospace;font-size:10px;color:#0e0e0e;background:var(--accent);border:none;border-radius:6px;padding:4px 8px;cursor:pointer;margin-left:4px;">저장</button>' +
+    '<button onclick="cancelEdit(' + id + ', \'' + safeName + '\')" style="font-family:\'DM Mono\',monospace;font-size:10px;color:var(--text-muted);background:none;border:1px solid var(--border);border-radius:6px;padding:4px 8px;cursor:pointer;margin-left:2px;">취소</button>';
+  document.getElementById('input-' + id).focus();
 }
 
 function cancelEdit(id, name) {
-  document.getElementById(`name-${id}`).innerHTML = name;
+  document.getElementById('name-' + id).innerHTML = name;
 }
 
 async function saveName(id) {
-  const newName = document.getElementById(`input-${id}`).value.trim();
+  var newName = document.getElementById('input-' + id).value.trim();
   if (!newName) return;
   try {
-    const res = await fetch(`/api/records?id=${id}`, { method: 'PATCH', headers: {'Content-Type':'application/json'}, body: JSON.stringify({name: newName}) });
+    var res = await fetch('/api/records?id=' + id, {
+      method: 'PATCH',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({name: newName})
+    });
     if (res.ok) {
-      document.getElementById(`name-${id}`).innerHTML = newName;
-      const rec = allRecords.find(r => String(r.id) === String(id));
-      if (rec) rec.name = newName;
-    } else { alert('저장 실패'); }
-  } catch(e) { alert('오류 발생'); }
+      document.getElementById('name-' + id).innerHTML = newName;
+      for (var i = 0; i < allRecords.length; i++) {
+        if (String(allRecords[i].id) === String(id)) { allRecords[i].name = newName; break; }
+      }
+    } else {
+      alert('저장 실패');
+    }
+  } catch(e) {
+    alert('오류 발생');
+  }
 }
 
-// ── Track Toggles ─────────────────────────────────
 function getHiddenTracks() {
-  try { return JSON.parse(localStorage.getItem('hiddenTracks') || '[]').map(x => Number(x)); } catch { return []; }
+  try {
+    var stored = JSON.parse(localStorage.getItem('hiddenTracks') || '[]');
+    return stored.map(Number);
+  } catch(e) {
+    return [];
+  }
 }
 
 function saveHiddenTracks(arr) {
@@ -406,39 +404,39 @@ function saveHiddenTracks(arr) {
 }
 
 function renderTrackToggles() {
+  var list = document.getElementById('trackToggleList');
   if (typeof TRACKS === 'undefined') {
-    document.getElementById('trackToggleList').innerHTML = '<div style="color:var(--text-muted);font-size:13px;">tracks.js를 불러올 수 없어요.</div>';
+    list.innerHTML = '<div style="color:var(--text-muted);font-size:13px;">tracks.js를 불러올 수 없어요.</div>';
     return;
   }
-  const hidden = getHiddenTracks();
-  const list = document.getElementById('trackToggleList');
+  var hidden = getHiddenTracks();
   list.innerHTML = '';
-  TRACKS.forEach((t, i) => {
-    const isVisible = !hidden.includes(t.id) && !hidden.includes(String(t.id));
-    const row = document.createElement('div');
-    row.className = `track-row${isVisible ? '' : ' hidden-track'}`;
-    row.id = `trow-${t.id}`;
-    row.innerHTML = `
-      <span class="track-num">${String(i+1).padStart(2,'0')}</span>
-      <span class="track-name">${t.title}</span>
-      <span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);margin-right:8px">${isVisible ? '표시 중' : '숨김'}</span>
-      <div class="toggle-btn ${isVisible ? 'on' : ''}" id="toggle-${t.id}" onclick="toggleTrack('${t.id}')"></div>`;
+  TRACKS.forEach(function(t, i) {
+    var isVisible = hidden.indexOf(Number(t.id)) === -1;
+    var row = document.createElement('div');
+    row.className = 'track-row' + (isVisible ? '' : ' hidden-track');
+    row.innerHTML =
+      '<span class="track-num">' + String(i + 1).padStart(2, '0') + '</span>' +
+      '<span class="track-name">' + t.title + '</span>' +
+      '<span class="track-status">' + (isVisible ? '표시 중' : '숨김') + '</span>' +
+      '<div class="toggle-btn ' + (isVisible ? 'on' : '') + '" onclick="toggleTrack(' + Number(t.id) + ')"></div>';
     list.appendChild(row);
   });
 }
 
 function toggleTrack(id) {
-  const numId = Number(id);
-  const hidden = getHiddenTracks().map(x => Number(x));
-  const idx = hidden.indexOf(numId);
-  if (idx === -1) hidden.push(numId);
-  else hidden.splice(idx, 1);
+  var hidden = getHiddenTracks();
+  var idx = hidden.indexOf(id);
+  if (idx === -1) {
+    hidden.push(id);
+  } else {
+    hidden.splice(idx, 1);
+  }
   saveHiddenTracks(hidden);
   renderTrackToggles();
-
-  const notice = document.getElementById('saveNotice');
+  var notice = document.getElementById('saveNotice');
   notice.style.display = 'block';
-  setTimeout(() => notice.style.display = 'none', 2000);
+  setTimeout(function() { notice.style.display = 'none'; }, 2000);
 }
 </script>
 </body>
