@@ -241,7 +241,6 @@ function showTab(name) {
 // ── Init ──────────────────────────────────────────
 async function init() {
   await loadRecords();
-  renderStats();
   renderTrackToggles();
 }
 
@@ -263,8 +262,10 @@ async function loadRecords() {
     document.getElementById('recordsLoading').style.display = 'none';
     document.getElementById('recordsTable').style.display = 'table';
     renderRecords();
+    renderStats();
   } catch(e) {
-    document.getElementById('recordsLoading').textContent = '불러오기 실패';
+    console.error('Records load error:', e);
+    document.getElementById('recordsLoading').textContent = '불러오기 실패: ' + e.message;
   }
 }
 
@@ -399,7 +400,7 @@ async function saveName(id) {
 
 // ── Track Toggles ─────────────────────────────────
 function getHiddenTracks() {
-  try { return JSON.parse(localStorage.getItem('hiddenTracks') || '[]'); } catch { return []; }
+  try { return JSON.parse(localStorage.getItem('hiddenTracks') || '[]').map(x => Number(x)); } catch { return []; }
 }
 
 function saveHiddenTracks(arr) {
@@ -415,7 +416,7 @@ function renderTrackToggles() {
   const list = document.getElementById('trackToggleList');
   list.innerHTML = '';
   TRACKS.forEach((t, i) => {
-    const isVisible = !hidden.includes(t.id);
+    const isVisible = !hidden.includes(t.id) && !hidden.includes(String(t.id));
     const row = document.createElement('div');
     row.className = `track-row${isVisible ? '' : ' hidden-track'}`;
     row.id = `trow-${t.id}`;
@@ -429,9 +430,10 @@ function renderTrackToggles() {
 }
 
 function toggleTrack(id) {
-  const hidden = getHiddenTracks();
-  const idx = hidden.indexOf(id);
-  if (idx === -1) hidden.push(id);
+  const numId = Number(id);
+  const hidden = getHiddenTracks().map(x => Number(x));
+  const idx = hidden.indexOf(numId);
+  if (idx === -1) hidden.push(numId);
   else hidden.splice(idx, 1);
   saveHiddenTracks(hidden);
   renderTrackToggles();

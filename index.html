@@ -220,7 +220,7 @@
     const trackList = document.getElementById('trackList');
     trackList.innerHTML = '';
     const hiddenTracks = JSON.parse(localStorage.getItem('hiddenTracks') || '[]');
-    const visibleTracks = TRACKS.filter(t => !hiddenTracks.includes(t.id));
+    const visibleTracks = TRACKS.filter(t => !hiddenTracks.includes(t.id) && !hiddenTracks.includes(String(t.id)));
     visibleTracks.forEach((track, i) => {
       const a = document.createElement('a');
       a.className = 'track-card';
