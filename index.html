@@ -219,7 +219,9 @@
   function renderTracks() {
     const trackList = document.getElementById('trackList');
     trackList.innerHTML = '';
-    TRACKS.forEach((track, i) => {
+    const hiddenTracks = JSON.parse(localStorage.getItem('hiddenTracks') || '[]');
+    const visibleTracks = TRACKS.filter(t => !hiddenTracks.includes(t.id));
+    visibleTracks.forEach((track, i) => {
       const a = document.createElement('a');
       a.className = 'track-card';
       const href = currentMode === 'shadowing' ? `player.html?id=${track.id}` :
