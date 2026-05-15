@@ -252,17 +252,17 @@ async function loadRecords() {
 
     // Populate track filter
     const tracks = [...new Set(allRecords.map(r => r.track))];
-    const tf = document.getElementById('trackFilter');
+    const trackFilter = document.getElementById('trackFilter');
     tracks.forEach(t => {
       const opt = document.createElement('option');
       opt.value = t; opt.textContent = t;
-      tf.appendChild(opt);
+      trackFilter.appendChild(opt);
     });
 
-    renderRecords();
     renderStats();
+    renderRecords();
   } catch(e) {
-    document.getElementById('recordsLoading').textContent = '불러오기 실패';
+    document.getElementById('recordsLoading').textContent = '기록을 불러오지 못했어요.';
   }
 }
 
