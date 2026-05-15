@@ -351,6 +351,11 @@ async function gradeWithClaude(i, userTranslation) {
   const badge = document.getElementById(`badge-${i}`);
   const modelTextEl = document.getElementById(`model-text-${i}`);
   badge.textContent = '⏳ 채점 중...'; badge.className = 'score-badge';
+  if (!window._gaTrackStarted) {
+    window._gaTrackStarted = true;
+    const params = new URLSearchParams(window.location.search);
+    gtag('event', 'practice_start', { mode: '청취테스트', track_id: params.get('id') });
+  }
 
   try {
     const res = await fetch('/api/grade', {

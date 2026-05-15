@@ -364,6 +364,11 @@ function normalize(text) {
 function gradeSection(prefix) {
   const items = prefix === 'w' ? wordItems : phraseItems;
   let correct = 0;
+  if (!window._gaTrackStarted) {
+    window._gaTrackStarted = true;
+    const params = new URLSearchParams(window.location.search);
+    gtag('event', 'practice_start', { mode: '어휘테스트', track_id: params.get('id') });
+  }
 
   items.forEach((item, i) => {
     const input = document.getElementById(`input-${prefix}-${i}`);

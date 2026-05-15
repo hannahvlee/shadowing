@@ -317,6 +317,11 @@ function normalize(text) {
 function submitDictation() {
   const userInput = document.getElementById('dictationInput').value.trim();
   if (!userInput) { alert('먼저 받아쓰기를 입력해주세요!'); return; }
+  if (!window._gaTrackStarted) {
+    window._gaTrackStarted = true;
+    const params = new URLSearchParams(window.location.search);
+    gtag('event', 'practice_start', { mode: '딕테이션', track_id: params.get('id') });
+  }
   if (autoRepeatTimer) { clearTimeout(autoRepeatTimer); autoRepeatTimer = null; }
   audio.pause();
   audio.ontimeupdate = null;
