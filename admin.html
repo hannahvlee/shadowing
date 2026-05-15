@@ -205,6 +205,7 @@ var allRecords = [];
 function tryLogin() {
   var pw = document.getElementById('pwInput').value;
   if (pw === ADMIN_PW) {
+    sessionStorage.setItem('adminLoggedIn', '1');
     document.getElementById('loginScreen').style.display = 'none';
     document.getElementById('mainWrap').style.display = 'flex';
     init();
@@ -214,10 +215,19 @@ function tryLogin() {
 }
 
 function logout() {
+  sessionStorage.removeItem('adminLoggedIn');
   document.getElementById('mainWrap').style.display = 'none';
   document.getElementById('loginScreen').style.display = 'flex';
   document.getElementById('pwInput').value = '';
 }
+
+// 페이지 로드시 이미 로그인돼 있으면 바로 진입
+if (sessionStorage.getItem('adminLoggedIn') === '1') {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('mainWrap').style.display = 'flex';
+  window.addEventListener('DOMContentLoaded', init);
+}
+
 
 function showTab(name) {
   ['stats', 'records', 'tracks'].forEach(function(t) {
