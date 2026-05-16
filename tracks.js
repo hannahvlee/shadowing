@@ -410,6 +410,51 @@ const TRACKS = [
       { type: "phrase", en: "reduce tension", ko: "긴장을 완화하다" }
     ]
   }
+  ,
+  {
+    id: 7,
+    title: "Work of the biology committee",
+    file: "LC14_TPO11_Set2-1_Work of the biology committee.mp3",
+    sentences: [
+      { start: 7.00, end: 9.72, text: "Hi, Professor Atkins. You wanted to see me?" },
+      { start: 9.72, end: 13.52, text: "Hi, Bill. Thanks for coming. I wanted to talk to you about," },
+      { start: 13.52, end: 16.95, text: "Is there, is there something wrong with my research paper?" },
+      { start: 16.95, end: 21.61, text: "No, not at all. In fact, it's very good. That's why I wanted to talk to you." },
+      { start: 21.61, end: 23.09, text: "Oh, thanks." },
+      { start: 23.09, end: 27.18, text: "I think you know the department is looking to hire a new professor." },
+      { start: 27.18, end: 29.70, text: "Are you familiar with our hiring process?" },
+      { start: 29.70, end: 33.83, text: "No, but what's that got to do with me?" },
+      { start: 33.83, end: 38.62, text: "Well, Bill, we have several qualified applicants we are serious about" },
+      { start: 38.62, end: 44.91, text: "and as part of the interview process, we have them meet with a committee of professors and students in our department." },
+      { start: 44.91, end: 46.42, text: "They also have to give a talk." },
+      { start: 46.42, end: 48.74, text: "You mean, like, a lecture?" },
+      { start: 48.74, end: 52.42, text: "Yes, like a sample lecture on one of their academic interests." },
+      { start: 52.42, end: 55.16, text: "Oh, so you can see their teaching style." },
+      { start: 55.16, end: 56.20, text: "Exactly." },
+      { start: 56.20, end: 58.37, text: "Uh huh, makes sense." },
+      { start: 58.37, end: 64.01, text: "So, I'd like to know if you'd be willing to join as a student representative on the interview committee." },
+      { start: 64.01, end: 67.88, text: "It'd be a good experience for you. You could, uh, put it on your resume." },
+      { start: 67.88, end: 72.36, text: "Oh, that'd look good for my grad school application, I guess." },
+      { start: 72.36, end: 74.25, text: "So, what do I have to do?" },
+      { start: 74.25, end: 78.60, text: "The department secretary will give you a schedule of the applicants' visits." },
+      { start: 78.60, end: 83.91, text: "If you're free, we'd like you to attend their talks and then later you can give us your opinion," },
+      { start: 83.91, end: 88.75, text: "Oh, and we usually serve lunch or snacks, depending on what time the talk is." },
+      { start: 88.75, end: 93.85, text: "Cool. That's another good reason to do this. Umm, when's the next talk?" },
+      { start: 93.85, end: 96.02, text: "We actually haven't had any, yet." },
+      { start: 96.02, end: 102.45, text: "The first one is next Friday at 10 a.m. then lunch and informal discussion with the applicant right after." },
+      { start: 102.45, end: 107.94, text: "Oh, well, I'm free on Fridays. If all the talks are on Fridays, I'll be able to make it to all of them." },
+      { start: 107.94, end: 115.10, text: "That's great! Now, you should know that this job candidate is interested in the life cycles in the forest." },
+      { start: 115.10, end: 117.57, text: "That's what my research is about." },
+      { start: 117.57, end: 129.61, text: "Yes, I know. That's why I feel it necessary to point out that even though this applicant's research interests are similar to yours, we want you to tell us what you think about the teaching of all these applicants." },
+      { start: 129.61, end: 135.52, text: "Your perspective as a student, how the applicants teaches in the classroom; that's what's important to us." },
+      { start: 135.52, end: 138.93, text: "I understand. So, how many applicants are there?" },
+      { start: 138.93, end: 146.26, text: "Let's see. We have four, all very good candidates, that we'll be looking at over the next few weeks." },
+      { start: 146.26, end: 153.41, text: "It's going to be a tough decision, but it'll be a good experience for you, especially if you're going to grad school." },
+      { start: 153.41, end: 159.20, text: "Thank you. It'll be cool to do this. I'll get a copy of the schedule from the secretary on my way out." },
+      { start: 159.20, end: 163.00, text: "You're welcome. See you in class this afternoon." },
+    ],
+    vocab: []
+  }
   // 새 음원 추가 시 여기에 추가:
   // {
   //   id: 2,
