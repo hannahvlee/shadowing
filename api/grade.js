@@ -34,12 +34,14 @@ Grading criteria:
 
 PASS if score >= 75.
 
+CRITICAL: You MUST always output ALL 5 lines below, no matter how short or simple the sentence is. Even for sentence fragments like "For example, in ancient Rome." — always provide LITERAL and NATURAL.
+
 Respond with ONLY these 5 lines, no extra text:
 SCORE: [number 0-100]
 PASS: [true or false]
 FEEDBACK: [one sentence in Korean - focus ONLY on whether key content words are included or missing. Do NOT comment on Korean naturalness, grammar structure, or word order - this is a direct translation (직역) test so unnatural Korean order is totally fine. If score is 80+, give brief encouraging praise. Only mention if a KEY word/phrase is completely missing or meaning is significantly wrong.]
-LITERAL: [Korean translation that strictly follows English word order - translate each word/phrase in the EXACT order they appear in English even if unnatural. Example: Photography has undergone remarkable changes = 사진술은 겪어왔다 놀라운 변화들을]
-NATURAL: [natural fluent Korean translation]`;
+LITERAL: [Korean translation of the ORIGINAL ENGLISH ONLY - strictly follow English word order, translate each word/phrase in the EXACT order they appear. Ignore the student's answer completely. Always provide this even for short fragments. Example: Photography has undergone remarkable changes = 사진술은 겪어왔다 놀라운 변화들을]
+NATURAL: [natural fluent Korean translation - always provide this even for short fragments or incomplete sentences]`;
 
   try {
     const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -67,9 +69,9 @@ NATURAL: [natural fluent Korean translation]`;
     // Parse line-by-line instead of JSON
     const scoreMatch = text.match(/SCORE:\s*(\d+)/);
     const passMatch = text.match(/PASS:\s*(true|false)/i);
-    const feedbackMatch = text.match(/FEEDBACK:\s*(.+)/);
-    const literalMatch = text.match(/LITERAL:\s*(.+)/);
-    const naturalMatch = text.match(/NATURAL:\s*(.+)/);
+    const feedbackMatch = text.match(/FEEDBACK:\s*([\s\S]+?)(?=\nLITERAL:|\nNATURAL:|$)/);
+    const literalMatch = text.match(/LITERAL:\s*([\s\S]+?)(?=\nNATURAL:|$)/);
+    const naturalMatch = text.match(/NATURAL:\s*([\s\S]+?)$/);
 
     const result = {
       score: scoreMatch ? parseInt(scoreMatch[1]) : 50,
