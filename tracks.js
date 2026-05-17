@@ -413,7 +413,7 @@ const TRACKS = [
   ,
   {
     id: 7,
-    title: "Work of the biology committee",
+    title: "Work for the biology committee",
     file: "LC14_TPO11_Set2-1_Work of the biology committee.mp3",
     sentences: [
       { start: 7.00, end: 9.72, text: "Hi, Professor Atkins. You wanted to see me?" },
