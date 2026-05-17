@@ -453,7 +453,36 @@ const TRACKS = [
       { start: 153.41, end: 159.20, text: "Thank you. It'll be cool to do this. I'll get a copy of the schedule from the secretary on my way out." },
       { start: 159.20, end: 163.00, text: "You're welcome. See you in class this afternoon." },
     ],
-    vocab: []
+    vocab: [
+      { ko: "지원자", en: "applicant" },
+      { ko: "위원회", en: "committee" },
+      { ko: "대표자", en: "representative" },
+      { ko: "이력서", en: "resume" },
+      { ko: "대학원", en: "grad school" },
+      { ko: "비공식적인", en: "informal" },
+      { ko: "후보자", en: "candidate" },
+      { ko: "생애 주기", en: "life cycle" },
+      { ko: "관점, 시각", en: "perspective" },
+      { ko: "학문적인", en: "academic" },
+      { ko: "자격을 갖춘", en: "qualified" },
+      { ko: "지원하다, 신청하다", en: "apply" },
+      { ko: "채용하다", en: "hire" },
+      { ko: "비서", en: "secretary" },
+      { ko: "일정", en: "schedule" },
+      { ko: "연구 관심사", en: "research interest" },
+      { ko: "~와 관련이 있다", en: "have to do with", isPhrase: true },
+      { ko: "~에 대해 진지하게 검토 중이다", en: "be serious about", isPhrase: true },
+      { ko: "인터뷰 과정의 일환으로", en: "as part of the interview process", isPhrase: true },
+      { ko: "~할 의향이 있다", en: "be willing to", isPhrase: true },
+      { ko: "~에 참석하다", en: "attend", isPhrase: true },
+      { ko: "~을 이력서에 기재하다", en: "put it on one's resume", isPhrase: true },
+      { ko: "~을 지적하다, 언급하다", en: "point out", isPhrase: true },
+      { ko: "~에 관심이 있다", en: "be interested in", isPhrase: true },
+      { ko: "~와 유사하다", en: "be similar to", isPhrase: true },
+      { ko: "~을 살펴보다, 검토하다", en: "look at", isPhrase: true },
+      { ko: "~하는 것이 필요하다고 느끼다", en: "feel it necessary to", isPhrase: true },
+      { ko: "어려운 결정", en: "tough decision", isPhrase: true },
+    ]
   }
   // 새 음원 추가 시 여기에 추가:
   // {
