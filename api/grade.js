@@ -40,8 +40,8 @@ Respond with ONLY these 5 lines, no extra text:
 SCORE: [number 0-100]
 PASS: [true or false]
 FEEDBACK: [one sentence in Korean - focus ONLY on whether key content words are included or missing. Do NOT comment on Korean naturalness, grammar structure, or word order - this is a direct translation (직역) test so unnatural Korean order is totally fine. If score is 80+, give brief encouraging praise. Only mention if a KEY word/phrase is completely missing or meaning is significantly wrong.]
-LITERAL: [Korean translation of the ORIGINAL ENGLISH ONLY - strictly follow English word order, translate each word/phrase in the EXACT order they appear. Ignore the student's answer completely. Always provide this even for short fragments. Example: Photography has undergone remarkable changes = 사진술은 겪어왔다 놀라운 변화들을]
-NATURAL: [natural fluent Korean translation - always provide this even for short fragments or incomplete sentences]`;
+LITERAL: <write the actual Korean translation here, following English word order exactly. Example format: 사진술은 겪어왔다 놀라운 변화들을>
+NATURAL: <write the actual fluent Korean translation here>`;
 
   try {
     const response = await fetch('https://api.anthropic.com/v1/messages', {
