@@ -35,15 +35,14 @@ Grading criteria:
 
 PASS if score >= 75.
 
-Output exactly these 5 lines with real content. Use the example below as a format guide:
+Output exactly these 4 lines with real content. Use the example below as a format guide:
 
 SCORE: 85
 PASS: true
 FEEDBACK: 핵심 내용이 잘 포함되어 있습니다.
-LITERAL: 사진술은 겪어왔다 놀라운 변화들을
-NATURAL: 사진술은 놀라운 변화를 겪어왔습니다
+CHUNKING: 사진술은 / 겪어왔다 / 놀라운 변화들을
 
-Now output the same 5 lines for the actual sentence. LITERAL must follow English word order. No brackets, no placeholder text, only real Korean.`;
+Now output the same 4 lines for the actual sentence. CHUNKING must follow English word order exactly, split into meaning units with / between them. "going to" = "~할 것이다" (NOT movement). No brackets, no placeholder text, only real Korean.`;
 
   try {
     const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -71,20 +70,17 @@ Now output the same 5 lines for the actual sentence. LITERAL must follow English
     // Parse line-by-line instead of JSON
     const scoreMatch = text.match(/SCORE:\s*(\d+)/);
     const passMatch = text.match(/PASS:\s*(true|false)/i);
-    const feedbackMatch = text.match(/FEEDBACK:\s*([\s\S]+?)(?=\nLITERAL:|\nNATURAL:|$)/);
-    const literalMatch = text.match(/LITERAL:\s*([\s\S]+?)(?=\nNATURAL:|$)/);
-    const naturalMatch = text.match(/NATURAL:\s*([\s\S]+?)$/);
+    const feedbackMatch = text.match(/FEEDBACK:\s*([\s\S]+?)(?=\nCHUNKING:|$)/);
+    const chunkingMatch = text.match(/CHUNKING:\s*([\s\S]+?)$/);
 
-    const literalText = literalMatch ? literalMatch[1].trim() : '';
-    const naturalText = naturalMatch ? naturalMatch[1].trim() : '';
+    const chunkingText = chunkingMatch ? chunkingMatch[1].trim() : '';
 
     // If translations are missing or look like placeholders, fetch them separately
     const isPlaceholder = (t) => !t || t.includes('[') || t.includes('waiting') || t.includes('write real') || t.length < 3;
 
-    let finalLiteral = literalText;
-    let finalNatural = naturalText;
+    let finalChunking = chunkingText;
 
-    if (isPlaceholder(literalText) || isPlaceholder(naturalText)) {
+    if (isPlaceholder(chunkingText)) {
       try {
         const transRes = await fetch('https://api.anthropic.com/v1/messages', {
           method: 'POST',
@@ -101,10 +97,8 @@ English: ${original}` }]
         });
         const transData = await transRes.json();
         const transText = transData.content[0].text.trim();
-        const litMatch = transText.match(/LITERAL:\s*(.+)/);
-        const natMatch = transText.match(/NATURAL:\s*(.+)/);
-        if (litMatch) finalLiteral = litMatch[1].trim();
-        if (natMatch) finalNatural = natMatch[1].trim();
+        const chunkMatch = transText.match(/CHUNKING:\s*(.+)/);
+        if (chunkMatch) finalChunking = chunkMatch[1].trim();
       } catch(e) {}
     }
 
@@ -112,8 +106,7 @@ English: ${original}` }]
       score: scoreMatch ? parseInt(scoreMatch[1]) : 50,
       pass: passMatch ? passMatch[1].toLowerCase() === 'true' : false,
       feedback: feedbackMatch ? feedbackMatch[1].trim() : '채점 완료',
-      model_answer: (finalLiteral ? '직독직해: ' + finalLiteral : '') +
-                    (finalNatural ? '\n의역: ' + finalNatural : '')
+      model_answer: finalChunking ? '끊어읽기: ' + finalChunking : ''
     };
 
     return res.status(200).json(result);
