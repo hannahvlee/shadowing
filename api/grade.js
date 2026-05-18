@@ -42,7 +42,7 @@ PASS: true
 FEEDBACK: 핵심 내용이 잘 포함되어 있습니다.
 CHUNKING: 사진술은 / 겪어왔다 / 놀라운 변화들을
 
-Now output the same 4 lines for the actual sentence. CHUNKING must follow English word order exactly, split into meaning units with / between them. "going to" = "~할 것이다" (NOT movement). No brackets, no placeholder text, only real Korean.`;
+Now output the same 4 lines for the actual sentence. CHUNKING must follow the ORIGINAL ENGLISH word order exactly — completely ignore the student's translation when writing CHUNKING. Split into meaning units with / between them. "going to" = "~할 것이다" (NOT movement). No brackets, no placeholder text, only real Korean.`;
 
   try {
     const response = await fetch('https://api.anthropic.com/v1/messages', {
