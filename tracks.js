@@ -1,6 +1,60 @@
 const TRACKS = [
   {
     id: 1,
+    title: "Test 10 - Volcanoes",
+    file: "10_2_2_Volcanoes.mp3",
+    sentences: [
+      { start: 4.00, end: 7.68, text: "Today we're going to discuss volcanoes." },
+      { start: 7.68, end: 14.05, text: "When a volcano erupts, it releases a variety of gases and particles into the atmosphere." },
+      { start: 14.05, end: 22.09, text: "Volcanic ash falls out of the atmosphere in a matter of days or weeks and has little effect on the climate." },
+      { start: 22.09, end: 33.20, text: "One of the most significant gases entering the upper atmosphere is sulfur dioxide, which forms substances called sulfate aerosols there." },
+      { start: 33.20, end: 40.85, text: "These aerosols reflect sunlight away from the Earth, leading to a cooling effect on the planet's surface." },
+      { start: 40.85, end: 50.67, text: "This phenomenon was observed after one of the largest volcanic eruptions in the 20th century, the eruption of Mount Pinatubo in 1991." },
+      { start: 50.67, end: 56.96, text: "Pinatubo's eruption caused a temporary global temperature drop of about half a degree Celsius." },
+      { start: 56.96, end: 62.21, text: "However, not all volcanic eruptions have the same impact on the climate." },
+      { start: 62.21, end: 74.30, text: "The extent of the cooling effect depends on several factors including the magnitude of the eruption, the amount of sulfur dioxide released, and the location of the volcano." },
+      { start: 74.30, end: 80.42, text: "For instance, because of atmospheric circulation patterns that spread gases around the world," },
+      { start: 80.42, end: 86.94, text: "eruptions near the equator tend to have a bigger effect on the global climate than eruptions elsewhere do." },
+      { start: 86.94, end: 96.30, text: "Additionally, the cooling effect is typically short-lived, lasting only a few years before the aerosols settle out of the atmosphere." },
+      { start: 96.30, end: 106.78, text: "Volcanic eruptions can also contribute to longer term climate change through the release of carbon dioxide, a gas that contributes to global warming." },
+      { start: 106.78, end: 118.00, text: "It must be remembered, however, that human activity releases far more carbon dioxide into the atmosphere than is released by volcanic eruptions." },
+    ],
+    vocab: [
+      { ko: "분화하다, 폭발하다", en: "erupt" },
+      { ko: "분화, 폭발", en: "eruption" },
+      { ko: "화산재", en: "volcanic ash" },
+      { ko: "이산화황", en: "sulfur dioxide" },
+      { ko: "황산염", en: "sulfate" },
+      { ko: "에어로졸, 미립자", en: "aerosol" },
+      { ko: "반사하다", en: "reflect" },
+      { ko: "냉각 효과", en: "cooling effect" },
+      { ko: "현상", en: "phenomenon" },
+      { ko: "일시적인", en: "temporary" },
+      { ko: "규모, 크기", en: "magnitude" },
+      { ko: "대기 순환", en: "atmospheric circulation" },
+      { ko: "적도", en: "equator" },
+      { ko: "단기적인", en: "short-lived" },
+      { ko: "이산화탄소", en: "carbon dioxide" },
+      { ko: "지구 온난화", en: "global warming" },
+      { ko: "기여하다", en: "contribute" },
+      { ko: "침전되다, 가라앉다", en: "settle" },
+      { ko: "~을 대기로 방출하다", en: "release ~ into the atmosphere", isPhrase: true },
+      { ko: "며칠 또는 몇 주 안에", en: "in a matter of days or weeks", isPhrase: true },
+      { ko: "~로 이어지다", en: "lead to", isPhrase: true },
+      { ko: "~이 관찰되다", en: "be observed", isPhrase: true },
+      { ko: "기후에 영향을 미치다", en: "have an impact on the climate", isPhrase: true },
+      { ko: "~에 달려 있다", en: "depend on", isPhrase: true },
+      { ko: "여러 요인들", en: "several factors", isPhrase: true },
+      { ko: "예를 들어", en: "for instance", isPhrase: true },
+      { ko: "~의 경향이 있다", en: "tend to", isPhrase: true },
+      { ko: "장기적인 기후 변화", en: "longer term climate change", isPhrase: true },
+      { ko: "~보다 훨씬 더 많은", en: "far more ~ than", isPhrase: true },
+      { ko: "~을 기억해야 한다", en: "it must be remembered that", isPhrase: true },
+    ]
+  }
+  ,
+  {
+    id: 2,
     title: "Test 10 - Bioluminescence",
     file: "10_2_2_Bioluminescence.mp3",
     sentences: [
@@ -54,7 +108,7 @@ const TRACKS = [
   }
   ,
   {
-    id: 2,
+    id: 3,
     title: "[LC 14] TPO 11 - Work for the committee",
     file: "LC14_TPO11_Set2-1_Work of the biology committee.mp3",
     sentences: [
@@ -128,7 +182,7 @@ const TRACKS = [
   }
   ,
   {
-    id: 3,
+    id: 4,
     title: "Test 10 - Graffiti",
     file: "10_1_Graffiti.mp3",
     sentences: [
@@ -183,7 +237,7 @@ const TRACKS = [
   }
   // 새 음원 추가 시 여기에 추가:
   // {
-  //   id: 2,
+  //   id: 5,
   //   title: "제목",
   //   file: "파일명.mp3",
   //   sentences: [
@@ -193,7 +247,7 @@ const TRACKS = [
   // }
   ,
   {
-    id: 4,
+    id: 6,
     title: "[LC 14] TPO 11 - Cape Cod House",
     file: "LC14_TPO11_Set1-3_CapeCodHouse.mp3",
     sentences: [
@@ -291,7 +345,7 @@ const TRACKS = [
   }
   ,
   {
-    id: 5,
+    id: 7,
     title: "[LC 14] TPO 11 - Distraction Display",
     file: "LC14_TPO11_Set1-2_DistractionDisplay.mp3",
     sentences: [
@@ -367,7 +421,7 @@ const TRACKS = [
   }
   ,
   {
-    id: 6,
+    id: 8,
     title: "Test 9 - Impressionism",
     file: "9_2_1_Impressionism.mp3",
     sentences: [
@@ -426,7 +480,7 @@ const TRACKS = [
 ,
   ,
   {
-    id: 7,
+    id: 9,
     title: "Test 9 - Social Capital",
     file: "9_2_1_Social_Capital.mp3",
     sentences: [
@@ -488,7 +542,7 @@ const TRACKS = [
   }
   ,
   {
-    id: 8,
+    id: 10,
     title: "Test 9 - Photography",
     file: "9_1_Photography.mp3",
     sentences: [
