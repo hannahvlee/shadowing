@@ -34,7 +34,7 @@
   tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
   tbody tr:last-child { border-bottom: none; }
   tbody tr:hover { background: rgba(255,255,255,0.02); }
-  td { padding: 14px 16px; font-size: 13px; }
+  td { padding: 14px 16px; font-size: 13px; } td:last-child { padding: 14px 8px; width: 60px; }
   .td-name { font-weight: 500; color: var(--text); width: 140px; max-width: 140px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .td-track { color: var(--text-muted); white-space: nowrap; }
   .td-mode { }
@@ -106,7 +106,7 @@
       <thead>
         <tr>
           <th style="width:140px">이름</th>
-          <th style="width:200px">트랙</th>
+          <th style="width:260px">트랙</th>
           <th style="width:100px">모드</th>
           <th style="width:90px">완료</th>
           <th style="width:70px">텍스트</th>
