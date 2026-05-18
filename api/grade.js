@@ -74,12 +74,45 @@ Now output the same 5 lines for the actual sentence. LITERAL must follow English
     const literalMatch = text.match(/LITERAL:\s*([\s\S]+?)(?=\nNATURAL:|$)/);
     const naturalMatch = text.match(/NATURAL:\s*([\s\S]+?)$/);
 
+    const literalText = literalMatch ? literalMatch[1].trim() : '';
+    const naturalText = naturalMatch ? naturalMatch[1].trim() : '';
+
+    // If translations are missing or look like placeholders, fetch them separately
+    const isPlaceholder = (t) => !t || t.includes('[') || t.includes('waiting') || t.includes('write real') || t.length < 3;
+
+    let finalLiteral = literalText;
+    let finalNatural = naturalText;
+
+    if (isPlaceholder(literalText) || isPlaceholder(naturalText)) {
+      try {
+        const transRes = await fetch('https://api.anthropic.com/v1/messages', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey, 'anthropic-version': '2023-06-01' },
+          body: JSON.stringify({
+            model: 'claude-haiku-4-5-20251001',
+            max_tokens: 300,
+            messages: [{ role: 'user', content: `Translate this English sentence to Korean in two ways. Output exactly 2 lines:
+LITERAL: (Korean following English word order exactly)
+NATURAL: (fluent natural Korean)
+
+English: ${original}` }]
+          })
+        });
+        const transData = await transRes.json();
+        const transText = transData.content[0].text.trim();
+        const litMatch = transText.match(/LITERAL:\s*(.+)/);
+        const natMatch = transText.match(/NATURAL:\s*(.+)/);
+        if (litMatch) finalLiteral = litMatch[1].trim();
+        if (natMatch) finalNatural = natMatch[1].trim();
+      } catch(e) {}
+    }
+
     const result = {
       score: scoreMatch ? parseInt(scoreMatch[1]) : 50,
       pass: passMatch ? passMatch[1].toLowerCase() === 'true' : false,
       feedback: feedbackMatch ? feedbackMatch[1].trim() : '채점 완료',
-      model_answer: (literalMatch ? '직독직해: ' + literalMatch[1].trim() : '') +
-                    (naturalMatch ? '\n의역: ' + naturalMatch[1].trim() : '')
+      model_answer: (finalLiteral ? '직독직해: ' + finalLiteral : '') +
+                    (finalNatural ? '\n의역: ' + finalNatural : '')
     };
 
     return res.status(200).json(result);
