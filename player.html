@@ -725,6 +725,7 @@ async function saveRecord() {
         mode: '쉐도잉',
         score: avg,
         progress,
+        textVisible: !blurMode,
         details: Object.keys(sessionDetails).sort((a,b) => parseInt(a)-parseInt(b)).map(k => sessionDetails[k])
       })
     });

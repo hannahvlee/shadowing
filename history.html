@@ -109,6 +109,7 @@
           <th>트랙</th>
           <th>모드</th>
           <th>완료</th>
+          <th>텍스트</th>
           <th>점수</th>
           <th>날짜</th>
           <th></th>
@@ -201,6 +202,7 @@ function renderTable() {
       <td class="td-track">${r.track}</td>
       <td><span class="mode-badge ${modeClass}">${r.mode}</span></td>
       <td style="font-family:'DM Mono',monospace;font-size:12px;color:var(--text-muted)">${r.progress || '-'}</td>
+      <td style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted)">${r.textVisible === true ? '👁 표시' : r.textVisible === false ? '🙈 숨김' : '-'}</td>
       <td class="td-score ${scoreClass}">${r.score != null ? r.score + '점' : '-'}</td>
       <td class="td-date">${formatDate(r.date)}</td>
       <td style="display:flex;gap:6px;align-items:center;">
