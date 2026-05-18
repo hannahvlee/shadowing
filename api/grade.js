@@ -34,14 +34,15 @@ Grading criteria:
 
 PASS if score >= 75.
 
-CRITICAL: You MUST always output ALL 5 lines below, no matter how short or simple the sentence is. Even for sentence fragments like "For example, in ancient Rome." — always provide LITERAL and NATURAL.
+Output exactly these 5 lines with real content. Use the example below as a format guide:
 
-Respond with ONLY these 5 lines, no extra text:
-SCORE: [number 0-100]
-PASS: [true or false]
-FEEDBACK: [one sentence in Korean - focus ONLY on whether key content words are included or missing. Do NOT comment on Korean naturalness, grammar structure, or word order - this is a direct translation (직역) test so unnatural Korean order is totally fine. If score is 80+, give brief encouraging praise. Only mention if a KEY word/phrase is completely missing or meaning is significantly wrong.]
-LITERAL: write real Korean here following English word order, no brackets (example: 사진술은 겪어왔다 놀라운 변화들을)
-NATURAL: write real fluent Korean here, no brackets`;
+SCORE: 85
+PASS: true
+FEEDBACK: 핵심 내용이 잘 포함되어 있습니다.
+LITERAL: 사진술은 겪어왔다 놀라운 변화들을
+NATURAL: 사진술은 놀라운 변화를 겪어왔습니다
+
+Now output the same 5 lines for the actual sentence. LITERAL must follow English word order. No brackets, no placeholder text, only real Korean.`;
 
   try {
     const response = await fetch('https://api.anthropic.com/v1/messages', {
