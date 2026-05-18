@@ -267,8 +267,8 @@ function renderTrackSelector() {
   // Render mode tabs
   const tabContainer = document.getElementById('modeTabs');
   const tabs = [
-    { label: '🎙 쉐도잉', href: 'player.html?id=' + trackId, active: false },
     { label: '🎧 청취 테스트', href: 'listening.html?id=' + trackId, active: false },
+    { label: '🎙 쉐도잉', href: 'player.html?id=' + trackId, active: false },
     { label: '✏️ 딕테이션', href: 'dictation.html?id=' + trackId, active: false },
     { label: '📝 어휘 테스트', href: 'vocab.html?id=' + trackId, active: true },
   ];
@@ -364,11 +364,6 @@ function normalize(text) {
 function gradeSection(prefix) {
   const items = prefix === 'w' ? wordItems : phraseItems;
   let correct = 0;
-  if (!window._gaTrackStarted) {
-    window._gaTrackStarted = true;
-    const params = new URLSearchParams(window.location.search);
-    gtag('event', 'practice_start', { mode: '어휘테스트', track_id: params.get('id') });
-  }
 
   items.forEach((item, i) => {
     const input = document.getElementById(`input-${prefix}-${i}`);
@@ -467,6 +462,6 @@ async function saveRecord() {
 window.addEventListener('DOMContentLoaded', () => { renderTrackSelector(); });
 </script>
 
-<footer style="border-top:1px solid var(--border);background:var(--bg);padding:28px 24px;text-align:center;position:relative;z-index:1;"><div style="display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;"><a href="terms.html" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);text-decoration:none;letter-spacing:0.08em;transition:color 0.15s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-muted)'">이용약관</a><span style="color:var(--border);">|</span><a href="privacy.html" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);text-decoration:none;letter-spacing:0.08em;transition:color 0.15s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-muted)'">개인정보 처리방침</a><span style="color:var(--border);">|</span><span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);letter-spacing:0.08em;">© 2026 ListenUp. All Rights Reserved.</span></div></footer>
+<footer style="border-top:1px solid var(--border);background:var(--bg);padding:28px 24px;text-align:center;position:relative;z-index:1;"><div style="display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;"><a href="terms.html" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);text-decoration:none;letter-spacing:0.08em;">이용약관</a><span style="color:var(--border);">|</span><a href="privacy.html" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);text-decoration:none;letter-spacing:0.08em;">개인정보 처리방침</a><span style="color:var(--border);">|</span><span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);letter-spacing:0.08em;">© 2026 ListenUp. All Rights Reserved.</span></div></footer>
 </body>
 </html>
