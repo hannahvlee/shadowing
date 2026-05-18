@@ -23,13 +23,20 @@ export default async function handler(req, res) {
     return r.json();
   };
 
-  // GET - fetch all records
+  // GET - fetch all records or single record by id
   if (req.method === 'GET') {
     try {
       const keysRes = await redis(['LRANGE', 'records', '0', '499']);
       const records = (keysRes.result || []).map(r => {
         try { return JSON.parse(r); } catch { return null; }
       }).filter(Boolean);
+
+      const id = req.query && req.query.id;
+      if (id) {
+        const record = records.find(r => String(r.id) === String(id));
+        return res.status(200).json({ record: record || null });
+      }
+
       return res.status(200).json({ records });
     } catch (e) {
       return res.status(500).json({ error: e.message });
