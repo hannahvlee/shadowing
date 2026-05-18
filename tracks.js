@@ -484,6 +484,29 @@ const TRACKS = [
       { ko: "어려운 결정", en: "tough decision", isPhrase: true },
     ]
   }
+  ,
+  {
+    id: 8,
+    title: "Test 10 Bioluminescence",
+    file: "10_2_2_Bioluminescence.mp3",
+    sentences: [
+      { start: 6.00, end: 10.86, text: "Some living organisms emit their own light, a process we call bioluminescence." },
+      { start: 10.86, end: 18.50, text: "This phenomenon occurs in various species, including certain types of fungi, fish, and insects like fireflies." },
+      { start: 18.50, end: 22.86, text: "Bioluminescence is typically a result of a chemical reaction" },
+      { start: 22.86, end: 27.42, text: "that involves the enzyme luciferase and the molecule luciferin." },
+      { start: 27.42, end: 32.74, text: "When these two substances interact in the presence of oxygen, light is produced." },
+      { start: 32.74, end: 36.89, text: "Bioluminescence serves different purposes for different species." },
+      { start: 36.89, end: 43.62, text: "For example, the spotted lanternfish uses its bioluminescent light for camouflage in the dark ocean." },
+      { start: 43.62, end: 50.19, text: "This process, known as counter illumination, involves the fish matching the light coming from above." },
+      { start: 50.19, end: 55.18, text: "making it less visible to predators below and thus less vulnerable to attack." },
+      { start: 55.18, end: 59.81, text: "Fireflies, on the other hand, use bioluminescence for mating signals." },
+      { start: 59.81, end: 68.83, text: "Scientists are intrigued by bioluminescence not only because of its beauty, but also for its potential applications in medicine and technology." },
+      { start: 68.83, end: 75.33, text: "For instance, bioluminescent markers are used in biological research to track cellular processes." },
+      { start: 75.33, end: 83.73, text: "Moreover, there is ongoing exploration into how bioluminescent properties can be harnessed for developing sustainable lighting solutions." },
+      { start: 83.73, end: 88.00, text: "We'll talk about some specific applications for lighting next time." },
+    ],
+    vocab: []
+  }
   // 새 음원 추가 시 여기에 추가:
   // {
   //   id: 2,
