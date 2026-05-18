@@ -1,7 +1,7 @@
 const TRACKS = [
   {
     id: 1,
-    title: "Test 10 Bioluminescence",
+    title: "Test 10 - Bioluminescence",
     file: "10_2_2_Bioluminescence.mp3",
     sentences: [
       { start: 5.00, end: 10.86, text: "Some living organisms emit their own light, a process we call bioluminescence." },
@@ -24,7 +24,7 @@ const TRACKS = [
   ,
   {
     id: 2,
-    title: "Work for the biology committee",
+    title: "[LC 14] TPO 11 - Work for the committee",
     file: "LC14_TPO11_Set2-1_Work of the biology committee.mp3",
     sentences: [
       { start: 7.00, end: 9.72, text: "Hi, Professor Atkins. You wanted to see me?" },
@@ -98,7 +98,7 @@ const TRACKS = [
   ,
   {
     id: 3,
-    title: "Graffiti",
+    title: "Test 10 - Graffiti",
     file: "10_1_Graffiti.mp3",
     sentences: [
       { start: 7.00, end: 14.20, text: "Graffiti are writings and drawings created by private citizens in public places, like on walls." },
@@ -163,7 +163,7 @@ const TRACKS = [
   ,
   {
     id: 4,
-    title: "LC 14 TPO 11 Cape Cod House",
+    title: "[LC 14] TPO 11 - Cape Cod House",
     file: "LC14_TPO11_Set1-3_CapeCodHouse.mp3",
     sentences: [
       { start: 7.00, end: 10.10, text: "Today, we're taking a little detour" },
@@ -261,7 +261,7 @@ const TRACKS = [
   ,
   {
     id: 5,
-    title: "LC 14 TPO 11 Distraction Display",
+    title: "[LC 14] TPO 11 - Distraction Display",
     file: "LC14_TPO11_Set1-2_DistractionDisplay.mp3",
     sentences: [
       { start: 11.50, end: 17.80, text: "Okay. Today, we're going to continue our discussion of the parenting behaviors of birds" },
@@ -337,7 +337,7 @@ const TRACKS = [
   ,
   {
     id: 6,
-    title: "Impressionism",
+    title: "Test 9 - Impressionism",
     file: "9_2_1_Impressionism.mp3",
     sentences: [
       { start: 0.00, end: 5.21, text: "Impressionism is a painting style that began in France in the late 19th century." },
@@ -396,7 +396,7 @@ const TRACKS = [
   ,
   {
     id: 7,
-    title: "Social Capital",
+    title: "Test 9 - Social Capital",
     file: "9_2_1_Social_Capital.mp3",
     sentences: [
       { start: 0.00, end: 3.50, text: "Social capital refers to the networks of relationships" },
@@ -458,7 +458,7 @@ const TRACKS = [
   ,
   {
     id: 8,
-    title: "Photography",
+    title: "Test 9 - Photography",
     file: "9_1_Photography.mp3",
     sentences: [
       { start: 0.00, end: 2.20, text: "Over its two centuries of existence," },
