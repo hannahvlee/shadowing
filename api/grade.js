@@ -53,7 +53,7 @@ NATURAL: [natural fluent Korean translation - always provide this even for short
       },
       body: JSON.stringify({
         model: 'claude-haiku-4-5-20251001',
-        max_tokens: 300,
+        max_tokens: 600,
         messages: [{ role: 'user', content: prompt }]
       })
     });
