@@ -29,8 +29,9 @@ Grading criteria:
 5. Participial phrases like "producing..." can be translated as -면서, -하여, -한, etc. All are correct
 6. COMPLETELY IGNORE proper nouns and technical terms when grading - these include people's names (Daguerre, Ansel Adams), technical terms (daguerreotype, daguerreotypes, bonding social capital, bridging social capital, social capital, bonding, bridging), place names, etc. The student can say anything for these (even just "d의" or "그 사람의") and it should NOT affect the score at all. Only grade the non-proper-noun content.
 7. The student's answer was captured by speech-to-text (STT) which often mishears words. If you see nonsensical words or phrases, assume STT error and ignore them completely when grading.
-6. If the student's translation conveys the same meaning as the model answer, give high score (85+)
-7. Do NOT penalize for different but equally valid Korean expressions of the same English phrase
+8. If the student's translation conveys the same meaning as the model answer, give high score (85+)
+9. Do NOT penalize for different but equally valid Korean expressions of the same English phrase
+10. Be GENEROUS with scoring. If the core meaning is there, give at least 75. Only deduct significantly for truly missing key content.
 
 PASS if score >= 75.
 
