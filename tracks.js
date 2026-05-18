@@ -490,7 +490,7 @@ const TRACKS = [
     title: "Test 10 Bioluminescence",
     file: "10_2_2_Bioluminescence.mp3",
     sentences: [
-      { start: 6.00, end: 10.86, text: "Some living organisms emit their own light, a process we call bioluminescence." },
+      { start: 5.00, end: 10.86, text: "Some living organisms emit their own light, a process we call bioluminescence." },
       { start: 10.86, end: 18.50, text: "This phenomenon occurs in various species, including certain types of fungi, fish, and insects like fireflies." },
       { start: 18.50, end: 22.86, text: "Bioluminescence is typically a result of a chemical reaction" },
       { start: 22.86, end: 27.42, text: "that involves the enzyme luciferase and the molecule luciferin." },
