@@ -47,7 +47,7 @@ const TRACKS = [
       { start: 326.52, end: 333.43, text: "So, they got some cheap socks and they advertised to give a pair away with each bowl of soup," },
       { start: 333.43, end: 337.53, text: "but then, even fewer people came to the restaurant." },
       { start: 337.53, end: 347.29, text: "Well, you can imagine why. People started to associate the soup with feet. They began to imagine the soup smelled like feet." },
-      { start: 347.29, end: 358.31, text: "The advertising message, "soup means free socks," was a bad choice. I-it was a waste of money and worse it caused a loss of customers." },
+      { start: 347.29, end: 358.31, text: "The advertising message, 'soup means free socks,' was a bad choice. I-it was a waste of money and worse it caused a loss of customers." },
       { start: 358.31, end: 368.64, text: "Now, I want everyone to get into small groups and come up with some examples, not of good advertising messages, but of truly disastrous ones." },
       { start: 368.64, end: 379.00, text: "Think of real examples or make some up and, um, talk about the reasons those messages are unsuccessful and then, we'll get back together and share." },
     ],
