@@ -1,6 +1,107 @@
 const TRACKS = [
   {
     id: 1,
+    title: "[LC14] TPO 11 - Landscape & Climate",
+    file: "LC14_TPO11_Set2-2_Landscape___Climate.mp3",
+    sentences: [
+      { start: 7.00, end: 12.27, text: "When land gets developed for human use, the landscape changes." },
+      { start: 12.27, end: 16.83, text: "We don't see as many types of vegetation, trees, grasses, and so forth." },
+      { start: 16.83, end: 22.02, text: "This in turn leads to other losses, the loss of animals that once lived there," },
+      { start: 22.02, end: 28.61, text: "uh, but these are the obvious changes, but there are also less obvious changes, like the climate." },
+      { start: 28.61, end: 38.12, text: "One interesting case of this, uh, of changes in the local land use causing changes in climate, specifically, the temperature, is in Florida." },
+      { start: 38.12, end: 41.82, text: "Now, what comes to mind when you think of the state of Florida?" },
+      { start: 41.82, end: 44.23, text: "Sunshine, beaches." },
+      { start: 44.23, end: 46.75, text: "Warm weather, oranges." },
+      { start: 46.75, end: 48.02, text: "Yes, exactly." },
+      { start: 48.02, end: 53.98, text: "Florida has long had a great citrus industry, large groves of oranges, lemons and the like." },
+      { start: 53.98, end: 56.40, text: "Florida's winter is very mild." },
+      { start: 56.40, end: 62.00, text: "The temperature doesn't often get below freezing, but there are some areas Florida that do freeze," },
+      { start: 62.00, end: 67.32, text: "so in the early 1900s, farmers moved even further south in Florida," },
+      { start: 67.32, end: 69.87, text: "to areas there were even less likely to freeze." },
+      { start: 69.87, end: 73.57, text: "Obviously, freezing temperatures are a danger to the crops." },
+      { start: 73.57, end: 79.64, text: "A bad bout of cold weather, a long spell of frosts, could ruin a farmer's entire crop." },
+      { start: 79.64, end: 87.05, text: "Anyway, before the citrus growers moved south, much of the land in south Florida was what we call wetlands." },
+      { start: 87.05, end: 94.14, text: "Wetlands are areas of marshy, swampy land, areas where water covers the soil," },
+      { start: 94.14, end: 99.22, text: "or is present either at or near the surface of the soil for a large part of the year." },
+      { start: 99.22, end: 105.52, text: "Wetlands have their own unique ecosystems with plants and animals with special and interesting adaptations," },
+      { start: 105.52, end: 111.00, text: "very exciting, but it is not we are talking about today. Umm, where was I?" },
+      { start: 111.00, end: 113.19, text: "Farmers moved south?" },
+      { start: 113.19, end: 118.03, text: "Oh, yes. Farmers moved south, but the land was not suitable for farming." },
+      { start: 118.03, end: 122.09, text: "You can't grow oranges in wetlands, so farmers had to transform the wetlands into land suitable for farming." },
+      { start: 122.09, end: 128.46, text: "To do that, you have to drain the water from the land," },
+      { start: 128.46, end: 132.86, text: "move the water elsewhere, and divert the water sources, such as rivers." },
+      { start: 132.86, end: 136.86, text: "Hundreds of miles of drainage canals were built in the wetlands." },
+      { start: 136.86, end: 143.16, text: "Now, these areas, the new areas the farmer moved to, used to be warm and unlikely to freeze." },
+      { start: 143.16, end: 149.81, text: "However, recently the area has become susceptible to freezes and we're trying to understand why." },
+      { start: 149.81, end: 155.54, text: "Is it some global temperature change or weather pattern, like El Niño or something?" },
+      { start: 155.54, end: 157.77, text: "Well, there are two theories." },
+      { start: 157.77, end: 163.89, text: "One idea is, as you suggest, that major weather patterns, something like El Niño, are responsible," },
+      { start: 163.89, end: 168.46, text: "but the other idea, and this is one that I personally subscribe to," },
+      { start: 168.46, end: 173.66, text: "is that the changes in the temperature pattern have been brought about by the loss of the wetlands." },
+      { start: 173.66, end: 176.74, text: "Well, how would loss of wetlands make a difference?" },
+      { start: 176.74, end: 180.00, text: "Well, think about what we have been studying so far." },
+      { start: 180.00, end: 183.58, text: "We discussed the impact of landscapes on temperature, right?" },
+      { start: 183.58, end: 187.22, text: "What effects does a body of water have on an area?" },
+      { start: 187.22, end: 193.93, text: "Oh yeah! Bodies of water tend to absorb the heat during the day and then they release the heat at night." },
+      { start: 193.93, end: 198.71, text: "Yes, exactly. What you just said is what I want you all to understand." },
+      { start: 198.71, end: 203.29, text: "Bodies of water release heat and moisture back into the environment," },
+      { start: 203.29, end: 210.00, text: "so places near large bodies of water are generally milder, slightly warmer than those without water." },
+      { start: 210.00, end: 215.44, text: "And, what I, and others, think is that the loss of the wetlands has created a situation" },
+      { start: 215.44, end: 219.17, text: "where the local temperatures in the area are now slightly different," },
+      { start: 219.17, end: 223.56, text: "slightly colder than they were a hundred years ago, before the wetlands were drained." },
+      { start: 223.56, end: 227.78, text: "Hmm, do we know what the temperature was like back then?" },
+      { start: 227.78, end: 230.61, text: "Well, we were able to estimate this." },
+      { start: 230.61, end: 235.79, text: "We have data about south Florida's current landscape, uh, the plant cover," },
+      { start: 235.79, end: 240.75, text: "and we were able to reconstruct data about its landscape prior to 1900." },
+      { start: 240.75, end: 247.85, text: "Then we enter those data, information about what the landscape look like before and after the wet lands were drained," },
+      { start: 247.85, end: 250.71, text: "we enter the data into a computer weather model." },
+      { start: 250.71, end: 258.25, text: "This model can predict temperatures and when all of the data were entered an overall cooling trend was predicted by the model." },
+      { start: 258.25, end: 260.36, text: "How much colder does it get now?" },
+      { start: 260.36, end: 268.04, text: "Well, actually, the model shows a drop of only a few degrees Celsius, but this is enough to cause dramatic damage to crops." },
+      { start: 268.04, end: 272.03, text: "If temperatures overnight are already very close to the freezing point," },
+      { start: 272.03, end: 275.92, text: "then this drop of just a few degrees can take the temperature below freezing" },
+      { start: 275.92, end: 279.28, text: "and freezing causes frosts, which kill crops." },
+      { start: 279.28, end: 283.71, text: "These damaging frosts wouldn't happen if the wetlands were still in existence." },
+      { start: 283.71, end: 287.55, text: "Just a tiny temperature difference can have major consequences." },
+    ],
+    vocab: [
+      { ko: "식생, 초목", en: "vegetation" },
+      { ko: "감귤류", en: "citrus" },
+      { ko: "과수원, 농장", en: "grove" },
+      { ko: "냉해, 서리", en: "frost" },
+      { ko: "습지", en: "wetlands" },
+      { ko: "늪지의, 습한", en: "marshy" },
+      { ko: "늪지의", en: "swampy" },
+      { ko: "생태계", en: "ecosystem" },
+      { ko: "적응", en: "adaptation" },
+      { ko: "배수하다", en: "drain" },
+      { ko: "전환하다, 돌리다", en: "divert" },
+      { ko: "취약한, ~하기 쉬운", en: "susceptible" },
+      { ko: "냉각 추세", en: "cooling trend" },
+      { ko: "재건하다, 복원하다", en: "reconstruct" },
+      { ko: "극적인, 심각한", en: "dramatic" },
+      { ko: "결과, 영향", en: "consequence" },
+      { ko: "지지하다, 동의하다", en: "subscribe to" },
+      { ko: "운하", en: "canal" },
+      { ko: "~로 이어지다", en: "lead to", isPhrase: true },
+      { ko: "어는점 아래로 떨어지다", en: "get below freezing", isPhrase: true },
+      { ko: "냉해의 위험", en: "a danger to the crops", isPhrase: true },
+      { ko: "오랜 서리 기간", en: "a long spell of frosts", isPhrase: true },
+      { ko: "~에 적합한", en: "suitable for", isPhrase: true },
+      { ko: "~로 변환하다", en: "transform ~ into", isPhrase: true },
+      { ko: "~에 의해 초래되다", en: "be brought about by", isPhrase: true },
+      { ko: "열을 흡수하다", en: "absorb the heat", isPhrase: true },
+      { ko: "열을 방출하다", en: "release heat", isPhrase: true },
+      { ko: "~이 존재하다", en: "be in existence", isPhrase: true },
+      { ko: "~에 입력하다", en: "enter ~ into", isPhrase: true },
+      { ko: "단 몇 도의 하락", en: "a drop of only a few degrees", isPhrase: true },
+      { ko: "~이 예측되다", en: "be predicted by", isPhrase: true },
+      { ko: "어는점에 가깝다", en: "be close to the freezing point", isPhrase: true },
+    ]
+  }
+  ,
+  {
+    id: 2,
     title: "Test 10 - Volcanoes",
     file: "10_2_2_Volcanoes.mp3",
     sentences: [
@@ -54,7 +155,7 @@ const TRACKS = [
   }
   ,
   {
-    id: 2,
+    id: 3,
     title: "Test 10 - Bioluminescence",
     file: "10_2_2_Bioluminescence.mp3",
     sentences: [
@@ -108,7 +209,7 @@ const TRACKS = [
   }
   ,
   {
-    id: 3,
+    id: 4,
     title: "[LC 14] TPO 11 - Work for the committee",
     file: "LC14_TPO11_Set2-1_Work of the biology committee.mp3",
     sentences: [
@@ -182,7 +283,7 @@ const TRACKS = [
   }
   ,
   {
-    id: 4,
+    id: 5,
     title: "Test 10 - Graffiti",
     file: "10_1_Graffiti.mp3",
     sentences: [
@@ -237,7 +338,7 @@ const TRACKS = [
   }
   // 새 음원 추가 시 여기에 추가:
   // {
-  //   id: 5,
+  //   id: 6,
   //   title: "제목",
   //   file: "파일명.mp3",
   //   sentences: [
@@ -247,7 +348,7 @@ const TRACKS = [
   // }
   ,
   {
-    id: 6,
+    id: 7,
     title: "[LC 14] TPO 11 - Cape Cod House",
     file: "LC14_TPO11_Set1-3_CapeCodHouse.mp3",
     sentences: [
@@ -345,7 +446,7 @@ const TRACKS = [
   }
   ,
   {
-    id: 7,
+    id: 8,
     title: "[LC 14] TPO 11 - Distraction Display",
     file: "LC14_TPO11_Set1-2_DistractionDisplay.mp3",
     sentences: [
@@ -421,7 +522,7 @@ const TRACKS = [
   }
   ,
   {
-    id: 8,
+    id: 9,
     title: "Test 9 - Impressionism",
     file: "9_2_1_Impressionism.mp3",
     sentences: [
@@ -480,7 +581,7 @@ const TRACKS = [
 ,
   ,
   {
-    id: 9,
+    id: 10,
     title: "Test 9 - Social Capital",
     file: "9_2_1_Social_Capital.mp3",
     sentences: [
@@ -542,7 +643,7 @@ const TRACKS = [
   }
   ,
   {
-    id: 10,
+    id: 11,
     title: "Test 9 - Photography",
     file: "9_1_Photography.mp3",
     sentences: [
