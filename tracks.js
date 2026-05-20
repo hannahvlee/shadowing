@@ -1,6 +1,85 @@
 const TRACKS = [
   {
     id: 1,
+    title: "[LC14] TPO 11 - Advertising",
+    file: "LC14_TPO11_Set2-3_Advertising.mp3",
+    sentences: [
+      { start: 7.00, end: 13.13, text: "Let's get started. Last time we were talking about the need for advertising." },
+      { start: 13.13, end: 20.29, text: "Now, let's look at how you can successfully call attention to the service or product you want to sell." },
+      { start: 20.29, end: 25.12, text: "To succeed you've got to develop a systematic approach." },
+      { start: 25.12, end: 36.44, text: "If you don't come up with a system, a plan, you risk making decisions that waste money or even drive way potential customers," },
+      { start: 36.44, end: 41.45, text: "but what does a systematic advertising plan look like?" },
+      { start: 41.45, end: 56.68, text: "Well, it covers what we call 'The Four M's.' The Four M's: market, media, money, message." },
+      { start: 56.68, end: 62.02, text: "All are important areas to focus on when creating your advertising plan." },
+      { start: 62.02, end: 64.25, text: "We'll look at them one by one." },
+      { start: 64.25, end: 68.59, text: "The first step is to look at your market." },
+      { start: 68.59, end: 74.43, text: "That's the people who might become customers, buyers of your service or product." },
+      { start: 74.43, end: 77.51, text: "You need to know all about your possible customers:" },
+      { start: 77.51, end: 87.00, text: "Who are they? What age group are they? What do they like or dislike? How do they shop? So – you got that?" },
+      { start: 87.00, end: 91.06, text: "A market is a group of potential customers." },
+      { start: 91.06, end: 105.28, text: "Next, media. Obviously the major media are television, radio, newspapers, magazines, um, billboards… and so forth." },
+      { start: 105.28, end: 108.52, text: "They're all avenues of communication" },
+      { start: 108.52, end: 117.68, text: "and you need to figure out which media you should advertise through, which media will reach your intended audience, your market." },
+      { start: 117.68, end: 127.68, text: "So, you do research, trying to determine which media will reach the most potential customers for the lowest cost." },
+      { start: 127.68, end: 135.87, text: "For instance, if you have a product that, oh, say teachers would like, then teachers are your market." },
+      { start: 135.87, end: 150.27, text: "So, you ask yourself: What magazines do the majority of teachers read? What TV programs do teachers watch? Do teachers listen to much radio? At what times of the day?" },
+      { start: 150.27, end: 157.23, text: "Say, now your research turns up two magazines that teachers read" },
+      { start: 157.23, end: 167.31, text: "and it also shows that the majority of teachers, say ages 20 to 30, read the magazine about classroom activities," },
+      { start: 167.31, end: 176.41, text: "while most teachers older than that read the other magazine, the one about, oh, let's say, educational psychology." },
+      { start: 176.41, end: 189.26, text: "You think your product will appeal most to teachers ages 20 to 30, so you decide to put your advertisement in their favorite magazine, the one about classroom activities." },
+      { start: 189.26, end: 199.51, text: "You don't waste money advertising in the educational psychology magazine. You know, the one that the younger teachers generally don't read." },
+      { start: 199.51, end: 207.49, text: "And, since you're reaching the majority of teachers in your target age group, you're probably spending your money well." },
+      { start: 207.49, end: 211.86, text: "Which brings us to the third M: money." },
+      { start: 211.86, end: 217.38, text: "You have an advertising budget to spend, but how do you spend it wisely?" },
+      { start: 217.38, end: 224.05, text: "Again, research is the key. Good research gives you facts." },
+      { start: 224.05, end: 234.38, text: "Facts that can help you decide, well, as we already mentioned, decide the right market to target and the best media to use," },
+      { start: 234.38, end: 239.72, text: "but also when to advertise, or how to get the best rates." },
+      { start: 239.72, end: 250.50, text: "Like, maybe you're advertising sports equipment and you've been spending most of your budget during the holiday season, when people buy gifts for each other." },
+      { start: 250.50, end: 258.90, text: "Now, in theory, that would seem a great time to advertise, but maybe research shows that you're wrong," },
+      { start: 258.90, end: 267.04, text: "that the customers who buy sports equipment tend not to give it as a holiday gift, but want to use it themselves." },
+      { start: 267.04, end: 280.05, text: "In that case, advertising during a different season of the year might give you better results and, uh, maybe at even lower, non-holiday rates, so you actually save money." },
+      { start: 280.05, end: 289.99, text: "But, you need to get the facts, facts that come from good research to be certain, and, uh, know for sure, that you're getting your money's worth." },
+      { start: 289.99, end: 302.87, text: "Okay. Finally, there's your message, what you want to say about your product, why buying it'll make the customers' life easier or safer or better somehow." },
+      { start: 302.87, end: 306.69, text: "Whatever the message is, make sure you get it right." },
+      { start: 306.69, end: 312.92, text: "Let me give you an example of NOT getting it right. You're going to love this one." },
+      { start: 312.92, end: 319.51, text: "There was this soup shop. The soup was really tasty, but there weren't a lot of customers." },
+      { start: 319.51, end: 326.52, text: "The owners thought that maybe if they gave something away for free with each purchase, then more people would come buy soup." },
+      { start: 326.52, end: 333.43, text: "So, they got some cheap socks and they advertised to give a pair away with each bowl of soup," },
+      { start: 333.43, end: 337.53, text: "but then, even fewer people came to the restaurant." },
+      { start: 337.53, end: 347.29, text: "Well, you can imagine why. People started to associate the soup with feet. They began to imagine the soup smelled like feet." },
+      { start: 347.29, end: 358.31, text: "The advertising message, "soup means free socks," was a bad choice. I-it was a waste of money and worse it caused a loss of customers." },
+      { start: 358.31, end: 368.64, text: "Now, I want everyone to get into small groups and come up with some examples, not of good advertising messages, but of truly disastrous ones." },
+      { start: 368.64, end: 379.00, text: "Think of real examples or make some up and, um, talk about the reasons those messages are unsuccessful and then, we'll get back together and share." },
+    ],
+    vocab: [
+      { ko: "체계적인", en: "systematic" },
+      { ko: "접근법, 접근 방식", en: "approach" },
+      { ko: "수단, 방도", en: "avenue" },
+      { ko: "의도된, 겨냥한", en: "intended" },
+      { ko: "청중, 수용자", en: "audience" },
+      { ko: "알아내다, 결정하다", en: "determine" },
+      { ko: "매력적이다, 호감을 사다", en: "appeal" },
+      { ko: "예산", en: "budget" },
+      { ko: "현명하게", en: "wisely" },
+      { ko: "장비, 용품", en: "equipment" },
+      { ko: "이론", en: "theory" },
+      { ko: "형편없는, 재앙에 가까운", en: "disastrous" },
+      { ko: "~에 관심을 끌다", en: "call attention to", isPhrase: true },
+      { ko: "생각해 내다, 제안하다", en: "come up with", isPhrase: true },
+      { ko: "잘못된 결정을 내릴 리스크를 지다", en: "risk making decisions", isPhrase: true },
+      { ko: "~를 떠나게 만들다", en: "drive away", isPhrase: true },
+      { ko: "하나씩, 차례대로", en: "one by one", isPhrase: true },
+      { ko: "~등등, 기타 등등", en: "and so forth", isPhrase: true },
+      { ko: "조사를 통해 찾아내다", en: "turn up", isPhrase: true },
+      { ko: "돈값을 하다, 본전을 뽑다", en: "get one's money's worth", isPhrase: true },
+      { ko: "~을 무료로 주다", en: "give away", isPhrase: true },
+      { ko: "A와 B를 연관시키다", en: "associate A with B", isPhrase: true },
+      { ko: "다시 한자리에 모이다", en: "get back together", isPhrase: true },
+    ]
+  }
+  ,
+  {
+    id: 2,
     title: "[LC14] TPO 11 - Landscape & Climate",
     file: "LC14_TPO11_Set2-2_Landscape & Climate.mp3",
     sentences: [
@@ -102,7 +181,7 @@ const TRACKS = [
   }
   ,
   {
-    id: 2,
+    id: 3,
     title: "Test 10 - Volcanoes",
     file: "10_2_2_Volcanoes.mp3",
     sentences: [
@@ -156,7 +235,7 @@ const TRACKS = [
   }
   ,
   {
-    id: 3,
+    id: 4,
     title: "Test 10 - Bioluminescence",
     file: "10_2_2_Bioluminescence.mp3",
     sentences: [
@@ -210,7 +289,7 @@ const TRACKS = [
   }
   ,
   {
-    id: 4,
+    id: 5,
     title: "[LC 14] TPO 11 - Work for the committee",
     file: "LC14_TPO11_Set2-1_Work of the biology committee.mp3",
     sentences: [
@@ -284,7 +363,7 @@ const TRACKS = [
   }
   ,
   {
-    id: 5,
+    id: 6,
     title: "Test 10 - Graffiti",
     file: "10_1_Graffiti.mp3",
     sentences: [
@@ -339,7 +418,7 @@ const TRACKS = [
   }
   // 새 음원 추가 시 여기에 추가:
   // {
-  //   id: 6,
+  //   id: 7,
   //   title: "제목",
   //   file: "파일명.mp3",
   //   sentences: [
@@ -349,7 +428,7 @@ const TRACKS = [
   // }
   ,
   {
-    id: 7,
+    id: 8,
     title: "[LC 14] TPO 11 - Cape Cod House",
     file: "LC14_TPO11_Set1-3_CapeCodHouse.mp3",
     sentences: [
@@ -447,7 +526,7 @@ const TRACKS = [
   }
   ,
   {
-    id: 8,
+    id: 9,
     title: "[LC 14] TPO 11 - Distraction Display",
     file: "LC14_TPO11_Set1-2_DistractionDisplay.mp3",
     sentences: [
@@ -523,7 +602,7 @@ const TRACKS = [
   }
   ,
   {
-    id: 9,
+    id: 10,
     title: "Test 9 - Impressionism",
     file: "9_2_1_Impressionism.mp3",
     sentences: [
@@ -582,7 +661,7 @@ const TRACKS = [
 ,
   ,
   {
-    id: 10,
+    id: 11,
     title: "Test 9 - Social Capital",
     file: "9_2_1_Social_Capital.mp3",
     sentences: [
@@ -644,7 +723,7 @@ const TRACKS = [
   }
   ,
   {
-    id: 11,
+    id: 12,
     title: "Test 9 - Photography",
     file: "9_1_Photography.mp3",
     sentences: [
