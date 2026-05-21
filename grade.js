@@ -12,34 +12,33 @@ export default async function handler(req, res) {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) return res.status(500).json({ error: 'API key not configured' });
 
-  const prompt = `You are a grader for an English-to-Korean translation test.
-
-Both of these translation styles are equally valid and should receive full credit:
-1. Literal translation that follows English word/information order (직역)
-2. Natural Korean translation that conveys the same meaning fluently
+  const prompt = `You are a grader for an English-to-Korean listening test.
 
 Original English: ${original}
 Student Korean translation: ${userTranslation}
 
+This is a listening comprehension test where students practice 끊어읽기 (chunking-style direct translation following English word order).
+
 Grading criteria:
-1. Are all key words, phrases, and content included? (most important - deduct heavily for omissions)
-2. Is the core meaning accurately conveyed?
-3. Either English word order OR natural Korean order is fully acceptable
-4. Minor grammar issues are OK as long as meaning is clear
-5. Participial phrases like "producing..." can be translated as -면서, -하여, -한, etc. All are correct
-6. COMPLETELY IGNORE proper nouns and technical terms when grading - these include people's names (Daguerre, Ansel Adams), technical terms (daguerreotype, daguerreotypes, bonding social capital, bridging social capital, social capital, bonding, bridging), place names, etc. The student can say anything for these (even just "d의" or "그 사람의") and it should NOT affect the score at all. Only grade the non-proper-noun content.
-7. The student's answer was captured by speech-to-text (STT) which often mishears words. If you see nonsensical words or phrases, assume STT error and ignore them completely when grading.
-6. If the student's translation conveys the same meaning as the model answer, give high score (85+)
-7. Do NOT penalize for different but equally valid Korean expressions of the same English phrase
+1. The ONLY thing that matters is whether the student translated all key content words correctly. Word order and grammar do NOT matter.
+2. COMPLETELY IGNORE: Korean grammar, naturalness, word endings (-은/는/을/를/한/하는 etc.), sentence structure, word order differences.
+3. COMPLETELY IGNORE punctuation. STT cannot capture ?, ., ! - never penalize for missing punctuation.
+4. COMPLETELY IGNORE proper nouns and technical terms - students can say anything for names, places, technical terms.
+5. The student's answer was captured by speech-to-text (STT). If you see nonsensical words, assume STT error and ignore completely.
+6. If the student's answer contains the same key content words as the CHUNKING model answer, give 90+ score.
+7. Only deduct points if KEY CONTENT WORDS are completely missing or the meaning is fundamentally wrong.
+8. Be VERY GENEROUS. The purpose is practicing direct translation, not perfect Korean grammar.
 
 PASS if score >= 75.
 
-Respond with ONLY these 5 lines, no extra text:
-SCORE: [number 0-100]
-PASS: [true or false]
-FEEDBACK: [one sentence in Korean - focus ONLY on whether key content words are included or missing. Do NOT comment on Korean naturalness, grammar structure, or word order - this is a direct translation (직역) test so unnatural Korean order is totally fine. If score is 80+, give brief encouraging praise. Only mention if a KEY word/phrase is completely missing or meaning is significantly wrong.]
-LITERAL: [Korean translation of the ORIGINAL ENGLISH ONLY - strictly follow English word order, translate each word/phrase in the EXACT order they appear. Ignore the student's answer completely for this. Example: Photography has undergone remarkable changes = 사진술은 겪어왔다 놀라운 변화들을]
-NATURAL: [natural fluent Korean translation]`;
+Output exactly these 4 lines with real content. Use the example below as a format guide:
+
+SCORE: 85
+PASS: true
+FEEDBACK: 핵심 내용이 잘 포함되어 있습니다.
+CHUNKING: 사진술은 / 겪어왔다 / 놀라운 변화들을
+
+Now output the same 4 lines for the actual sentence. CHUNKING must follow the ORIGINAL ENGLISH word order exactly — completely ignore the student's translation when writing CHUNKING. Split into meaning units with / between them. "going to" = "~할 것이다" (NOT movement). No brackets, no placeholder text, only real Korean.`;
 
   try {
     const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -51,7 +50,7 @@ NATURAL: [natural fluent Korean translation]`;
       },
       body: JSON.stringify({
         model: 'claude-haiku-4-5-20251001',
-        max_tokens: 300,
+        max_tokens: 600,
         messages: [{ role: 'user', content: prompt }]
       })
     });
@@ -67,16 +66,43 @@ NATURAL: [natural fluent Korean translation]`;
     // Parse line-by-line instead of JSON
     const scoreMatch = text.match(/SCORE:\s*(\d+)/);
     const passMatch = text.match(/PASS:\s*(true|false)/i);
-    const feedbackMatch = text.match(/FEEDBACK:\s*([\s\S]+?)(?=\nLITERAL:|\nNATURAL:|$)/);
-    const literalMatch = text.match(/LITERAL:\s*([\s\S]+?)(?=\nNATURAL:|$)/);
-    const naturalMatch = text.match(/NATURAL:\s*([\s\S]+?)$/);
+    const feedbackMatch = text.match(/FEEDBACK:\s*([\s\S]+?)(?=\nCHUNKING:|$)/);
+    const chunkingMatch = text.match(/CHUNKING:\s*([\s\S]+?)$/);
+
+    const chunkingText = chunkingMatch ? chunkingMatch[1].trim() : '';
+
+    // If translations are missing or look like placeholders, fetch them separately
+    const isPlaceholder = (t) => !t || t.includes('[') || t.includes('waiting') || t.includes('write real') || t.length < 3;
+
+    let finalChunking = chunkingText;
+
+    if (isPlaceholder(chunkingText)) {
+      try {
+        const transRes = await fetch('https://api.anthropic.com/v1/messages', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey, 'anthropic-version': '2023-06-01' },
+          body: JSON.stringify({
+            model: 'claude-haiku-4-5-20251001',
+            max_tokens: 300,
+            messages: [{ role: 'user', content: `Translate this English sentence to Korean in two ways. Output exactly 2 lines:
+LITERAL: (Korean following English word order exactly)
+NATURAL: (fluent natural Korean)
+
+English: ${original}` }]
+          })
+        });
+        const transData = await transRes.json();
+        const transText = transData.content[0].text.trim();
+        const chunkMatch = transText.match(/CHUNKING:\s*(.+)/);
+        if (chunkMatch) finalChunking = chunkMatch[1].trim();
+      } catch(e) {}
+    }
 
     const result = {
       score: scoreMatch ? parseInt(scoreMatch[1]) : 50,
       pass: passMatch ? passMatch[1].toLowerCase() === 'true' : false,
       feedback: feedbackMatch ? feedbackMatch[1].trim() : '채점 완료',
-      model_answer: (literalMatch ? '직독직해: ' + literalMatch[1].trim() : '') +
-                    (naturalMatch ? '\n의역: ' + naturalMatch[1].trim() : '')
+      model_answer: finalChunking ? '끊어읽기: ' + finalChunking : ''
     };
 
     return res.status(200).json(result);
