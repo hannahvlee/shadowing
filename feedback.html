@@ -21,8 +21,8 @@
   .subtitle { font-size: 14px; color: var(--text-muted); margin-bottom: 40px; }
 
   /* Category buttons */
-  .category-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 32px; }
-  .category-btn { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; cursor: pointer; text-align: left; color: var(--text); transition: all 0.15s; display: flex; align-items: center; gap: 10px; }
+  .category-grid { display: flex; gap: 10px; margin-bottom: 32px; flex-wrap: wrap; }
+  .category-btn { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 10px 16px; cursor: pointer; text-align: left; color: var(--text); transition: all 0.15s; display: flex; align-items: center; gap: 8px; white-space: nowrap; }
   .category-btn:hover { border-color: var(--accent); background: rgba(200,240,96,0.04); }
   .category-btn.selected { border-color: var(--accent); background: rgba(200,240,96,0.08); }
   .category-btn .icon { font-size: 18px; }
@@ -82,45 +82,18 @@
       <div class="category-grid">
         <button class="category-btn" onclick="selectCategory('bug')" id="cat-bug">
           <span class="icon">🐛</span>
-          <div>
-            <div class="label-text">버그 신고</div>
-            <div class="desc">오류나 문제점</div>
-          </div>
-        </button>
-        <button class="category-btn" onclick="selectCategory('satisfaction')" id="cat-satisfaction">
-          <span class="icon">⭐</span>
-          <div>
-            <div class="label-text">만족도</div>
-            <div class="desc">학습 경험 평가</div>
-          </div>
+          <span class="label-text">버그 신고</span>
         </button>
         <button class="category-btn" onclick="selectCategory('feature')" id="cat-feature">
           <span class="icon">💡</span>
-          <div>
-            <div class="label-text">기능 제안</div>
-            <div class="desc">추가됐으면 하는 것</div>
-          </div>
+          <span class="label-text">기능 제안</span>
         </button>
         <button class="category-btn" onclick="selectCategory('other')" id="cat-other">
           <span class="icon">💬</span>
-          <div>
-            <div class="label-text">기타 의견</div>
-            <div class="desc">자유롭게</div>
-          </div>
+          <span class="label-text">기타 의견</span>
         </button>
       </div>
     </div>
-
-    <!-- Rating (만족도 선택 시 표시) -->
-    <div class="form-group" id="ratingGroup" style="display:none;">
-      <label class="form-label">만족도 점수</label>
-      <div class="rating-row">
-        <button class="rating-btn" onclick="selectRating(1)" id="rate-1">1</button>
-        <button class="rating-btn" onclick="selectRating(2)" id="rate-2">2</button>
-        <button class="rating-btn" onclick="selectRating(3)" id="rate-3">3</button>
-        <button class="rating-btn" onclick="selectRating(4)" id="rate-4">4</button>
-        <button class="rating-btn" onclick="selectRating(5)" id="rate-5">5</button>
-      </div>
     </div>
 
     <!-- Name -->
@@ -171,11 +144,6 @@ function selectCategory(cat) {
   document.getElementById('ratingGroup').style.display = cat === 'satisfaction' ? 'block' : 'none';
 }
 
-function selectRating(r) {
-  selectedRating = r;
-  for (var i = 1; i <= 5; i++) {
-    document.getElementById('rate-' + i).classList.toggle('selected', i <= r);
-  }
 }
 
 async function submitFeedback() {
@@ -193,7 +161,6 @@ async function submitFeedback() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         category: selectedCategory,
-        rating: selectedRating || null,
         name: document.getElementById('nameInput').value.trim() || '익명',
         message: message
       })
