@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>피드백 · ListenUp</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e0e0e; --surface: #1a1a1a; --surface2: #242424; --border: #2e2e2e;
+    --accent: #c8f060; --accent2: #60c8f0; --text: #f0ede8; --text-muted: #6e6e6e;
+    --danger: #f06060; --success: #60f0a0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
+  body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(ellipse 60% 40% at 20% 10%, rgba(200,240,96,0.04) 0%, transparent 60%), radial-gradient(ellipse 50% 30% at 80% 20%, rgba(96,200,240,0.04) 0%, transparent 60%); pointer-events: none; z-index: 0; }
+
+  .container { max-width: 640px; margin: 0 auto; padding: 48px 24px 80px; position: relative; z-index: 1; flex: 1; width: 100%; }
+  .label { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 10px; }
+  h1 { font-size: clamp(24px, 4vw, 36px); font-weight: 600; margin-bottom: 8px; }
+  .subtitle { font-size: 14px; color: var(--text-muted); margin-bottom: 40px; }
+
+  /* Category buttons */
+  .category-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 32px; }
+  .category-btn { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; cursor: pointer; text-align: left; color: var(--text); transition: all 0.15s; display: flex; align-items: center; gap: 10px; }
+  .category-btn:hover { border-color: var(--accent); background: rgba(200,240,96,0.04); }
+  .category-btn.selected { border-color: var(--accent); background: rgba(200,240,96,0.08); }
+  .category-btn .icon { font-size: 18px; }
+  .category-btn .label-text { font-size: 13px; font-weight: 500; }
+  .category-btn .desc { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+  /* Form */
+  .form-group { margin-bottom: 20px; }
+  .form-label { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .form-input { width: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 11px 14px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 14px; outline: none; transition: border-color 0.2s; }
+  .form-input:focus { border-color: var(--accent); }
+  textarea.form-input { resize: vertical; min-height: 120px; }
+  .form-input::placeholder { color: var(--text-muted); }
+
+  /* Rating */
+  .rating-row { display: flex; gap: 8px; }
+  .rating-btn { width: 40px; height: 40px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; transition: all 0.15s; color: var(--text-muted); font-family: 'DM Mono', monospace; font-size: 13px; }
+  .rating-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .rating-btn.selected { border-color: var(--accent); background: rgba(200,240,96,0.1); color: var(--accent); }
+
+  /* Submit */
+  .submit-btn { width: 100%; padding: 13px; background: var(--accent); color: #0e0e0e; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: opacity 0.15s; margin-top: 8px; }
+  .submit-btn:hover { opacity: 0.9; }
+  .submit-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* Success */
+  .success-box { background: rgba(96,240,160,0.08); border: 1px solid rgba(96,240,160,0.3); border-radius: 12px; padding: 32px; text-align: center; display: none; }
+  .success-box .icon { font-size: 40px; margin-bottom: 12px; }
+  .success-box h3 { font-size: 18px; font-weight: 600; margin-bottom: 8px; color: var(--success); }
+  .success-box p { font-size: 13px; color: var(--text-muted); }
+
+  ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: transparent; } ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MDELTEL4XC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-MDELTEL4XC');
+</script>
+</head>
+<body>
+<div class="container">
+  <div style="margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;">
+    <a href="index.html" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;">← 홈으로</a>
+    <a href="index.html" style="font-family:'DM Mono',monospace;font-size:15px;color:var(--accent2);text-decoration:none;letter-spacing:0.18em;font-weight:700;">🎧 ListenUp!</a>
+  </div>
+
+  <div class="label">Feedback</div>
+  <h1>피드백 보내기</h1>
+  <p class="subtitle">사이트 개선을 위한 의견을 남겨주세요</p>
+
+  <div id="formSection">
+    <!-- Category -->
+    <div class="form-group">
+      <label class="form-label">카테고리</label>
+      <div class="category-grid">
+        <button class="category-btn" onclick="selectCategory('bug')" id="cat-bug">
+          <span class="icon">🐛</span>
+          <div>
+            <div class="label-text">버그 신고</div>
+            <div class="desc">오류나 문제점</div>
+          </div>
+        </button>
+        <button class="category-btn" onclick="selectCategory('satisfaction')" id="cat-satisfaction">
+          <span class="icon">⭐</span>
+          <div>
+            <div class="label-text">만족도</div>
+            <div class="desc">학습 경험 평가</div>
+          </div>
+        </button>
+        <button class="category-btn" onclick="selectCategory('feature')" id="cat-feature">
+          <span class="icon">💡</span>
+          <div>
+            <div class="label-text">기능 제안</div>
+            <div class="desc">추가됐으면 하는 것</div>
+          </div>
+        </button>
+        <button class="category-btn" onclick="selectCategory('other')" id="cat-other">
+          <span class="icon">💬</span>
+          <div>
+            <div class="label-text">기타 의견</div>
+            <div class="desc">자유롭게</div>
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <!-- Rating (만족도 선택 시 표시) -->
+    <div class="form-group" id="ratingGroup" style="display:none;">
+      <label class="form-label">만족도 점수</label>
+      <div class="rating-row">
+        <button class="rating-btn" onclick="selectRating(1)" id="rate-1">1</button>
+        <button class="rating-btn" onclick="selectRating(2)" id="rate-2">2</button>
+        <button class="rating-btn" onclick="selectRating(3)" id="rate-3">3</button>
+        <button class="rating-btn" onclick="selectRating(4)" id="rate-4">4</button>
+        <button class="rating-btn" onclick="selectRating(5)" id="rate-5">5</button>
+      </div>
+    </div>
+
+    <!-- Name -->
+    <div class="form-group">
+      <label class="form-label">이름 (선택)</label>
+      <input type="text" class="form-input" id="nameInput" placeholder="익명으로 남겨도 돼요">
+    </div>
+
+    <!-- Message -->
+    <div class="form-group">
+      <label class="form-label">내용</label>
+      <textarea class="form-input" id="messageInput" placeholder="자유롭게 작성해주세요..."></textarea>
+    </div>
+
+    <button class="submit-btn" id="submitBtn" onclick="submitFeedback()">피드백 보내기</button>
+  </div>
+
+  <!-- Success -->
+  <div class="success-box" id="successBox">
+    <div class="icon">🎉</div>
+    <h3>감사해요!</h3>
+    <p>피드백이 잘 전달됐어요. 더 좋은 서비스가 될게요!</p>
+    <a href="index.html" style="display:inline-block;margin-top:20px;font-family:'DM Mono',monospace;font-size:12px;color:var(--accent2);text-decoration:none;">← 홈으로 돌아가기</a>
+  </div>
+</div>
+
+<footer style="border-top:1px solid var(--border);background:var(--bg);padding:28px 24px;text-align:center;position:relative;z-index:1;">
+  <div style="display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;">
+    <a href="terms.html" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);text-decoration:none;letter-spacing:0.08em;">이용약관</a>
+    <span style="color:var(--border);">|</span>
+    <a href="privacy.html" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);text-decoration:none;letter-spacing:0.08em;">개인정보 처리방침</a>
+    <span style="color:var(--border);">|</span>
+    <span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);letter-spacing:0.08em;">© 2026 ListenUp. All Rights Reserved.</span>
+  </div>
+</footer>
+
+<script>
+var selectedCategory = '';
+var selectedRating = 0;
+
+function selectCategory(cat) {
+  selectedCategory = cat;
+  ['bug','satisfaction','feature','other'].forEach(function(c) {
+    document.getElementById('cat-' + c).classList.toggle('selected', c === cat);
+  });
+  document.getElementById('ratingGroup').style.display = cat === 'satisfaction' ? 'block' : 'none';
+}
+
+function selectRating(r) {
+  selectedRating = r;
+  for (var i = 1; i <= 5; i++) {
+    document.getElementById('rate-' + i).classList.toggle('selected', i <= r);
+  }
+}
+
+async function submitFeedback() {
+  var message = document.getElementById('messageInput').value.trim();
+  if (!selectedCategory) { alert('카테고리를 선택해주세요.'); return; }
+  if (!message) { alert('내용을 입력해주세요.'); return; }
+
+  var btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = '전송 중...';
+
+  try {
+    var res = await fetch('/api/feedback', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        category: selectedCategory,
+        rating: selectedRating || null,
+        name: document.getElementById('nameInput').value.trim() || '익명',
+        message: message
+      })
+    });
+
+    if (res.ok) {
+      document.getElementById('formSection').style.display = 'none';
+      document.getElementById('successBox').style.display = 'block';
+    } else {
+      alert('전송 실패. 다시 시도해주세요.');
+      btn.disabled = false;
+      btn.textContent = '피드백 보내기';
+    }
+  } catch(e) {
+    alert('오류가 발생했어요.');
+    btn.disabled = false;
+    btn.textContent = '피드백 보내기';
+  }
+}
+</script>
+</body>
+</html>

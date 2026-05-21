@@ -128,6 +128,7 @@
       <button class="tab active" onclick="showTab('stats')">📊 통계</button>
       <button class="tab" onclick="showTab('records')">📋 기록 관리</button>
       <button class="tab" onclick="showTab('tracks')">🎵 트랙 관리</button>
+      <button class="tab" onclick="showTab('feedback')">💬 피드백</button>
     </div>
 
     <!-- 통계 탭 -->
@@ -179,6 +180,14 @@
       </div>
     </div>
 
+    <!-- 피드백 탭 -->
+    <div id="tab-feedback" style="display:none;">
+      <div style="margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;">
+        <span class="record-count" id="feedbackCount"></span>
+      </div>
+      <div id="feedbackList"><div class="loading">불러오는 중...</div></div>
+    </div>
+
     <!-- 트랙 관리 탭 -->
     <div id="tab-tracks" style="display:none;">
       <p style="font-size:13px;color:var(--text-muted);margin-bottom:20px;">홈 화면에서 보여줄 트랙을 선택하세요.</p>
@@ -192,6 +201,8 @@
       <a href="terms.html" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);text-decoration:none;letter-spacing:0.08em;">이용약관</a>
       <span style="color:var(--border);">|</span>
       <a href="privacy.html" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);text-decoration:none;letter-spacing:0.08em;">개인정보 처리방침</a>
+      <span style="color:var(--border);">|</span>
+      <a href="feedback.html" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);text-decoration:none;letter-spacing:0.08em;">피드백</a>
       <span style="color:var(--border);">|</span>
       <span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);letter-spacing:0.08em;">© 2026 ListenUp. All Rights Reserved.</span>
     </div>
@@ -230,16 +241,17 @@ if (sessionStorage.getItem('adminLoggedIn') === '1') {
 
 
 function showTab(name) {
-  ['stats', 'records', 'tracks'].forEach(function(t) {
+  ['stats', 'records', 'tracks', 'feedback'].forEach(function(t) {
     document.getElementById('tab-' + t).style.display = (t === name) ? 'block' : 'none';
   });
   document.querySelectorAll('.tab').forEach(function(el, i) {
-    el.classList.toggle('active', ['stats', 'records', 'tracks'][i] === name);
+    el.classList.toggle('active', ['stats', 'records', 'tracks', 'feedback'][i] === name);
   });
 }
 
 async function init() {
   await loadRecords();
+  await loadFeedback();
   renderTrackToggles();
 }
 
@@ -399,6 +411,48 @@ async function saveName(id) {
   } catch(e) {
     alert('오류 발생');
   }
+}
+
+// ── 피드백 ─────────────────────────────
+var allFeedback = [];
+
+async function loadFeedback() {
+  try {
+    var res = await fetch('/api/feedback');
+    var data = await res.json();
+    allFeedback = data.feedbacks || [];
+    renderFeedback();
+  } catch(e) {
+    document.getElementById('feedbackList').innerHTML = '<div class="empty">불러오기 실패</div>';
+  }
+}
+
+function renderFeedback() {
+  var list = document.getElementById('feedbackList');
+  document.getElementById('feedbackCount').textContent = allFeedback.length + '개';
+
+  if (!allFeedback.length) {
+    list.innerHTML = '<div class="empty">아직 피드백이 없어요</div>';
+    return;
+  }
+
+  var catLabels = { bug: '🐛 버그', satisfaction: '⭐ 만족도', feature: '💡 기능 제안', other: '💬 기타' };
+  var catColors = { bug: 'rgba(240,96,96,0.1)', satisfaction: 'rgba(200,240,96,0.1)', feature: 'rgba(96,200,240,0.1)', other: 'rgba(180,96,240,0.1)' };
+  var catBorderColors = { bug: 'rgba(240,96,96,0.3)', satisfaction: 'rgba(200,240,96,0.3)', feature: 'rgba(96,200,240,0.3)', other: 'rgba(180,96,240,0.3)' };
+
+  list.innerHTML = allFeedback.map(function(f) {
+    var d = new Date(f.date);
+    var dateStr = d.getFullYear() + '.' + String(d.getMonth()+1).padStart(2,'0') + '.' + String(d.getDate()).padStart(2,'0') + ' ' + String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
+    var ratingStr = f.rating ? ' · ' + '★'.repeat(f.rating) + '☆'.repeat(5-f.rating) : '';
+    return '<div style="background:var(--surface);border:1px solid ' + (catBorderColors[f.category] || 'var(--border)') + ';border-radius:10px;padding:16px 20px;margin-bottom:10px;">' +
+      '<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">' +
+      '<span style="font-family:\'DM Mono\',monospace;font-size:10px;padding:3px 8px;border-radius:6px;background:' + (catColors[f.category] || 'var(--surface2)') + ';border:1px solid ' + (catBorderColors[f.category] || 'var(--border)') + '">' + (catLabels[f.category] || f.category) + '</span>' +
+      '<span style="font-family:\'DM Mono\',monospace;font-size:11px;color:var(--text-muted)">' + f.name + ratingStr + '</span>' +
+      '<span style="font-family:\'DM Mono\',monospace;font-size:11px;color:var(--text-muted);margin-left:auto">' + dateStr + '</span>' +
+      '</div>' +
+      '<div style="font-size:13px;color:var(--text);line-height:1.6">' + f.message + '</div>' +
+      '</div>';
+  }).join('');
 }
 
 function getHiddenTracks() {
