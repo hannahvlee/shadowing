@@ -1,6 +1,54 @@
 const TRACKS = [
   {
     id: 1,
+    title: "Test 1 - Fascination",
+    file: "1_1_Fascination.mp3",
+    sentences: [
+      { start: 5.00, end: 9.77, text: "Did you see that new thriller movie that came out last week?" },
+      { start: 9.77, end: 18.68, text: "I did and loved it. The action, the plot twists.... I was totally captivated. Time just flew by." },
+      { start: 18.68, end: 22.52, text: "Not a single thought occurred to me that was unrelated to the movie." },
+      { start: 22.52, end: 27.34, text: "What I experienced is what psychologists call hard fascination." },
+      { start: 27.34, end: 31.58, text: "Hard fascination means intense focus and concentration." },
+      { start: 31.58, end: 39.54, text: "Whether it's TV programs, video games.... hard fascination is all too easy to come by in this modern world." },
+      { start: 39.54, end: 44.24, text: "There's another type of fascination-soft fascination." },
+      { start: 44.24, end: 53.12, text: "There's still effortless attention, meaning that no special effort is required for you to stay focused, but there's still room for other thoughts." },
+      { start: 53.12, end: 61.83, text: "When I take a walk in the park and look at the flowers and trees, for example, I might be thinking in the back of my mind about my dinner plans." },
+      { start: 61.83, end: 67.06, text: "Now, one thing to know is hard fascination causes mental fatigue." },
+      { start: 67.06, end: 71.72, text: "The mind is so intensely focused that it gets tired fast." },
+      { start: 71.72, end: 73.92, text: "What follows mental fatigue?" },
+      { start: 73.92, end: 78.47, text: "You might find yourself easily distracted, irritable, and stressed." },
+      { start: 78.47, end: 83.61, text: "Soft fascination, in contrast, engages a different part of the brain" },
+      { start: 83.61, end: 91.72, text: "the DMN, or Default Mode Network, which soothes the mind and helps combat mental fatigue." },
+      { start: 91.72, end: 102.51, text: "So next time you feel like your mind is on overload, turn off the TV, put down your phone. Take a walk, or simply sit and stare at the clouds." },
+    ],
+    vocab: [
+      { ko: "스릴러", en: "thriller" },
+      { ko: "마음을 빼앗긴, 매료된", en: "captivated" },
+      { ko: "매혹, 대단한 흥미", en: "fascination" },
+      { ko: "강렬한, 극심한", en: "intense" },
+      { ko: "집중, 집중력", en: "concentration" },
+      { ko: "힘들지 않은, 노력하지 않아도 되는", en: "effortless" },
+      { ko: "피로, 고갈", en: "fatigue" },
+      { ko: "주의가 산만해진", en: "distracted" },
+      { ko: "화를 잘 내는, 짜증 난", en: "irritable" },
+      { ko: "달래다, 진정시키다", en: "soothe" },
+      { ko: "싸우다, 방지하다", en: "combat" },
+      { ko: "과부하", en: "overload" },
+      { ko: "(영화·책 등이) 나오다, 개봉하다", en: "come out", isPhrase: true },
+      { ko: "시간이 훅 지나가다", en: "time flies by", isPhrase: true },
+      { ko: "(생각이) ~에게 떠오르다", en: "occur to", isPhrase: true },
+      { ko: "구하기 쉽다, 흔하게 얻을 수 있다", en: "easy to come by", isPhrase: true },
+      { ko: "~할 여지가 있다", en: "there's room for", isPhrase: true },
+      { ko: "산책하다", en: "take a walk", isPhrase: true },
+      { ko: "자신이 ~하고 있는 것을 발견하다", en: "find oneself", isPhrase: true },
+      { ko: "~처럼 느껴지다", en: "feel like", isPhrase: true },
+      { ko: "내려놓다", en: "put down", isPhrase: true },
+      { ko: "~를 빤히 쳐다보다", en: "stare at", isPhrase: true },
+    ]
+  }
+  ,
+  {
+    id: 2,
     title: "[LC14] TPO 11 - Advertising",
     file: "LC14_TPO11_Set2-3_Advertising.mp3",
     sentences: [
@@ -79,7 +127,7 @@ const TRACKS = [
   }
   ,
   {
-    id: 2,
+    id: 3,
     title: "[LC14] TPO 11 - Landscape & Climate",
     file: "LC14_TPO11_Set2-2_Landscape & Climate.mp3",
     sentences: [
@@ -181,7 +229,7 @@ const TRACKS = [
   }
   ,
   {
-    id: 3,
+    id: 4,
     title: "Test 10 - Volcanoes",
     file: "10_2_2_Volcanoes.mp3",
     sentences: [
@@ -235,7 +283,7 @@ const TRACKS = [
   }
   ,
   {
-    id: 4,
+    id: 5,
     title: "Test 10 - Bioluminescence",
     file: "10_2_2_Bioluminescence.mp3",
     sentences: [
@@ -289,7 +337,7 @@ const TRACKS = [
   }
   ,
   {
-    id: 5,
+    id: 6,
     title: "[LC 14] TPO 11 - Work for the committee",
     file: "LC14_TPO11_Set2-1_Work of the biology committee.mp3",
     sentences: [
@@ -363,7 +411,7 @@ const TRACKS = [
   }
   ,
   {
-    id: 6,
+    id: 7,
     title: "Test 10 - Graffiti",
     file: "10_1_Graffiti.mp3",
     sentences: [
@@ -418,7 +466,7 @@ const TRACKS = [
   }
   // 새 음원 추가 시 여기에 추가:
   // {
-  //   id: 7,
+  //   id: 8,
   //   title: "제목",
   //   file: "파일명.mp3",
   //   sentences: [
@@ -428,7 +476,7 @@ const TRACKS = [
   // }
   ,
   {
-    id: 8,
+    id: 9,
     title: "[LC 14] TPO 11 - Cape Cod House",
     file: "LC14_TPO11_Set1-3_CapeCodHouse.mp3",
     sentences: [
@@ -526,7 +574,7 @@ const TRACKS = [
   }
   ,
   {
-    id: 9,
+    id: 10,
     title: "[LC 14] TPO 11 - Distraction Display",
     file: "LC14_TPO11_Set1-2_DistractionDisplay.mp3",
     sentences: [
@@ -602,7 +650,7 @@ const TRACKS = [
   }
   ,
   {
-    id: 10,
+    id: 11,
     title: "Test 9 - Impressionism",
     file: "9_2_1_Impressionism.mp3",
     sentences: [
@@ -661,7 +709,7 @@ const TRACKS = [
 ,
   ,
   {
-    id: 11,
+    id: 12,
     title: "Test 9 - Social Capital",
     file: "9_2_1_Social_Capital.mp3",
     sentences: [
@@ -723,7 +771,7 @@ const TRACKS = [
   }
   ,
   {
-    id: 12,
+    id: 13,
     title: "Test 9 - Photography",
     file: "9_1_Photography.mp3",
     sentences: [
