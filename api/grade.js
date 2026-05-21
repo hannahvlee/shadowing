@@ -31,7 +31,7 @@ Grading criteria:
 
 PASS if score >= 75.
 
-Output exactly these 4 lines. FEEDBACK must ONLY mention if key content words are missing. NEVER comment on Korean grammar, word order, or naturalness — this is an 끊어읽기 test so English word order in Korean is correct and expected.
+Output exactly these 4 lines. For FEEDBACK: if score >= 80, write only "잘 했어요!" or similar short praise. If score < 80, write ONLY which specific content word is missing (e.g. "영화" 누락). NEVER mention grammar, word order, naturalness, or suggest improvements.
 
 SCORE: 85
 PASS: true
