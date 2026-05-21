@@ -12,32 +12,26 @@ export default async function handler(req, res) {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) return res.status(500).json({ error: 'API key not configured' });
 
-  const prompt = `You are a grader for an English-to-Korean translation test.
-
-Both of these translation styles are equally valid and should receive full credit:
-1. Literal translation that follows English word/information order (직역)
-2. Natural Korean translation that conveys the same meaning fluently
+  const prompt = `You are a grader for an English-to-Korean listening test.
 
 Original English: ${original}
 Student Korean translation: ${userTranslation}
 
+This is a listening comprehension test where students practice 끊어읽기 (chunking-style direct translation following English word order).
+
 Grading criteria:
-1. Are all key words, phrases, and content included? (most important - deduct heavily for omissions)
-2. Is the core meaning accurately conveyed?
-3. Either English word order OR natural Korean order is fully acceptable
-4. Minor grammar issues are OK as long as meaning is clear
-5. Participial phrases like "producing..." can be translated as -면서, -하여, -한, etc. All are correct
-6. COMPLETELY IGNORE proper nouns and technical terms when grading - these include people's names (Daguerre, Ansel Adams), technical terms (daguerreotype, daguerreotypes, bonding social capital, bridging social capital, social capital, bonding, bridging), place names, etc. The student can say anything for these (even just "d의" or "그 사람의") and it should NOT affect the score at all. Only grade the non-proper-noun content.
-7. The student's answer was captured by speech-to-text (STT) which often mishears words. If you see nonsensical words or phrases, assume STT error and ignore them completely when grading.
-8. If the student's translation conveys the same meaning as the model answer, give high score (85+)
-9. Do NOT penalize for different but equally valid Korean expressions of the same English phrase
-10. Be GENEROUS with scoring. If the core meaning is there, give at least 75. Only deduct significantly for truly missing key content.
-11. COMPLETELY IGNORE punctuation when grading. STT cannot capture question marks, periods, or exclamation marks. Never penalize for missing punctuation.
-12. If the student's answer matches the CHUNKING model answer closely (same words, same order), give 90+ score regardless of anything else.
+1. The ONLY thing that matters is whether the student translated all key content words correctly. Word order and grammar do NOT matter.
+2. COMPLETELY IGNORE: Korean grammar, naturalness, word endings (-은/는/을/를/한/하는 etc.), sentence structure, word order differences.
+3. COMPLETELY IGNORE punctuation. STT cannot capture ?, ., ! - never penalize for missing punctuation.
+4. COMPLETELY IGNORE proper nouns and technical terms - students can say anything for names, places, technical terms.
+5. The student's answer was captured by speech-to-text (STT). If you see nonsensical words, assume STT error and ignore completely.
+6. If the student's answer contains the same key content words as the CHUNKING model answer, give 90+ score.
+7. Only deduct points if KEY CONTENT WORDS are completely missing or the meaning is fundamentally wrong.
+8. Be VERY GENEROUS. The purpose is practicing direct translation, not perfect Korean grammar.
 
 PASS if score >= 75.
 
-Output exactly these 4 lines with real content. Use the example below as a format guide:
+Output exactly these 4 lines. FEEDBACK must ONLY mention if key content words are missing. NEVER comment on Korean grammar, word order, or naturalness — this is an 끊어읽기 test so English word order in Korean is correct and expected.
 
 SCORE: 85
 PASS: true
