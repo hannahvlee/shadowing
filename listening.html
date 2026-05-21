@@ -366,11 +366,14 @@ async function gradeWithClaude(i, userTranslation) {
   const modelTextEl = document.getElementById(`model-text-${i}`);
   badge.textContent = '⏳ 채점 중...'; badge.className = 'score-badge';
 
+  const sentence = currentTrack.sentences[i];
+  const presetChunking = sentence.chunking || null;
+
   try {
     const res = await fetch('/api/grade', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ original: currentTrack.sentences[i].text, userTranslation })
+      body: JSON.stringify({ original: sentence.text, userTranslation, presetChunking })
     });
     const result = await res.json();
     if (!res.ok) { badge.textContent = '오류'; return; }
@@ -393,7 +396,7 @@ async function gradeWithClaude(i, userTranslation) {
     isGraded[i] = true;
     sessionDetails[i] = {
       index: i,
-      text: currentTrack.sentences[i].text,
+      text: sentence.text,
       userSaid: userTranslation,
       score: pct,
       feedback: result.feedback || '',
@@ -468,6 +471,8 @@ function toggleText() {
 window.addEventListener('DOMContentLoaded', () => { renderTrackSelector(); });
 </script>
 
-<footer style="border-top:1px solid var(--border);background:var(--bg);padding:28px 24px;text-align:center;position:relative;z-index:1;"><div style="display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;"><a href="terms.html" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);text-decoration:none;letter-spacing:0.08em;">이용약관</a><span style="color:var(--border);">|</span><a href="privacy.html" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);text-decoration:none;letter-spacing:0.08em;">개인정보 처리방침</a><span style="color:var(--border);">|</span><span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);letter-spacing:0.08em;">© 2026 ListenUp. All Rights Reserved.</span></div></footer>
+<footer style="border-top:1px solid var(--border);background:var(--bg);padding:28px 24px;text-align:center;position:relative;z-index:1;"><div style="display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;"><a href="terms.html" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);text-decoration:none;letter-spacing:0.08em;">이용약관</a><span style="color:var(--border);">|</span><a href="privacy.html" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);text-decoration:none;letter-spacing:0.08em;">개인정보 처리방침</a><span style="color:var(--border);">|</span>
+      <a href="feedback.html" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);text-decoration:none;letter-spacing:0.08em;">피드백</a>
+      <span style="color:var(--border);">|</span><span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);letter-spacing:0.08em;">© 2026 ListenUp. All Rights Reserved.</span></div></footer>
 </body>
 </html>
