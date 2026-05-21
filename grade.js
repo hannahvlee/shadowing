@@ -31,7 +31,7 @@ Grading criteria:
 
 PASS if score >= 75.
 
-Output exactly these 4 lines with real content. Use the example below as a format guide:
+Output exactly these 4 lines. FEEDBACK must ONLY mention if key content words are missing. NEVER comment on Korean grammar, word order, or naturalness — this is an 끊어읽기 test so English word order in Korean is correct and expected.
 
 SCORE: 85
 PASS: true
