@@ -323,13 +323,27 @@ async function toggleRecord(i) {
       transcript.textContent = `"${(finalTranscripts[i] || interim).trim()}"`; 
     };
 
-    recognition.onend = () => {
-      // Reset recording state
-      if (isRecording[i]) {
+    recognition.onerror = (e) => {
+      // On no-speech or audio-capture error, auto-restart if still recording
+      if (isRecording[i] && (e.error === 'no-speech' || e.error === 'audio-capture' || e.error === 'network')) {
+        try { recognition.start(); } catch(err) {}
+      } else {
         isRecording[i] = false;
         btn.classList.remove('recording');
         btn.textContent = '⏺';
+        const badge = document.getElementById(`badge-${i}`);
+        badge.textContent = '다시 시도해주세요'; badge.className = 'score-badge';
       }
+    };
+
+    recognition.onend = () => {
+      // Auto-restart if still recording (handles browser stopping STT mid-session)
+      if (isRecording[i]) {
+        try { recognition.start(); return; } catch(err) {}
+      }
+      isRecording[i] = false;
+      btn.classList.remove('recording');
+      btn.textContent = '⏺';
       const toGrade = finalTranscripts[i]?.trim() || lastInterim[i]?.trim();
       if (toGrade) gradeWithClaude(i, toGrade);
     };
