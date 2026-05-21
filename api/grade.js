@@ -32,6 +32,8 @@ Grading criteria:
 8. If the student's translation conveys the same meaning as the model answer, give high score (85+)
 9. Do NOT penalize for different but equally valid Korean expressions of the same English phrase
 10. Be GENEROUS with scoring. If the core meaning is there, give at least 75. Only deduct significantly for truly missing key content.
+11. COMPLETELY IGNORE punctuation when grading. STT cannot capture question marks, periods, or exclamation marks. Never penalize for missing punctuation.
+12. If the student's answer matches the CHUNKING model answer closely (same words, same order), give 90+ score regardless of anything else.
 
 PASS if score >= 75.
 
