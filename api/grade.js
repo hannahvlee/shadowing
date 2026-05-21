@@ -23,7 +23,7 @@ Grading criteria:
 1. The ONLY thing that matters is whether the student translated all key content words correctly. Word order and grammar do NOT matter.
 2. COMPLETELY IGNORE: Korean grammar, naturalness, word endings (-은/는/을/를/한/하는 etc.), sentence structure, word order differences.
 3. COMPLETELY IGNORE punctuation. STT cannot capture ?, ., ! so never penalize for missing punctuation.
-4. COMPLETELY IGNORE proper nouns and technical terms - students can say anything for names, places, technical terms.
+4. COMPLETELY IGNORE proper nouns and technical terms - students can say anything for names, places, and domain-specific terms like: hard fascination, soft fascination, DMN, Default Mode Network, daguerreotype, social capital, bonding, bridging, El Niño, bioluminescence, luciferase, luciferin, etc. If STT mishears a technical term (e.g. 'hard destination' instead of 'hard fascination'), treat it as correct.
 5. The student's answer was captured by speech-to-text (STT). If you see nonsensical words, assume STT error and ignore completely.
 6. If the student's answer contains the same key content words as the CHUNKING model answer, give 90+ score.
 7. Only deduct points if KEY CONTENT WORDS are completely missing or the meaning is fundamentally wrong.
@@ -69,12 +69,14 @@ Rules for your output:
     const passMatch = text.match(/PASS:\s*(true|false)/i);
     const feedbackMatch = text.match(/FEEDBACK:\s*([\s\S]+?)(?=\nCHUNKING:|$)/);
     const chunkingMatch = text.match(/CHUNKING:\s*([\s\S]+?)$/);
+    const aiChunking = chunkingMatch ? chunkingMatch[1].trim() : '';
+    const finalChunking = presetChunking || aiChunking;
 
     const result = {
       score: scoreMatch ? parseInt(scoreMatch[1]) : 50,
       pass: passMatch ? passMatch[1].toLowerCase() === 'true' : false,
       feedback: feedbackMatch ? feedbackMatch[1].trim() : '채점 완료',
-      model_answer: chunkingMatch ? '끊어읽기: ' + chunkingMatch[1].trim() : ''
+      model_answer: finalChunking ? '끊어읽기: ' + finalChunking : ''
     };
 
     return res.status(200).json(result);
